@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app id="WebApp_ID" version="2.4"
+	xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+	<!-- Web application name -->
+	<display-name>GIS IPCC Portal</display-name>
+	
+	<!-- Root of Spring configuration files -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			classpath:application-context.xml
+<!-- 			classpath:security.xml -->
+		</param-value>
+	</context-param>
+	
+	
+	<!-- Listener that loads the Spring web application context 
+		(from the specified value of contextConfigLocation) -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<!-- Listener that exposes the HttpSession mutex for locking purposes.
+		 May be used by Spring controllers to prevent multiple invocations by same user (duble-clicking). -->
+	<listener>
+		<listener-class>org.springframework.web.util.HttpSessionMutexListener</listener-class>
+	</listener>
+
+	<!-- Spring Security delegating filter -->
+<!-- 	<filter> -->
+<!-- 		<filter-name>springSecurityFilterChain</filter-name> -->
+<!-- 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class> -->
+<!-- 	</filter> -->
+<!-- 	<filter-mapping> -->
+<!-- 		<filter-name>springSecurityFilterChain</filter-name> -->
+<!-- 		<url-pattern>/*</url-pattern> -->
+<!-- 	</filter-mapping> -->
+
+
+	
+	<servlet>
+		<servlet-name>portal</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value></param-value>
+		</init-param>
+		<load-on-startup>0</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>portal</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	
+
+</web-app>

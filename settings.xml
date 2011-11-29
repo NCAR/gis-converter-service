@@ -1,0 +1,49 @@
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+                      http://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+  <properties>
+        <maven.clover.licenseLocation>/home/wilhelmi/clover.license</maven.clover.licenseLocation>
+  </properties>
+
+<localRepository>/usr/local/bamboo-home/.m2/repository</localRepository>
+
+    <servers>
+      <server>
+        <id>vets</id>
+          <username>bamboo-server</username>
+          <password>magic</password>
+    </server>
+  </servers>
+
+
+  <profiles>
+  
+    <profile>
+ <id>staging-site</id>
+ <activation>
+    <activeByDefault>false</activeByDefault>
+ </activation>
+ 
+ <properties>
+    <tomcat.url>http://gis-portal.dev.ucar.edu/manager/text</tomcat.url>
+    <tomcat.user>bamboo-server</tomcat.user>
+    <tomcat.pwd>magic</tomcat.pwd>
+    <deploy.groupid>edu.ncar.ral.gis</deploy.groupid>
+    <deploy.artifactid>portal</deploy.artifactid>
+    <deploy.context>/</deploy.context>
+
+    <!-- these properties must be defined
+       as system property or -D -->
+    <!-- - deployable.artifactid:
+         artifactId of web application to be deployed -->
+    <!-- - deployable.context: web context name -->
+ </properties>
+</profile>
+
+
+  </profiles>
+  <activeProfiles/>
+</settings>
+  

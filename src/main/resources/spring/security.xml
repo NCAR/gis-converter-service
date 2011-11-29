@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Spring configuration file containing general security infrastructure -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:security="http://www.springframework.org/schema/security"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans
+							http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+							http://www.springframework.org/schema/security
+							http://www.springframework.org/schema/security/spring-security-3.0.4.xsd ">
+	
+	<security:http auto-config="false" use-expressions="true" entry-point-ref="loginUrlAuthenticationEntryPoint"  >
+		<security:intercept-url pattern="/login" access="permitAll" />
+		<security:intercept-url pattern="/download*" access="hasRole('ROLE_USER')" />
+		
+		<security:custom-filter position="FORM_LOGIN_FILTER" ref="licenseTermsAuthenticationFilter" />
+		
+<!-- 		<security:form-login authentication-failure-url="/login" login-page="/login" /> -->
+<!-- 		<security:custom-filter after="FORM_LOGIN_FILTER" ref="openIDAuthenticationFilter" /> -->
+		<security:anonymous username="guest"  />
+		<security:access-denied-handler error-page="/ac/accessDenied.htm" />
+		<security:logout />
+		
+		<security:remember-me key="gisPortal" />
+		
+<!-- 		<security:form-login login-page="/login" authentication-failure-handler-ref="authenticationFailureHandler" /> -->
+	</security:http>
+	
+	<bean id="loginUrlAuthenticationEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+	 <property name="loginFormUrl" value="/login" />
+	</bean>
+	
+	 
+	
+	<bean id="successHandler" class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
+		 <property name="defaultTargetUrl" value="/" />
+		</bean>
+
+	<bean id="licenseTermsAuthenticationFilter" class="edu.ucar.gis.user.authentication.LicenseTermsAuthenticationFilter" >
+		<property name="authenticationManager" ref="authenticationManager" />
+		 <property name="authenticationFailureHandler" ref="simpleFailureHandler" />
+		 <property name="authenticationSuccessHandler" ref="successHandler" />
+		 
+	</bean>
+	
+	<bean id="simpleFailureHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler" >
+		<property name="defaultFailureUrl" value="/login"></property>
+	
+		
+	</bean>
+	
+	<!-- 	<bean id="authenticationFailureHandler" class="services.user.AuthenticationFailureHandler" /> -->
+	
+	<security:authentication-manager alias="authenticationManager" >
+		<security:authentication-provider user-service-ref="userService" />
+<!-- 		<security:user-service> -->
+<!-- 			<security:user name="" authorities=""/> -->
+<!-- 		</security:user-service> -->
+<!-- 			<security:user-service> -->
+<!-- 				<security:jdbc-user-service data-source-ref="dataSource" /> -->
+<!-- 			</security:user-service>	 -->
+<!-- 		</security:authentication-provider> -->
+	
+	</security:authentication-manager>
+	
+
+
+<!-- 	<bean id="jdbcUserService" class="security.UserService" > -->
+<!-- 		<property name="dataSource" ref="dataSource" /> -->
+<!-- 		<property name="enableGroups" value="false" /> -->
+<!-- 		<property name="enableAuthorities" value="true" /> -->
+		
+<!-- 		<property name="usersByUsernameQuery"> -->
+<!-- 			<value>SELECT user_name as Username, password as Password, true from user_table where user_name=?;</value> -->
+<!-- 		</property> -->
+		
+<!-- 		<property name="authoritiesByUsernameQuery"> -->
+<!-- 			<value>SELECT user_name as Username, 'ROLE_USER' from user_table where user_name=?;</value> -->
+<!-- 		</property> -->
+		
+<!-- 	</bean> -->
+</beans>
