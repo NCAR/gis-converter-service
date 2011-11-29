@@ -24,7 +24,7 @@
 	</bean>
 	
 	
-	
+	<bean id="convertNetCDF2Shapefile" class="ucar.ral.gis.services.web.NetCDF2Shapefile" />
 	
 	
 </beans>
