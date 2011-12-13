@@ -22,10 +22,19 @@
 	</distributionManagement>
 	
   	<properties>
-	  	<spring.framework.version>3.0.5.RELEASE</spring.framework.version>
-		<spring.security.version>3.0.5.RELEASE</spring.security.version>
+	  	<spring.framework.version>3.1.0.RC2</spring.framework.version>
+		<spring.security.version>3.1.0.RC3</spring.security.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+	
+	<repositories>
+	
+		<repository>
+			 <id>spring-milestones</id>
+			<url>https://s3browse.springsource.com/browse/maven.springframework.org/milestone/</url>
+		</repository>
+	
+	</repositories>
 	
 	<build>
 		
