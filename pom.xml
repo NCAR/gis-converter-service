@@ -22,8 +22,8 @@
 	</distributionManagement>
 	
   	<properties>
-	  	<spring.framework.version>3.1.0.RC2</spring.framework.version>
-		<spring.security.version>3.1.0.RC3</spring.security.version>
+	  	<spring.framework.version>3.1.0.RELEASE</spring.framework.version>
+		<spring.security.version>3.1.0</spring.security.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	
@@ -31,7 +31,7 @@
 	
 		<repository>
 			 <id>spring-milestones</id>
-			<url>https://s3browse.springsource.com/browse/maven.springframework.org/milestone/</url>
+			<url>http://maven.springframework.org/release</url>
 		</repository>
 	
 	</repositories>
