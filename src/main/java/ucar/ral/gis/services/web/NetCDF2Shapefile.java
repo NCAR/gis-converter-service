@@ -13,7 +13,7 @@ public class NetCDF2Shapefile {
 	
 	
 	// "*/*"
-	@RequestMapping(value="/products/{product}/{variable}/{model}/{ensemble}")
+	@RequestMapping(value="/{product}/{variable}/{model}/{ensemble}")
 	public ModelAndView convert(@PathVariable(value="product") String product, @PathVariable(value="variable") String variable,
 						@PathVariable(value="model") String modelSim, @PathVariable(value="ensemble") String ensemble) {
 		
