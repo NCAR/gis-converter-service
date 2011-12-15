@@ -5,8 +5,10 @@ import static org.junit.Assert.assertThat;
 
 import java.io.File;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
+@Ignore
 public class DataFileTest {
 
 	@Test
