@@ -28,7 +28,10 @@
 	</properties>
 	
 	<repositories>
-	
+		<repository>
+			<id>vets.public</id>
+			<url>https://vets.development.ucar.edu/nexus/content/groups/public/</url>
+		</repository>
 		<repository>
 			 <id>spring-milestones</id>
 			<url>http://maven.springframework.org/release</url>
