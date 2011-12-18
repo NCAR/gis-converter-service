@@ -4,11 +4,14 @@ import java.io.File;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.support.WebBindingInitializer;
 import org.springframework.web.servlet.ModelAndView;
 
 import ucar.ral.gis.services.DataFileFactory;
+import ucar.ral.gis.services.ProductType;
 
 @Controller
 public class NetCDF2Shapefile {
@@ -21,15 +24,12 @@ public class NetCDF2Shapefile {
 		this.dataFileFactory = dataFileFactory;
 	}
 
-
-
-
-	//products/[product <global/downscaled>/<variable>/<model simulation>/<ensemble member>.[shp, txt]?xmin=1800&xman...&temporal_resolution=monthlymean&month=jan&start_year=1800&end_year=1800
+	//products/[product <global/downscaled>/<variable>/<scenario>/<run>.[shp, txt]?xmin=1800&xman...&temporal_resolution=monthlymean&month=jan&start_year=1800&end_year=1800
 	
 	
 	// "*/*"
 	@RequestMapping(value="/{product}/{variable}/{model}/{ensemble}")
-	public ModelAndView convert(@PathVariable(value="product") String product, @PathVariable(value="variable") String variable,
+	public ModelAndView convert(@PathVariable(value="product") ProductType product, @PathVariable(value="variable") String variable,
 						@PathVariable(value="model") String modelSim, @PathVariable(value="ensemble") String ensemble) {
 		
 		System.out.println("Requested: " + product + " " + variable  + " " + modelSim + " " + ensemble);

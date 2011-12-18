@@ -2,8 +2,10 @@
 
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-                           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+                           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 	
  	<import resource="classpath:default-servlet-context.xml" /> 
 	<import resource="classpath:infrastructure-context.xml" />
@@ -21,7 +23,51 @@
 	      	</list>
 	      </property>
 		
+	</bean>	
+	
+	<bean id="string2ScaleConverter" class="ucar.ral.gis.services.converters.String2ScaleConverter">
+		<constructor-arg>
+			<map>
+				<entry key="downscaled"> <util:constant static-field="ucar.ral.gis.services.ProductType.DOWNSCALED"/> </entry>
+				<entry key="global"> <util:constant static-field="ucar.ral.gis.services.ProductType.GLOBAL"/> </entry>
+			</map>
+		</constructor-arg>
 	</bean>
+	
+	 <bean id="conversionService"
+          class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <ref bean="string2ScaleConverter" />
+            </set>
+        </property>
+        <property name="formatters">
+            <set>
+            </set>
+        </property>
+        <property name="formatterRegistrars">
+            <set>
+            </set>
+        </property>
+    </bean>
+	
+<!-- 	<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean"> -->
+<!-- 	    <property name="converters"> -->
+<!-- 	        <list> -->
+<!-- 	            <ref bean="string2ScaleConverter" /> -->
+<!-- 	        </list> -->
+<!-- 	    </property> -->
+<!-- 	</bean> -->
+	
+<!-- 	<mvc:annotation-driven conversion-service="conversionService"/> -->
+<!-- 	<bean id="conversionService" -->
+<!-- 		class="org.springframework.format.support.FormattingConversionServiceFactoryBean"> -->
+<!-- 	    <property name="converters"> -->
+<!-- 		   <list> -->
+<!-- 			  <ref bean="string2ScaleConverter" /> -->
+<!-- 		   </list> -->
+<!-- 	    </property> -->
+<!-- 	</bean> -->
 	
 	<bean id="dataFileFactory" class="ucar.ral.gis.services.DataFileFactory" >
 		<constructor-arg index="0" value="/datazone/esg-cdp/xserve/ccsm/ipcc" />
