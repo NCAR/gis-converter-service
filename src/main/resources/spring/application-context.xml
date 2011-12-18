@@ -23,8 +23,13 @@
 		
 	</bean>
 	
+	<bean id="dataFileFactory" class="ucar.ral.gis.services.DataFileFactory" >
+		<constructor-arg index="0" value="/datazone/esg-cdp/xserve/ccsm/ipcc" />
+	</bean>
 	
-	<bean id="convertNetCDF2Shapefile" class="ucar.ral.gis.services.web.NetCDF2Shapefile" />
 	
+	<bean id="convertNetCDF2Shapefile" class="ucar.ral.gis.services.web.NetCDF2Shapefile" >
+		<constructor-arg index="0" ref="dataFileFactory" />
+	</bean>
 	
 </beans>

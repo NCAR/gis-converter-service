@@ -12,7 +12,8 @@
 
 <body>
 
-Requested File: <br>
+Requested File: ${filePath}<br>
+File Exists: ${fileAvailable}<br>
 
 
 

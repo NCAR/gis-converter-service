@@ -2,8 +2,19 @@ package ucar.ral.gis.services;
 
 import java.io.File;
 
-public class DataFile {
+public class DataFileFactory {
 	
+	private File baseDirectory;
+	
+	
+	public DataFileFactory(File baseDirectory) {
+		super();
+		this.baseDirectory = baseDirectory;
+	}
+
+
+
+
 	/*
 	 [wilhelmi@vetswebdev ipcc]$ ls completeEnsembleAverages/*tas*
 completeEnsembleAverages/tas_A1.20C3M_EA1-9.CCSM.atmm.1870-01_cat_1999-12.nc
@@ -33,6 +44,10 @@ run1/ run2/ run3/ run4/ run5/ run6/ run7/ run8/ run9/
 20C3M/A1/run1/tasmin_A1.20C3M_1.CCSM.atmm.1870-01_cat_1999-12.nc
 
 	 */
+	//products/[product <global/downscaled>/<variable>/<model simulation>/<ensemble member>.[shp, txt]?xmin=1800&xman...&temporal_resolution=monthlymean&month=jan&start_year=1800&end_year=1800
+	
+	
+	
 	
 	
 	/*
@@ -45,7 +60,7 @@ run1/ run2/ run3/ run4/ run5/ run6/ run7/ run8/ run9/
 		
 		//http://commons.apache.org/io/api-release/org/apache/commons/io/filefilter/WildcardFileFilter.html
 		
-		return null;
+		return this.baseDirectory;
 	}
 
 }
