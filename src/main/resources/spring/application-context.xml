@@ -64,6 +64,19 @@
 				<entry key="A2" value="SRESA2"/>
 			</map>
 		</constructor-arg>
+		<constructor-arg index="2">
+			<map>
+				<entry key="1" value="run1"/>
+				<entry key="2" value="run2"/>
+				<entry key="3" value="run3"/>
+				<entry key="4" value="run4"/>
+				<entry key="5" value="run5"/>
+				<entry key="6" value="run6"/>
+				<entry key="7" value="run7"/>
+				<entry key="8" value="run8"/>
+				<entry key="9" value="run9"/>
+			</map>
+		</constructor-arg>
 	</bean>
 	
 	

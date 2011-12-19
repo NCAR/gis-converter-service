@@ -13,14 +13,14 @@ public class DataFileFactory {
 	private File baseDirectory;
 	
 	private Map<String, String> scenarioDirectoryMap;
+	private Map<String, String> runMap;
 	
-	
-	public DataFileFactory(File baseDirectory, Map<String, String> scenarioDirectoryMap) {
+	public DataFileFactory(File baseDirectory, Map<String, String> scenarioDirectoryMap, Map<String, String> runMap) {
 		super();
 		
 		this.baseDirectory = baseDirectory;
 		this.scenarioDirectoryMap = scenarioDirectoryMap;
-		
+		this.runMap = runMap;
 	}
 
 
@@ -82,11 +82,13 @@ run1/ run2/ run3/ run4/ run5/ run6/ run7/ run8/ run9/
 			productDirectory = scenarioDirectory;
 		}
 		
+		String runMember = this.runMap.get(productRequest.getEnsemble());
+		
 		if(productRequest.getEnsemble().equalsIgnoreCase("average")) {
 			// Do nothing for EA
 		}
 		else {
-			productDirectory += "/A1/" + productRequest.getEnsemble();
+			productDirectory += "/A1/" + runMember;
 		}
 		
 		File result = new File(this.baseDirectory, productDirectory);
@@ -94,7 +96,7 @@ run1/ run2/ run3/ run4/ run5/ run6/ run7/ run8/ run9/
 		//tasmin_A1.20C3M_1.CCSM.atmm.1870-01_cat_1999-12.nc
 		String fileNamePattern = "%s_A1.%s_*.nc";
 		
-		String wildCardPattern = fileNamePattern.format(fileNamePattern, productRequest.getVariable(), this.scenarioDirectoryMap.get(productRequest.getModelSim()));
+		String wildCardPattern = fileNamePattern.format(fileNamePattern, productRequest.getVariable(), runMember);
 		
 		//File dir = new File(".");
 		 FileFilter fileFilter = new WildcardFileFilter(wildCardPattern);
