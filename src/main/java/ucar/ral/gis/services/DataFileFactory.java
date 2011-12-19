@@ -98,6 +98,8 @@ run1/ run2/ run3/ run4/ run5/ run6/ run7/ run8/ run9/
 		
 		String wildCardPattern = fileNamePattern.format(fileNamePattern, productRequest.getVariable(), runMember);
 		
+		System.out.println("Searching directory: " + result.getAbsolutePath() + " using: " + wildCardPattern );
+		
 		//File dir = new File(".");
 		 FileFilter fileFilter = new WildcardFileFilter(wildCardPattern);
 		 File[] files = result.listFiles(fileFilter);
