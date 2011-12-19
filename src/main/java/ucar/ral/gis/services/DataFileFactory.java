@@ -80,12 +80,10 @@ run1/ run2/ run3/ run4/ run5/ run6/ run7/ run8/ run9/
 			productDirectory = scenarioDirectory;
 		}
 		
-		if(productRequest.getEnsemble() instanceof EnsembleAverage) {
-			// Do nothing for EA
-		}
-		else {
+		if(productRequest.getEnsemble() instanceof RunMember) {
 			productDirectory += "/A1/" + productRequest.getEnsemble().getName();
 		}
+		
 		
 		File result = new File(this.baseDirectory, productDirectory);
 		
