@@ -13,14 +13,12 @@ public class DataFileFactory {
 	private File baseDirectory;
 	
 	private Map<String, String> scenarioDirectoryMap;
-	private Map<String, String> runMap;
 	
-	public DataFileFactory(File baseDirectory, Map<String, String> scenarioDirectoryMap, Map<String, String> runMap) {
+	public DataFileFactory(File baseDirectory, Map<String, String> scenarioDirectoryMap) {
 		super();
 		
 		this.baseDirectory = baseDirectory;
 		this.scenarioDirectoryMap = scenarioDirectoryMap;
-		this.runMap = runMap;
 	}
 
 
@@ -82,17 +80,11 @@ run1/ run2/ run3/ run4/ run5/ run6/ run7/ run8/ run9/
 			productDirectory = scenarioDirectory;
 		}
 		
-		
-		String runMember = this.runMap.get(productRequest.getEnsemble());
-		
-		System.out.println("Ensemble: " + productRequest.getEnsemble() + " mapped to: " + runMember);
-		
-		
-		if(productRequest.getEnsemble().equalsIgnoreCase("average")) {
+		if(productRequest.getEnsemble() instanceof EnsembleAverage) {
 			// Do nothing for EA
 		}
 		else {
-			productDirectory += "/A1/" + runMember;
+			productDirectory += "/A1/" + productRequest.getEnsemble().getName();
 		}
 		
 		File result = new File(this.baseDirectory, productDirectory);

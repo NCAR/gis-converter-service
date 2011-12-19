@@ -4,13 +4,12 @@ import java.io.File;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import ucar.ral.gis.services.DataFileFactory;
+import ucar.ral.gis.services.EnsembleMember;
 import ucar.ral.gis.services.Scale;
 
 @Controller
@@ -34,7 +33,7 @@ public class NetCDF2Shapefile {
 	public ModelAndView convert(@PathVariable(value="scale") Scale scale, 
 								@PathVariable(value="variable") String variable,
 								@PathVariable(value="scenario") String scenario, 
-								@PathVariable(value="ensemble") String ensemble) {
+								@PathVariable(value="ensemble") EnsembleMember ensemble) {
 		
 		System.out.println("Requested: " + scale + " " + variable  + " " + scenario + " " + ensemble);
 		

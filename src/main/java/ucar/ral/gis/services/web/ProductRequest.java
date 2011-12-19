@@ -1,5 +1,6 @@
 package ucar.ral.gis.services.web;
 
+import ucar.ral.gis.services.EnsembleMember;
 import ucar.ral.gis.services.Scale;
 
 
@@ -8,10 +9,10 @@ public class ProductRequest {
 	private Scale product;
 	private String variable;
 	private String modelSim;
-	private String ensemble;
+	private EnsembleMember ensemble;
 	
 	public ProductRequest(Scale product, String variable, String modelSim,
-			String ensemble) {
+			EnsembleMember ensemble) {
 		super();
 		this.product = product;
 		this.variable = variable;
@@ -31,7 +32,7 @@ public class ProductRequest {
 		return modelSim;
 	}
 
-	public String getEnsemble() {
+	public EnsembleMember getEnsemble() {
 		return ensemble;
 	}
 	
