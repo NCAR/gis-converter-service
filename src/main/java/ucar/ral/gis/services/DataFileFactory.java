@@ -1,7 +1,10 @@
 package ucar.ral.gis.services;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.util.Map;
+
+import org.apache.commons.io.filefilter.WildcardFileFilter;
 
 import ucar.ral.gis.services.web.ProductRequest;
 
@@ -79,9 +82,29 @@ run1/ run2/ run3/ run4/ run5/ run6/ run7/ run8/ run9/
 			productDirectory = scenarioDirectory;
 		}
 		
+		if(productRequest.getEnsemble().equalsIgnoreCase("average")) {
+			// Do nothing for EA
+		}
+		else {
+			productDirectory += "/A1/" + productRequest.getEnsemble();
+		}
+		
 		File result = new File(this.baseDirectory, productDirectory);
 		
-		return result;
+		//tasmin_A1.20C3M_1.CCSM.atmm.1870-01_cat_1999-12.nc
+		String fileNamePattern = "%s_A1.%s_*.nc";
+		
+		String wildCardPattern = fileNamePattern.format(fileNamePattern, productRequest.getVariable(), this.scenarioDirectoryMap.get(productRequest.getModelSim()));
+		
+		//File dir = new File(".");
+		 FileFilter fileFilter = new WildcardFileFilter(wildCardPattern);
+		 File[] files = result.listFiles(fileFilter);
+		 for (int i = 0; i < files.length; i++) {
+		   System.out.println(files[i]);
+		 }
+		
+		
+		return files[0];
 	}
 
 }
