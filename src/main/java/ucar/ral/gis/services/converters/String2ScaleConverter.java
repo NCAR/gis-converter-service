@@ -4,22 +4,22 @@ import java.util.Map;
 
 import org.springframework.core.convert.converter.Converter;
 
-import ucar.ral.gis.services.ProductType;
+import ucar.ral.gis.services.Scale;
 
 // StringToObject
 
-public class String2ScaleConverter implements Converter<String, ProductType> {
+public class String2ScaleConverter implements Converter<String, Scale> {
 	
-	private Map<String, ProductType> productTypeLookup;
+	private Map<String, Scale> productTypeLookup;
 	
-	public String2ScaleConverter(Map<String, ProductType> productTypeLookup) {
+	public String2ScaleConverter(Map<String, Scale> productTypeLookup) {
 		super();
 		this.productTypeLookup = productTypeLookup;
 	}
 
-	public ProductType convert(String source) {
+	public Scale convert(String source) {
 		
-		ProductType productType = this.productTypeLookup.get(source);
+		Scale productType = this.productTypeLookup.get(source);
 		
 		return productType;
 	}

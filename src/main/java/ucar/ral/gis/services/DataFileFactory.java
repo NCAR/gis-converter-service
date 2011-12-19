@@ -1,15 +1,23 @@
 package ucar.ral.gis.services;
 
 import java.io.File;
+import java.util.Map;
+
+import ucar.ral.gis.services.web.ProductRequest;
 
 public class DataFileFactory {
 	
 	private File baseDirectory;
 	
+	private Map<String, String> scenarioDirectoryMap;
 	
-	public DataFileFactory(File baseDirectory) {
+	
+	public DataFileFactory(File baseDirectory, Map<String, String> scenarioDirectoryMap) {
 		super();
+		
 		this.baseDirectory = baseDirectory;
+		this.scenarioDirectoryMap = scenarioDirectoryMap;
+		
 	}
 
 
@@ -56,11 +64,24 @@ run1/ run2/ run3/ run4/ run5/ run6/ run7/ run8/ run9/
 	 * If Run: 
 	 */
 	
-	public File findDataFile() {
+	public File findDataFile(ProductRequest productRequest) {
 		
 		//http://commons.apache.org/io/api-release/org/apache/commons/io/filefilter/WildcardFileFilter.html
 		
-		return this.baseDirectory;
+		String productDirectory;
+		
+		if(Scale.DOWNSCALED == productRequest.getProduct()) {
+			productDirectory = "completeDownscaled";
+		} 
+		else {
+			// Pull it from the scenario map
+			String scenarioDirectory = this.scenarioDirectoryMap.get(productRequest.getModelSim());
+			productDirectory = scenarioDirectory;
+		}
+		
+		File result = new File(this.baseDirectory, productDirectory);
+		
+		return result;
 	}
 
 }

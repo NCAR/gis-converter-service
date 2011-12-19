@@ -1,6 +1,6 @@
 package ucar.ral.gis.services;
 
-public enum ProductType {
+public enum Scale {
 	
 	GLOBAL, DOWNSCALED;
 
