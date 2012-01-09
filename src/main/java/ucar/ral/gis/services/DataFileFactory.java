@@ -56,16 +56,98 @@ run1/ run2/ run3/ run4/ run5/ run6/ run7/ run8/ run9/
 	//products/[product <global/downscaled>/<variable>/<model simulation>/<ensemble member>.[shp, txt]?xmin=1800&xman...&temporal_resolution=monthlymean&month=jan&start_year=1800&end_year=1800
 	
 	
-	
-	
-	
-	/*
-	 * If EA: path/<variable>_A1.<scenario>_EA*.nc
-	 * 
-	 * If Run: 
-	 */
-	
 	public File findDataFile(ProductRequest productRequest) {
+		
+		if(productRequest.getTemporalres() == TemporalResolution.MONTHLY_MEAN) {
+			return this.findMonthlyDataFile(productRequest);
+		}
+		else {
+			return this.findProductDataFile(productRequest);
+		}
+	}
+	
+	
+	
+	
+	public File findProductDataFile(ProductRequest productRequest) {
+		
+		
+		// FIXME - Inject this!
+		String productDirectory = "Products";
+		
+		File searchDirectory = new File(this.baseDirectory, productDirectory);
+		
+		/**
+		 *                                      0:31 tas_SRESB1_annual_avg_downscaled.nc
+-rw-r--r-- 1 wilhelmi vetsdev  13126508 Oct 20 17:25 tas_SRESB1_annual_avg.nc
+-rw-r--r-- 1 wilhelmi vetsdev    149040 Jan 28  2011 tas_SRESB1_end_annual_anomaly.nc
+-rw-r--r-- 1 wilhelmi vetsdev   3550844 Jan 28  2011 tas_SRESB1_end_annual_down_anomaly.nc
+-rw-r--r-- 1 wilhelmi vetsdev   3550364 Sep 22 17:26 tas_SRESB1_end_annual_down.nc
+-rw-r--r-- 1 wilhelmi vetsdev    148928 Sep 22 17:26 tas_SRESB1_end_annual.nc
+-rw-r--r-- 1 wilhelmi vetsdev   1590976 Jan 28  2011 tas_SRESB1_end_monthly_anomaly.nc
+-rw-r--r-- 1 wilhelmi vetsdev  41941200 Jan 28  2011 tas_SRESB1_end_monthly_down_anomaly.nc
+-rw-r--r-- 1 wilhelmi vetsdev  41940724 Sep 22 17:26 tas_SRESB1_end_monthly_down.nc
+-rw-r--r-- 1 wilhelmi vetsdev   1590872 Sep 22 17:26 tas_SRESB1_end_monthly.nc
+-rw-r--r-- 1 wilhelmi vetsdev    542280 Jan 28  2011 tas_SRESB1_end_seasonal_anomaly.nc
+-rw-r--r-- 1 wilhelmi vetsdev  14020916 Jan 28  2011 tas_SRESB1_end_seasonal_down_anomaly.nc
+-rw-r--r-- 1 wilhelmi vetsdev  14020436 Sep 22 17:26 tas_SRESB1_end_seasonal_down.nc
+-rw-r--r-- 1 wilhelmi vetsdev    542168 Sep 22 17:26 tas_SRESB1_end_seasonal.nc
+-rw-r--r-- 1 wilhelmi vetsdev    149096 Jan 28  2011 tas_SRESB1_LastDecade_annual_anomaly.nc
+-rw-r--r-- 1 wilhelmi vetsdev   3550900 Jan 28  2011 tas_SRESB1_LastDecade_annual_down_anomaly.nc
+-rw-r--r-- 1 wilhelmi vetsdev   3550456 Sep 22 17:26 tas_SRESB1_LastDecade_annual_down.nc
+-rw-r--r-- 1 wilhelmi vetsdev    149020 Sep 22 17:26 tas_SRESB1_LastDecade_annual.nc
+-rw-r--r-- 1 wilhelmi vetsdev   1591032 Jan 28  2011 tas_SRESB1_LastDecade_monthly_anomaly.nc
+-rw-r--r-- 1 wilhelmi vetsdev  41941256 Jan 28  2011 tas_SRESB1_LastDecade_monthly_down_anomaly.nc
+-rw-r--r-- 1 wilhelmi vetsdev  41940800 Sep 22 17:27 tas_SRESB1_LastDecade_monthly_down.nc
+-rw-r--r-- 1 wilhelmi vetsdev   1590948 Sep 22 17:27 tas_SRESB1_LastDecade_monthly.nc
+-rw-r--r-- 1 wilhelmi vetsdev    542336 Jan 28  2011 tas_SRESB1_LastDecade_seasonal_anomaly.nc
+-rw-r--r-- 1 wilhelmi vetsdev  14020972 Jan 28  2011 tas_SRESB1_LastDecade_seasonal_down_anomaly.nc
+-rw-r--r-- 1 wilhelmi vetsdev  14020516 Sep 22 17:27 tas_SRESB1_LastDecade_seasonal_down.nc
+-rw-r--r-- 1 wilhelmi vetsdev    542248 Sep 22 17:27 tas_SRESB1_LastDecade_seasonal.nc
+-rw-r--r-- 1 wilhelmi vetsdev    149040 Jan 28  2011 tas_SRESB1_mid_annual_anomaly.nc
+-rw-r--r-- 1 wilhelmi vetsdev   3550844 Jan 28  2011 tas_SRESB1_mid_annual_down_anomaly.nc
+-rw-r--r-- 1 wilhelmi vetsdev   3550360 Sep 22 17:27 tas_SRESB1_mid_annual_down.nc
+-rw-r--r-- 1 wilhelmi vetsdev    148928 Sep 22 17:27 tas_SRESB1_mid_annual.nc
+-rw-r--r-- 1 wilhelmi vetsdev   1590976 Jan 28  2011 tas_SRESB1_mid_monthly_anomaly.nc
+-rw-r--r-- 1 wilhelmi vetsdev  41941200 Jan 28  2011 tas_SRESB1_mid_monthly_down_anomaly.nc
+-rw-r--r-- 1 wilhelmi vetsdev  41940720 Sep 22 17:28 tas_SRESB1_mid_monthly_down.nc
+-rw-r--r-- 1 wilhelmi vetsdev   1590868 Sep 22 17:28 tas_SRESB1_mid_monthly.nc
+-rw-r--r-- 1 wilhelmi vetsdev    542280 Jan 28  2011 tas_SRESB1_mid_seasonal_anomaly.nc
+-rw-r--r-- 1 wilhelmi vetsdev  14020916 Jan 28  2011 tas_SRESB1_mid_seasonal_down_anomaly.nc
+-rw-r--r-- 1 wilhelmi vetsdev  14020436 Sep 22 17:28 tas_SRESB1_mid_seasonal_down.nc
+-rw-r--r-- 1 wilhelmi vetsdev    542168 Sep 22 17:28 tas_SRESB1_mid_seasonal.nc
+-rw-r--r-- 1 wilhelmi vetsdev    149048 Jan 28  2011 tas_SRESB1_near_annual_anomaly.nc
+-rw-r--r-- 1 wilhelmi vetsdev   3550852 Jan 28  2011 tas_SRESB1_near_annual_down_anomaly.nc
+-rw-r--r-- 1 wilhelmi vetsdev   3550376 Sep 22 17:28 tas_SRESB1_near_annual_down.nc
+-rw-r--r-- 1 wilhelmi vetsdev    148940 Sep 22 17:28 tas_SRESB1_near_annual.nc
+-rw-r--r-- 1 wilhelmi vetsdev   1590984 Jan 28  2011 tas_SRESB1_near_monthly_anomaly.nc
+-rw-r--r-- 1 wilhelmi vetsdev  41941208 Jan 28  2011 tas_SRESB1_near_monthly_down_anomaly.nc
+-rw-r--r-- 1 wilhelmi vetsdev  41940732 Sep 22 17:28 tas_SRESB1_near_monthly_down.nc
+-rw-r--r-- 1 wilhelmi vetsdev   1590880 Sep 22 17:28 tas_SRESB1_near_monthly.nc
+-rw-r--r-- 1 wilhelmi vetsdev    542288 Jan 28  2011 tas_SRESB1_near_seasonal_anomaly.nc
+-rw-r--r-- 1 wilhelmi vetsdev  14020924 Jan 28  2011 tas_SRESB1_near_seasonal_down_anomaly.nc
+-rw-r--r-- 1 wilhelmi vetsdev  14020448 Sep 22 17:28 tas_SRESB1_near_seasonal_down.nc
+-rw-r--r-- 1 wilhelmi vetsdev    542180 Sep 22 17:28 tas_SRESB1_near_seasonal.nc
+
+		 */
+		
+		
+		// AnnualMean			-> [variable]_[ensemble]_annual_avg[ | _downscaled].nc
+		// Long Term Average 	-> [variable]_[ensemble]_[projection(4)]_[time(monthly|seasonal|annual)].nc
+		// Climate Anomoly		-> [variable]_[ensemble]_[projection(4)]_[time(monthly|seasonal|annual)]_anomoly.nc
+		
+		//tasmin_A1.20C3M_1.CCSM.atmm.1870-01_cat_1999-12.nc
+		String fileNamePattern = "%s_A1.%s_*.nc";
+		
+		String wildCardPattern = fileNamePattern.format(fileNamePattern, productRequest.getVariable(), this.scenarioDirectoryMap.get(productRequest.getModelSim()));
+		
+		File[] files = findFile(searchDirectory, wildCardPattern);
+		
+		
+		return files[0];
+	}
+	
+	public File findMonthlyDataFile(ProductRequest productRequest) {
 		
 		//http://commons.apache.org/io/api-release/org/apache/commons/io/filefilter/WildcardFileFilter.html
 		
@@ -92,17 +174,28 @@ run1/ run2/ run3/ run4/ run5/ run6/ run7/ run8/ run9/
 		
 		String wildCardPattern = fileNamePattern.format(fileNamePattern, productRequest.getVariable(), this.scenarioDirectoryMap.get(productRequest.getModelSim()));
 		
-		System.out.println("Searching directory: " + result.getAbsolutePath() + " using: " + wildCardPattern );
-		
-		//File dir = new File(".");
-		 FileFilter fileFilter = new WildcardFileFilter(wildCardPattern);
-		 File[] files = result.listFiles(fileFilter);
-		 for (int i = 0; i < files.length; i++) {
-		   System.out.println(files[i]);
-		 }
+		File[] files = findFile(result, wildCardPattern);
 		
 		
 		return files[0];
 	}
+
+
+
+
+	protected File[] findFile(File directory, String wildCardPattern) {
+		
+		System.out.println("Searching directory: " + directory.getAbsolutePath() + " using: " + wildCardPattern );
+		
+		//File dir = new File(".");
+		 FileFilter fileFilter = new WildcardFileFilter(wildCardPattern);
+		 File[] files = directory.listFiles(fileFilter);
+		 for (int i = 0; i < files.length; i++) {
+		   System.out.println(files[i]);
+		 }
+		return files;
+	}
+	
+	
 
 }

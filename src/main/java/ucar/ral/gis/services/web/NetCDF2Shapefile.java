@@ -10,7 +10,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ucar.ral.gis.services.DataFileFactory;
 import ucar.ral.gis.services.EnsembleMember;
-import ucar.ral.gis.services.RequestDetails;
 import ucar.ral.gis.services.Scale;
 
 @Controller
@@ -34,7 +33,7 @@ public class NetCDF2Shapefile {
 			<YMin>							ymin=<YMin>
 			<YMax>							Ymax=<YMax>
 
-	6. Select Temporal Resolution:
+	6. Select Temporal Resolution: temporalres
 		Selection:
 			Monthly Mean						temporal_resolution=monthly
 			Annual Mean						"annual_sum" (for ppt)
@@ -63,15 +62,11 @@ public class NetCDF2Shapefile {
 	
 	
 	@RequestMapping(value="/{scale}/{variable}/{scenario}/{ensemble}")
-	public ModelAndView convert(@PathVariable(value="scale") Scale scale, 
-								@PathVariable(value="variable") String variable,
-								@PathVariable(value="scenario") String scenario, 
-								@PathVariable(value="ensemble") EnsembleMember ensemble,
-								RequestDetails requestDetails) {
+	public ModelAndView convert(ProductRequest productRequest) {
 		
-		System.out.println("Requested: " + scale + " " + variable  + " " + scenario + " " + ensemble);
+		//System.out.println("Requested: " + scale + " " + variable  + " " + scenario + " " + ensemble);
 		
-		ProductRequest productRequest = new ProductRequest(scale, variable, scenario, ensemble);
+		//ProductRequest productRequest = new ProductRequest(scale, variable, scenario, ensemble);
 		
 		File dataFile = this.dataFileFactory.findDataFile(productRequest);
 		

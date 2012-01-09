@@ -2,6 +2,8 @@ package ucar.ral.gis.services;
 
 public class RequestDetails {
 	
+	private TemporalResolution temporalResolution;
+	
 	private Float xmin;
 	private Float xmax;
 	private Float ymin;
@@ -53,6 +55,12 @@ public class RequestDetails {
 	}
 	public void setEndDate(Integer endDate) {
 		this.endDate = endDate;
+	}
+	public TemporalResolution getTemporalResolution() {
+		return temporalResolution;
+	}
+	public void setTemporalResolution(TemporalResolution temporalResolution) {
+		this.temporalResolution = temporalResolution;
 	}
 	
 	

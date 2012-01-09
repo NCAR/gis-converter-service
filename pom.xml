@@ -49,14 +49,14 @@
 		
 		<resources>
 
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>true</filtering>
-				<includes>
-					<include>gateway.properties</include>
-					<include>messages.properties</include>
-				</includes>
-			</resource>
+<!-- 			<resource> -->
+<!-- 				<directory>src/main/resources</directory> -->
+<!-- 				<filtering>true</filtering> -->
+<!-- 				<includes> -->
+<!-- 					<include>gateway.properties</include> -->
+<!-- 					<include>messages.properties</include> -->
+<!-- 				</includes> -->
+<!-- 			</resource> -->
 			
 			<resource>
 				<directory>src/main/resources/spring</directory>
@@ -74,88 +74,21 @@
 				</includes>
 			</resource>
 			
-			<resource>
-				<directory>src/main/resources/hibernate</directory>
-				<filtering>false</filtering>
-				<includes>
-					<include>**/*hbm.xml</include>
-				</includes>
-			</resource>
-			
-			<resource>
-				<directory>src/main/resources/templates</directory>
-				<targetPath>sgf/gateway/</targetPath>
-				<filtering>false</filtering>
-				<includes>
-					<include>**/*.ftl</include>
-				</includes>
-			</resource>
-			
-			<resource>
-				<directory>src/main/resources/liquibase</directory>
-				<targetPath>liquibase/</targetPath>
-				<filtering>false</filtering>
-			</resource>
-			
 		</resources>
 		
 		<plugins>
-			    <plugin>
-			     <groupId>org.codehaus.cargo</groupId>
-			     <artifactId>cargo-maven2-plugin</artifactId>
-			     <version>1.1.2</version>
-			    <configuration>
-			     <wait>true</wait>
-			     <container>
-			      <containerId>tomcat7x</containerId>
-			      <type>remote</type>
-			     </container>
-			     <configuration>
-			      <type>runtime</type>
-			      <properties>
-			       <cargo.remote.uri>
-			         ${tomcat.url}
-			       </cargo.remote.uri>
-			       <cargo.remote.username>
-			          ${tomcat.user}
-			       </cargo.remote.username>
-			        <cargo.remote.password>
-			          ${tomcat.pwd}
-			        </cargo.remote.password>
-			      </properties>
-			      </configuration>
-			      <deployer>
-			       <type>remote</type>
-			       <deployables>
-			       <deployable>
-			        <groupId>${deploy.groupid}</groupId>
-			        <artifactId>${deploy.artifactid}</artifactId>
-			        <type>war</type>
-			        <properties>
-			         <context>${deploy.context}</context>
-			        </properties>
-			       </deployable>
-			      </deployables>
-			     </deployer>
-			    </configuration>
-<!-- 			    <executions> -->
-<!-- 			     <execution> -->
-<!-- 			      <id>verify-deploy</id> -->
-<!-- 			      <phase>pre-integration-test</phase> -->
-<!-- 			      <goals> -->
-<!-- 			       <goal>deployer-undeploy</goal> -->
-<!-- 			       <goal>deployer-deploy</goal> -->
-<!-- 			      </goals> -->
-<!-- 			     </execution> -->
-<!-- 			    </executions> -->
-			    </plugin>
 			
-		
 		</plugins>
 	
 	</build>
 		
   <dependencies>
+  
+  	<dependency>
+		<groupId>net.lingala.zip4j</groupId>
+		<artifactId>zip4j</artifactId>
+		<version>1.2.7</version>
+	</dependency>
   
   	<dependency>
 		<groupId>ucar.gis</groupId>
@@ -216,11 +149,11 @@
 		    <version>2.9.1</version>
 		</dependency>
 		
-		<dependency>
-		    <groupId>org.javassist</groupId>
-		    <artifactId>javassist</artifactId>
-		    <version>3.14.0-GA</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 		    <groupId>org.javassist</groupId> -->
+<!-- 		    <artifactId>javassist</artifactId> -->
+<!-- 		    <version>3.14.0-GA</version> -->
+<!-- 		</dependency> -->
 		
 		<dependency>
 			<groupId>sgf</groupId>
@@ -228,12 +161,12 @@
 			<version>1.1.0-SNAPSHOT</version>
 		</dependency>
 		
-		<dependency>
-			<groupId>javax.mail</groupId>
-			<artifactId>mail</artifactId>
-			<version>1.4</version>
-			<scope>compile</scope>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>javax.mail</groupId> -->
+<!-- 			<artifactId>mail</artifactId> -->
+<!-- 			<version>1.4</version> -->
+<!-- 			<scope>compile</scope> -->
+<!-- 		</dependency> -->
 		
 		
 				

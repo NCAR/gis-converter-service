@@ -34,6 +34,17 @@
 		</constructor-arg>
 	</bean>
 	
+	<bean id="string2TemporalResolutionConverter" class="ucar.ral.gis.services.converters.String2TemporalResolutionConverter">
+		<constructor-arg>
+			<map>
+				<entry key="mome"> <util:constant static-field="ucar.ral.gis.services.TemporalResolution.MONTHLY_MEAN"/> </entry>
+				<entry key="anme"> <util:constant static-field="ucar.ral.gis.services.TemporalResolution.ANNUAL_MEAN"/> </entry>
+				<entry key="lta"> <util:constant static-field="ucar.ral.gis.services.TemporalResolution.LONGTERM_AVERAGE"/> </entry>
+				<entry key="ca"> <util:constant static-field="ucar.ral.gis.services.TemporalResolution.CLIMATE_ANOMOLY"/> </entry>
+			</map>
+		</constructor-arg>
+	</bean>
+	
 	<bean id="ensembleMemberConverter" class="ucar.ral.gis.services.converters.EnsembleMemberConverter"/>
 	
 	
@@ -43,6 +54,7 @@
             <set>
                 <ref bean="string2ScaleConverter" />
                 <ref bean="ensembleMemberConverter" />
+                <ref bean="string2TemporalResolutionConverter" />
             </set>
         </property>
         <property name="formatters">
