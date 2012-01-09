@@ -1,18 +1,31 @@
 package ucar.ral.gis.services;
 
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
-
-import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Ignore;
 import org.junit.Test;
+import org.springframework.util.StringUtils;
 
-@Ignore
+//@Ignore
 public class DataFileTest {
 
 	@Test
 	public void testFindDataFile() {
+		
+		
+//		
+		
+		List<String> test = new ArrayList<String>();
+		
+		for (int i = 0; i < 3; i++) {
+			
+			test.add("Test" + i);
+		}
+		
+		String value = StringUtils.collectionToDelimitedString(test, " AND ", "", "");
+		
+		System.out.println("Value: " + value);
 		
 //		DataFileFactory dataFile = new DataFileFactory();
 //		

@@ -37,6 +37,12 @@
 			<url>http://maven.springframework.org/release</url>
 		</repository>
 	
+<!-- 	<repository> -->
+<!--     <id>springsource-repo</id> -->
+<!--     <name>SpringSource Repository</name> -->
+<!--     <url>http://repo.springsource.org/release</url> -->
+<!-- </repository> -->
+	
 	</repositories>
 	
 	<build>

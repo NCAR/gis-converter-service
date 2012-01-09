@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ucar.ral.gis.services.DataFileFactory;
 import ucar.ral.gis.services.EnsembleMember;
+import ucar.ral.gis.services.RequestDetails;
 import ucar.ral.gis.services.Scale;
 
 @Controller
@@ -25,15 +26,48 @@ public class NetCDF2Shapefile {
 
 	//products/[product <global/downscaled>/<variable>/<scenario>/<run>.[shp, txt]?xmin=1800&xman...&temporal_resolution=monthlymean&month=jan&start_year=1800&end_year=1800
 	
+	/**
+	 * 	5. Select region of interest:
+		Selection:
+			<XMin>							xmin=<XMin>
+			<XMax>							xmax=<XMax>
+			<YMin>							ymin=<YMin>
+			<YMax>							Ymax=<YMax>
+
+	6. Select Temporal Resolution:
+		Selection:
+			Monthly Mean						temporal_resolution=monthly
+			Annual Mean						"annual_sum" (for ppt)
+										"annual_avg" (for tas)
+			Long Term Average					""
+			Climate Anomaly						"anomaly"
+
+
+	7. Select time period:
+		Selection:
+			<month>							month=<month>
+										month=allmonths
+			<Start Year>						start_year=<Start Year>
+			<End Year>						end_year=<End Year>
+
+
+			<month>							"monthly"
+			<annual>						"annual"
+			<season>						"seasonal"
+
+			Near Term (2030)					"near"
+			Mid-Century (2050)					"mid"
+			End of Century (2080)					"end"
+			Last Decade (2099)					"LastDecade"	 */
 	
 	
 	
-	// "*/*"
 	@RequestMapping(value="/{scale}/{variable}/{scenario}/{ensemble}")
 	public ModelAndView convert(@PathVariable(value="scale") Scale scale, 
 								@PathVariable(value="variable") String variable,
 								@PathVariable(value="scenario") String scenario, 
-								@PathVariable(value="ensemble") EnsembleMember ensemble) {
+								@PathVariable(value="ensemble") EnsembleMember ensemble,
+								RequestDetails requestDetails) {
 		
 		System.out.println("Requested: " + scale + " " + variable  + " " + scenario + " " + ensemble);
 		
