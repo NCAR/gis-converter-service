@@ -39,8 +39,8 @@
 			<map>
 				<entry key="mome"> <util:constant static-field="ucar.ral.gis.services.TemporalResolution.MONTHLY_MEAN"/> </entry>
 				<entry key="anme"> <util:constant static-field="ucar.ral.gis.services.TemporalResolution.ANNUAL_MEAN"/> </entry>
-				<entry key="lta"> <util:constant static-field="ucar.ral.gis.services.TemporalResolution.LONGTERM_AVERAGE"/> </entry>
-				<entry key="ca"> <util:constant static-field="ucar.ral.gis.services.TemporalResolution.CLIMATE_ANOMOLY"/> </entry>
+				<entry key="ltav"> <util:constant static-field="ucar.ral.gis.services.TemporalResolution.LONGTERM_AVERAGE"/> </entry>
+				<entry key="anom"> <util:constant static-field="ucar.ral.gis.services.TemporalResolution.CLIMATE_ANOMOLY"/> </entry>
 			</map>
 		</constructor-arg>
 	</bean>
