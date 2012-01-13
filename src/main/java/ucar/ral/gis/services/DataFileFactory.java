@@ -144,7 +144,7 @@ run1/ run2/ run3/ run4/ run5/ run6/ run7/ run8/ run9/
 		if(productRequest.getTemporalres() == TemporalResolution.ANNUAL_MEAN) {
 			fileNamePattern += productRequest.getEnsemble().getName() + "annual_avg_";
 		} 
-		else {
+		else if(productRequest.getTemporalres() == TemporalResolution.LONGTERM_AVERAGE) {
 			fileNamePattern += productRequest.getEnsemble().getName() + "annual_avg_";
 		}
 		
