@@ -81,5 +81,25 @@ public class NetCDF2Shapefile {
 		return new ModelAndView("request", model);
 	}
 	
+	@RequestMapping(value="/{scale}/{variable}/{scenario}/{ensemble}/{temporalResolution}.shp")
+	public ModelAndView convertToShapefile(ProductRequest productRequest) {
+		
+		//System.out.println("Requested: " + scale + " " + variable  + " " + scenario + " " + ensemble);
+		
+		//ProductRequest productRequest = new ProductRequest(scale, variable, scenario, ensemble);
+		
+		File dataFile = this.dataFileFactory.findDataFile(productRequest);
+		
+		
+		ModelMap model = new ModelMap();
+		
+		model.addAttribute("filePath", dataFile.getAbsolutePath());
+		model.addAttribute("fileAvailable", dataFile.exists());
+//		model.addAttribute("modelSim", modelSim);
+//		model.addAttribute("ensemble", ensemble);
+//		
+		return new ModelAndView("request", model);
+	}
+	
 	
 }
