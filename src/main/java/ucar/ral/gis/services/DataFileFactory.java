@@ -155,7 +155,7 @@ run1/ run2/ run3/ run4/ run5/ run6/ run7/ run8/ run9/
 		
 		
 		
-		String wildCardPattern = fileNamePattern.format(fileNamePattern, productRequest.getVariable(), this.scenarioDirectoryMap.get(productRequest.getModelSim()));
+		String wildCardPattern = fileNamePattern.format(fileNamePattern, productRequest.getVariable(), this.scenarioDirectoryMap.get(productRequest.getScale()));
 		
 		File files = findFile(searchDirectory, wildCardPattern);
 		
@@ -169,12 +169,12 @@ run1/ run2/ run3/ run4/ run5/ run6/ run7/ run8/ run9/
 		
 		String productDirectory;
 		
-		if(Scale.DOWNSCALED == productRequest.getProduct()) {
+		if(Scale.DOWNSCALED == productRequest.getScale()) {
 			productDirectory = "completeDownscaled";
 		} 
 		else {
 			// Pull it from the scenario map
-			String scenarioDirectory = this.scenarioDirectoryMap.get(productRequest.getModelSim());
+			String scenarioDirectory = this.scenarioDirectoryMap.get(productRequest.getScenario());
 			productDirectory = scenarioDirectory;
 		}
 		
@@ -188,7 +188,7 @@ run1/ run2/ run3/ run4/ run5/ run6/ run7/ run8/ run9/
 		//tasmin_A1.20C3M_1.CCSM.atmm.1870-01_cat_1999-12.nc
 		String fileNamePattern = "%s_A1.%s_*.nc";
 		
-		String wildCardPattern = fileNamePattern.format(fileNamePattern, productRequest.getVariable(), this.scenarioDirectoryMap.get(productRequest.getModelSim()));
+		String wildCardPattern = fileNamePattern.format(fileNamePattern, productRequest.getVariable(), this.scenarioDirectoryMap.get(productRequest.getScenario()));
 		
 		File files = findFile(result, wildCardPattern);
 		

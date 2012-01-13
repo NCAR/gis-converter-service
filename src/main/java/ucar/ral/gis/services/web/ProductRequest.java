@@ -7,9 +7,9 @@ import ucar.ral.gis.services.TemporalResolution;
 
 public class ProductRequest {
 	
-	private Scale product;
+	private Scale scale;
 	private String variable;
-	private String modelSim;
+	private String scenario;
 	private EnsembleMember ensemble;
 	
 	private TemporalResolution temporalResolution;
@@ -26,12 +26,12 @@ public class ProductRequest {
 	
 	
 
-	public Scale getProduct() {
-		return product;
+	public Scale getScale() {
+		return scale;
 	}
 
-	public void setProduct(Scale product) {
-		this.product = product;
+	public void setScale(Scale product) {
+		this.scale = product;
 	}
 
 	public String getVariable() {
@@ -42,12 +42,14 @@ public class ProductRequest {
 		this.variable = variable;
 	}
 
-	public String getModelSim() {
-		return modelSim;
+	
+
+	public String getScenario() {
+		return scenario;
 	}
 
-	public void setModelSim(String modelSim) {
-		this.modelSim = modelSim;
+	public void setScenario(String scenario) {
+		this.scenario = scenario;
 	}
 
 	public EnsembleMember getEnsemble() {
