@@ -137,14 +137,30 @@ run1/ run2/ run3/ run4/ run5/ run6/ run7/ run8/ run9/
 		// Climate Anomoly		-> [variable]_[ensemble]_[projection(4)]_[time(monthly|seasonal|annual)]_anomoly.nc
 		
 		//tasmin_A1.20C3M_1.CCSM.atmm.1870-01_cat_1999-12.nc
-		String fileNamePattern = "%s_A1.%s_*.nc";
+		String fileNamePattern = productRequest.getVariable() + "_";
+		
+		fileNamePattern += productRequest.getEnsemble().getName() + "_";
+		
+		if(productRequest.getTemporalres() == TemporalResolution.ANNUAL_MEAN) {
+			fileNamePattern += productRequest.getEnsemble().getName() + "annual_avg_";
+		} 
+		else {
+			fileNamePattern += productRequest.getEnsemble().getName() + "annual_avg_";
+		}
+		
+		
+		
+		
+		
+		
+		
 		
 		String wildCardPattern = fileNamePattern.format(fileNamePattern, productRequest.getVariable(), this.scenarioDirectoryMap.get(productRequest.getModelSim()));
 		
-		File[] files = findFile(searchDirectory, wildCardPattern);
+		File files = findFile(searchDirectory, wildCardPattern);
 		
 		
-		return files[0];
+		return files;
 	}
 	
 	public File findMonthlyDataFile(ProductRequest productRequest) {
@@ -174,16 +190,16 @@ run1/ run2/ run3/ run4/ run5/ run6/ run7/ run8/ run9/
 		
 		String wildCardPattern = fileNamePattern.format(fileNamePattern, productRequest.getVariable(), this.scenarioDirectoryMap.get(productRequest.getModelSim()));
 		
-		File[] files = findFile(result, wildCardPattern);
+		File files = findFile(result, wildCardPattern);
 		
 		
-		return files[0];
+		return files;
 	}
 
 
 
 
-	protected File[] findFile(File directory, String wildCardPattern) {
+	protected File findFile(File directory, String wildCardPattern) {
 		
 		System.out.println("Searching directory: " + directory.getAbsolutePath() + " using: " + wildCardPattern );
 		
@@ -193,7 +209,12 @@ run1/ run2/ run3/ run4/ run5/ run6/ run7/ run8/ run9/
 		 for (int i = 0; i < files.length; i++) {
 		   System.out.println(files[i]);
 		 }
-		return files;
+		 
+		 
+		if (0 == files.length) {
+			throw new RuntimeException("Found 0 files using wildcard: " + wildCardPattern);
+		}
+		return files[0];
 	}
 	
 	
