@@ -70,14 +70,14 @@
 
 	
 	<bean id="dataFileFactory" class="ucar.ral.gis.services.DataFileFactory" >
-		<constructor-arg index="0" value="/datazone/esg-cdp/xserve/ccsm/ipcc" />
+		<constructor-arg index="0" value="/home/wilhelmi/data/" />
 		<constructor-arg index="1">
 			<map>
-				<entry key="20C" value="20C3M"/>
-				<entry key="commitment" value="Commit"/>
-				<entry key="A1B" value="SRESA1B"/>
-				<entry key="B1" value="SRESB1"/>
-				<entry key="A2" value="SRESA2"/>
+				<entry key="20C3M" value="20C3M"/>
+				<entry key="Commit" value="Commit"/>
+				<entry key="SRESA1B" value="SRESA1B"/>
+				<entry key="SRESB1" value="SRESB1"/>
+				<entry key="SRESA2" value="SRESA2"/>
 			</map>
 		</constructor-arg>
 	</bean>

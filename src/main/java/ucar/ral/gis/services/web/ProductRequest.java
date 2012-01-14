@@ -14,15 +14,15 @@ public class ProductRequest {
 	
 	private TemporalResolution temporalResolution;
 	
-	private Float xmin;
-	private Float xmax;
-	private Float ymin;
-	private Float ymax;
+	private Float xmin = -180.0F;
+	private Float xmax = 180.0F;
+	private Float ymin = -90.0F;
+	private Float ymax = 90.0F;
 	
-	private Integer month;
+	private Integer month = 0;
 	
-	private Integer startDate;
-	private Integer endDate;
+	private String startDate = "1870/01/01";
+	private String endDate = "1870/01/01";
 	
 	
 
@@ -108,21 +108,22 @@ public class ProductRequest {
 		this.month = month;
 	}
 
-	public Integer getStartDate() {
+	public String getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Integer startDate) {
+	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
 
-	public Integer getEndDate() {
+	public String getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Integer endDate) {
+	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
+		
 
 	
 	
