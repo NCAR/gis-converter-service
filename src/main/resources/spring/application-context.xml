@@ -28,8 +28,8 @@
 	<bean id="string2ScaleConverter" class="ucar.ral.gis.services.converters.String2ScaleConverter">
 		<constructor-arg>
 			<map>
-				<entry key="d"> <util:constant static-field="ucar.ral.gis.services.Scale.DOWNSCALED"/> </entry>
-				<entry key="g"> <util:constant static-field="ucar.ral.gis.services.Scale.GLOBAL"/> </entry>
+				<entry key="d"> <util:constant static-field="ucar.ral.gis.services.Resolution.DOWNSCALED"/> </entry>
+				<entry key="g"> <util:constant static-field="ucar.ral.gis.services.Resolution.GLOBAL"/> </entry>
 			</map>
 		</constructor-arg>
 	</bean>
@@ -82,9 +82,44 @@
 		</constructor-arg>
 	</bean>
 	
+	<bean id="conversionProcessor" class="ucar.ral.gis.services.pipeline.Pipeline" >
+		<constructor-arg index="0">
+			<list>
+				<ref bean="sourceDatafileProcessor"/>
+				<ref bean="outputFileProcessor"/>
+				<ref bean="conversionRouterProcessor"/>
+				<ref bean="zipArchiveProcessor"/>
+			</list>
+		</constructor-arg>
+	
+	</bean>
+	
+	<bean id="sourceDatafileProcessor" class="ucar.ral.gis.services.pipeline.SourceDatafileProcessor" >
+		<constructor-arg index="0" ref="dataFileFactory" />
+	</bean>
+	
+	<bean id="conversionRouterProcessor" class="ucar.ral.gis.services.pipeline.ConversionRouterProcessor" >
+		<constructor-arg index="0" ref="shapefileConversionProcessor" />
+		<constructor-arg index="1" ref="textfileConversionProcessor" />
+	</bean>
+	
+	<bean id="shapefileConversionProcessor" class="ucar.ral.gis.services.pipeline.ShapefileConversionProcessor" />
+	<bean id="textfileConversionProcessor" class="ucar.ral.gis.services.pipeline.TextfileConversionProcessor" />
+	
+	<bean id="outputFileProcessor" class="ucar.ral.gis.services.pipeline.OutputFileProcessor" />
+	
+	<bean id="zipArchiveProcessor" class="ucar.ral.gis.services.pipeline.ZipArchiveProcessor" />
+	
+	
+	
+	
+	
+	
 	
 	<bean id="convertNetCDF2Shapefile" class="ucar.ral.gis.services.web.NetCDF2Shapefile" >
 		<constructor-arg index="0" ref="dataFileFactory" />
+		<constructor-arg index="1" ref="conversionProcessor" />
+		
 	</bean>
 	
 </beans>

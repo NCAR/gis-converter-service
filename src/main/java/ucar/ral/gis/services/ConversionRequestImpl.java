@@ -1,8 +1,9 @@
 package ucar.ral.gis.services;
 
 import java.io.File;
+import java.io.OutputStream;
 
-import ucar.ral.gis.services.web.ProductRequest;
+import ucar.ral.gis.services.web.RequestParameters;
 import edu.ucar.gis.ipcc.ConversionRequest;
 import edu.ucar.gis.ipcc.model.netcdf2gis.AxisConstraint2;
 import edu.ucar.gis.ipcc.model.netcdf2gis.Latitude;
@@ -10,17 +11,33 @@ import edu.ucar.gis.ipcc.model.netcdf2gis.Longitude;
 
 public class ConversionRequestImpl implements ConversionRequest {
 	
-	private ProductRequest productRequest;
+	private RequestParameters productRequest;
 	private File dataFile;
 	private File outputDirectory;
+	private OutputStream outputStream;
+	private OutputType outputType;
 	
-	public ConversionRequestImpl(ProductRequest productRequest,
-			File dataFile,
-			File outputDirectory) {
+	public ConversionRequestImpl(RequestParameters productRequest, OutputStream outputStream, OutputType outputType) {
 		super();
 		this.productRequest = productRequest;
-		this.outputDirectory = outputDirectory;
+		this.outputStream = outputStream;
+		this.outputType = outputType;
+	}
+	
+	public OutputType getOutputType() {
+		return outputType;
+	}
+
+	public OutputStream getOutputStream() {
+		return outputStream;
+	}
+
+	public void setDataFile(File dataFile) {
 		this.dataFile = dataFile;
+	}
+
+	public void setOutputDirectory(File outputDirectory) {
+		this.outputDirectory = outputDirectory;
 	}
 
 	public String getOutputFileName() {
@@ -63,5 +80,11 @@ public class ConversionRequestImpl implements ConversionRequest {
 		return result;
 	
 	}
+
+	public RequestParameters getProductRequest() {
+		return productRequest;
+	}
+	
+	
 
 }

@@ -1,31 +1,34 @@
 package ucar.ral.gis.services.web;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.ExecutionException;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import edu.ucar.gis.ipcc.model.netcdf2gis.CCSM2ShapeFileConverter;
-import edu.ucar.gis.ipcc.model.netcdf2gis.ExtractionResults;
-
+import ucar.nc2.util.IO.HttpResult;
 import ucar.ral.gis.services.ConversionRequestImpl;
 import ucar.ral.gis.services.DataFileFactory;
-import ucar.ral.gis.services.EnsembleMember;
-import ucar.ral.gis.services.Scale;
+import ucar.ral.gis.services.OutputType;
+import ucar.ral.gis.services.pipeline.Processor;
 
 @Controller
 public class NetCDF2Shapefile {
 	
+	private Processor shapefileProcessor;
+	
 	private DataFileFactory dataFileFactory;
 	
 	
-	public NetCDF2Shapefile(DataFileFactory dataFileFactory) {
+	public NetCDF2Shapefile(DataFileFactory dataFileFactory, Processor shapefileProcessor) {
 		super();
 		this.dataFileFactory = dataFileFactory;
+		this.shapefileProcessor = shapefileProcessor;
 	}
 
 	//products/[product <global/downscaled>/<variable>/<scenario>/<run>.[shp, txt]?xmin=1800&xman...&temporal_resolution=monthlymean&month=jan&start_year=1800&end_year=1800
@@ -67,7 +70,7 @@ public class NetCDF2Shapefile {
 	
 	
 	@RequestMapping(value="/{scale}/{variable}/{scenario}/{ensemble}")
-	public ModelAndView convert(ProductRequest productRequest) {
+	public ModelAndView convert(RequestParameters productRequest) {
 		
 		//System.out.println("Requested: " + scale + " " + variable  + " " + scenario + " " + ensemble);
 		
@@ -87,37 +90,29 @@ public class NetCDF2Shapefile {
 	}
 	
 	@RequestMapping(value="/{scale}/{variable}/{scenario}/{ensemble}/{temporalres}.shp")
-	public ModelAndView convertToShapefile(ProductRequest productRequest) throws InterruptedException, ExecutionException {
-		
-		//tas_A1.20C3M_1.CCSM.atmm.1870-01_cat_1999-12.nc
-		
-		File dataFile = this.dataFileFactory.findDataFile(productRequest);
-		
-		ConversionRequestImpl conversionRequest = new ConversionRequestImpl(productRequest, dataFile, new File("/home/wilhelmi/test/test.shp"));
-		
-		File outputFile = new File(conversionRequest.getOutputFileName());
-    	
-		CCSM2ShapeFileConverter converter = new CCSM2ShapeFileConverter(conversionRequest, outputFile);
-		
-		ExtractionResults results = converter.execute();
-		
-		//month=04&startyear=1870&endyear=1870&xmin=-180.00&xmax=180.00&ymin=-90.00&ymax=90.00
-		
-		//System.out.println("Requested: " + scale + " " + variable  + " " + scenario + " " + ensemble);
-		
-		//ProductRequest productRequest = new ProductRequest(scale, variable, scenario, ensemble);
-		
-		//File dataFile = this.dataFileFactory.findDataFile(productRequest);
+	public ModelAndView convertToShapefile(RequestParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
 		
 		
-		ModelMap model = new ModelMap();
+		response.setHeader("Content-Type", "application/zip");
 		
-		model.addAttribute("filePath", dataFile.getAbsolutePath());
-		model.addAttribute("fileAvailable", dataFile.exists());
-//		model.addAttribute("modelSim", modelSim);
-//		model.addAttribute("ensemble", ensemble);
-//		
-		return new ModelAndView("request", model);
+		ConversionRequestImpl conversionRequest = new ConversionRequestImpl(requestParameters, response.getOutputStream(), OutputType.SHAPE);
+		
+		this.shapefileProcessor.process(conversionRequest);
+		
+		return null; 
+	}
+	
+	@RequestMapping(value="/{scale}/{variable}/{scenario}/{ensemble}/{temporalres}.txt")
+	public ModelAndView convertToTextfile(RequestParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
+		
+		
+		response.setHeader("Content-Type", "application/zip");
+		
+		ConversionRequestImpl conversionRequest = new ConversionRequestImpl(requestParameters, response.getOutputStream(), OutputType.TEXT);
+		
+		this.shapefileProcessor.process(conversionRequest);
+		
+		return null; 
 	}
 	
 	

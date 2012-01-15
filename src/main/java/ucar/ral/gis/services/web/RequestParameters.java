@@ -1,13 +1,13 @@
 package ucar.ral.gis.services.web;
 
 import ucar.ral.gis.services.EnsembleMember;
-import ucar.ral.gis.services.Scale;
+import ucar.ral.gis.services.Resolution;
 import ucar.ral.gis.services.TemporalResolution;
 
 
-public class ProductRequest {
+public class RequestParameters {
 	
-	private Scale scale;
+	private Resolution scale;
 	private String variable;
 	private String scenario;
 	private EnsembleMember ensemble;
@@ -26,11 +26,11 @@ public class ProductRequest {
 	
 	
 
-	public Scale getScale() {
+	public Resolution getScale() {
 		return scale;
 	}
 
-	public void setScale(Scale product) {
+	public void setScale(Resolution product) {
 		this.scale = product;
 	}
 
