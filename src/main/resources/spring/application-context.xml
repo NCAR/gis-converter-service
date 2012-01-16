@@ -19,7 +19,7 @@
 		
 		<property name="locations">
 	      	<list>
-	      		<value>file:${gateway.home}/conf/portal.properties</value>
+	      		<value>file:${application.home}/conf/services.properties</value>
 	      	</list>
 	      </property>
 		
@@ -74,7 +74,7 @@
 
 	
 	<bean id="dataFileFactory" class="ucar.ral.gis.services.DataFileFactory" >
-		<constructor-arg index="0" value="/home/wilhelmi/data/" />
+		<constructor-arg index="0" value="${data.root.directory}" />
 		<constructor-arg index="1">
 			<map>
 				<entry key="20C3M" value="20C3M"/>
@@ -111,14 +111,10 @@
 	<bean id="textfileConversionProcessor" class="ucar.ral.gis.services.pipeline.TextfileConversionProcessor" />
 	
 	<bean id="outputFileProcessor" class="ucar.ral.gis.services.pipeline.OutputFileProcessor" >
-		<constructor-arg index="0" value="/home/wilhelmi/test" />
+		<constructor-arg index="0" value="${conversion.work.directory}" />
 	</bean>
 	
 	<bean id="zipArchiveProcessor" class="ucar.ral.gis.services.pipeline.ZipArchiveProcessor" />
-	
-	
-	
-	
 	
 	
 	
