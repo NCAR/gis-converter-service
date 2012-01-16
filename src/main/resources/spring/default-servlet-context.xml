@@ -11,7 +11,14 @@
 
     <mvc:annotation-driven  conversion-service="conversionService"/>
 
-   
+    <mvc:interceptors>
+	    <bean id="webContentInterceptor" class="org.springframework.web.servlet.mvc.WebContentInterceptor">
+	        <property name="cacheSeconds" value="0"/>
+	        <property name="useExpiresHeader" value="true"/>
+	        <property name="useCacheControlHeader" value="true"/>
+	        <property name="useCacheControlNoStore" value="true"/>
+	    </bean>
+	</mvc:interceptors>
 		
 	<bean id="org.springframework.http.MediaType.TEXT_HTML" class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean"/>
 	
@@ -89,6 +96,7 @@
 			</props>
 		</property>
 	</bean>
+	
 	
 	<bean id="urlFilenameViewController" class="org.springframework.web.servlet.mvc.UrlFilenameViewController" />	
 

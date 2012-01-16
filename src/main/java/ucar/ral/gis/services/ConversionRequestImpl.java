@@ -2,6 +2,8 @@ package ucar.ral.gis.services;
 
 import java.io.File;
 import java.io.OutputStream;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 import ucar.ral.gis.services.web.RequestParameters;
 import edu.ucar.gis.ipcc.ConversionRequest;
@@ -10,6 +12,10 @@ import edu.ucar.gis.ipcc.model.netcdf2gis.Latitude;
 import edu.ucar.gis.ipcc.model.netcdf2gis.Longitude;
 
 public class ConversionRequestImpl implements ConversionRequest {
+	
+	private static final NumberFormat monthFormat = new DecimalFormat("00");
+	private static final NumberFormat yearFormat = new DecimalFormat("0000");
+	
 	
 	private RequestParameters productRequest;
 	private File dataFile;
@@ -81,7 +87,22 @@ public class ConversionRequestImpl implements ConversionRequest {
 
 	public AxisConstraint2<String> getTimeConstraint() {	
 		
-		AxisConstraint2<String> result = new AxisConstraint2<String>(this.productRequest.getStartDate(), this.productRequest.getEndDate(), this.productRequest.getMonth().getTimeStep());
+		AxisConstraint2<String> result = new AxisConstraint2<String>();
+		
+		String startYearStr = yearFormat.format(this.productRequest.getStartYear());
+		String endYearStr = yearFormat.format(this.productRequest.getEndYear());
+		
+		if(0 == this.productRequest.getMonth().getId()) {
+			result.setMin(startYearStr + "/01/01");
+			result.setMax(endYearStr + "/12/31");
+		}
+		else {
+			result.setMin(startYearStr + "/" +monthFormat.format(this.productRequest.getMonth().getId())+ "/01");
+			result.setMax(endYearStr + "/" +monthFormat.format(this.productRequest.getMonth().getId())+ "/28");
+		}
+		
+		result.setStep(this.productRequest.getMonth().getTimeStep());
+		
 		return result;
 		
 	}

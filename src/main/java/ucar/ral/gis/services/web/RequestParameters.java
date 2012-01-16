@@ -23,8 +23,8 @@ public class RequestParameters {
 	
 	private Month month = Months.getMonth("0");
 	
-	private String startDate = "1870/01/01";
-	private String endDate = "1870/12/31";
+	private Integer startYear = 1870;
+	private Integer endYear = 1870;
 	
 	
 
@@ -110,20 +110,20 @@ public class RequestParameters {
 		this.month = month;
 	}
 
-	public String getStartDate() {
-		return startDate;
+	public Integer getStartYear() {
+		return startYear;
 	}
 
-	public void setStartDate(String startDate) {
-		this.startDate = startDate;
+	public void setStartYear(Integer startYear) {
+		this.startYear = startYear;
 	}
 
-	public String getEndDate() {
-		return endDate;
+	public Integer getEndYear() {
+		return endYear;
 	}
 
-	public void setEndDate(String endDate) {
-		this.endDate = endDate;
+	public void setEndYear(Integer endYear) {
+		this.endYear = endYear;
 	}
 		
 
