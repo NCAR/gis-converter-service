@@ -20,7 +20,7 @@ public class ZipArchiveProcessor implements Processor {
 		
 		try {
 			// Initiate ZipFile object with the path/name of the zip file.
-			ZipFile zipFile = new ZipFile(conversionRequest.getOutputFile().getParent() + "/result.zip");
+			ZipFile zipFile = new ZipFile(conversionRequest.getWorkDirectory() + "/result.zip");
 		
 			// Initiate Zip Parameters which define various properties such
 			// as compression method, etc.

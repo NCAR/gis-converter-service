@@ -13,7 +13,10 @@ public class ConversionRequestImpl implements ConversionRequest {
 	
 	private RequestParameters productRequest;
 	private File dataFile;
+	
 	private File outputDirectory;
+	private File workDirectory;
+	
 	private OutputStream outputStream;
 	private OutputType outputType;
 	
@@ -24,6 +27,8 @@ public class ConversionRequestImpl implements ConversionRequest {
 		this.outputType = outputType;
 	}
 	
+	
+	
 	public OutputType getOutputType() {
 		return outputType;
 	}
@@ -31,6 +36,20 @@ public class ConversionRequestImpl implements ConversionRequest {
 	public OutputStream getOutputStream() {
 		return outputStream;
 	}
+
+	
+	
+	public File getWorkDirectory() {
+		return workDirectory;
+	}
+
+
+
+	public void setWorkDirectory(File workDirectory) {
+		this.workDirectory = workDirectory;
+	}
+
+
 
 	public void setDataFile(File dataFile) {
 		this.dataFile = dataFile;
@@ -62,7 +81,7 @@ public class ConversionRequestImpl implements ConversionRequest {
 
 	public AxisConstraint2<String> getTimeConstraint() {	
 		
-		AxisConstraint2<String> result = new AxisConstraint2<String>(this.productRequest.getStartDate(), this.productRequest.getEndDate(), this.productRequest.getMonth());
+		AxisConstraint2<String> result = new AxisConstraint2<String>(this.productRequest.getStartDate(), this.productRequest.getEndDate(), this.productRequest.getMonth().getTimeStep());
 		return result;
 		
 	}

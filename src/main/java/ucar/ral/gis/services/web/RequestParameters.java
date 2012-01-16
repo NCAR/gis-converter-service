@@ -3,6 +3,8 @@ package ucar.ral.gis.services.web;
 import ucar.ral.gis.services.EnsembleMember;
 import ucar.ral.gis.services.Resolution;
 import ucar.ral.gis.services.TemporalResolution;
+import edu.ucar.gis.ipcc.Month;
+import edu.ucar.gis.ipcc.Months;
 
 
 public class RequestParameters {
@@ -19,10 +21,10 @@ public class RequestParameters {
 	private Float ymin = -90.0F;
 	private Float ymax = 90.0F;
 	
-	private Integer month = 0;
+	private Month month = Months.getMonth("0");
 	
 	private String startDate = "1870/01/01";
-	private String endDate = "1870/01/01";
+	private String endDate = "1870/12/31";
 	
 	
 
@@ -100,11 +102,11 @@ public class RequestParameters {
 		this.ymax = ymax;
 	}
 
-	public Integer getMonth() {
+	public Month getMonth() {
 		return month;
 	}
 
-	public void setMonth(Integer month) {
+	public void setMonth(Month month) {
 		this.month = month;
 	}
 

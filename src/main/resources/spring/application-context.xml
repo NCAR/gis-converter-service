@@ -25,6 +25,9 @@
 		
 	</bean>	
 	
+	
+	<bean id="string2MonthConverter" class="ucar.ral.gis.services.converters.String2MonthConverter" />
+	
 	<bean id="string2ScaleConverter" class="ucar.ral.gis.services.converters.String2ScaleConverter">
 		<constructor-arg>
 			<map>
@@ -55,6 +58,7 @@
                 <ref bean="string2ScaleConverter" />
                 <ref bean="ensembleMemberConverter" />
                 <ref bean="string2TemporalResolutionConverter" />
+                <ref bean="string2MonthConverter" />
             </set>
         </property>
         <property name="formatters">
@@ -106,7 +110,9 @@
 	<bean id="shapefileConversionProcessor" class="ucar.ral.gis.services.pipeline.ShapefileConversionProcessor" />
 	<bean id="textfileConversionProcessor" class="ucar.ral.gis.services.pipeline.TextfileConversionProcessor" />
 	
-	<bean id="outputFileProcessor" class="ucar.ral.gis.services.pipeline.OutputFileProcessor" />
+	<bean id="outputFileProcessor" class="ucar.ral.gis.services.pipeline.OutputFileProcessor" >
+		<constructor-arg index="0" value="/home/wilhelmi/test" />
+	</bean>
 	
 	<bean id="zipArchiveProcessor" class="ucar.ral.gis.services.pipeline.ZipArchiveProcessor" />
 	
