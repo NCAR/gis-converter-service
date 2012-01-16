@@ -77,11 +77,13 @@ public class DataFileFactory {
 			// Pull it from the scenario map
 			String scenarioDirectory = this.scenarioDirectoryMap.get(productRequest.getScenario());
 			productDirectory = scenarioDirectory;
+			
+			if(productRequest.getEnsemble() instanceof RunMember) {
+				productDirectory += "/A1/" + productRequest.getEnsemble().getName();
+			}
 		}
 		
-		if(productRequest.getEnsemble() instanceof RunMember) {
-			productDirectory += "/A1/" + productRequest.getEnsemble().getName();
-		}
+		
 		
 		File result = new File(this.baseDirectory, productDirectory);
 		
