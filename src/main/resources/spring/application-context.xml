@@ -31,8 +31,8 @@
 	<bean id="string2ScaleConverter" class="ucar.ral.gis.services.converters.String2ScaleConverter">
 		<constructor-arg>
 			<map>
-				<entry key="d"> <util:constant static-field="ucar.ral.gis.services.Resolution.DOWNSCALED"/> </entry>
-				<entry key="g"> <util:constant static-field="ucar.ral.gis.services.Resolution.GLOBAL"/> </entry>
+				<entry key="downscaled"> <util:constant static-field="ucar.ral.gis.services.Resolution.DOWNSCALED"/> </entry>
+				<entry key="global"> <util:constant static-field="ucar.ral.gis.services.Resolution.GLOBAL"/> </entry>
 			</map>
 		</constructor-arg>
 	</bean>
