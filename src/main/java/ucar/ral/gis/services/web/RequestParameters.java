@@ -1,6 +1,9 @@
 package ucar.ral.gis.services.web;
 
 import ucar.ral.gis.services.EnsembleMember;
+import ucar.ral.gis.services.Period;
+import ucar.ral.gis.services.ProjectionSeason;
+import ucar.ral.gis.services.ProjectionTerm;
 import ucar.ral.gis.services.Resolution;
 import ucar.ral.gis.services.TemporalResolution;
 import edu.ucar.gis.ipcc.Month;
@@ -26,7 +29,35 @@ public class RequestParameters {
 	private Integer startYear = 1870;
 	private Integer endYear = 1870;
 	
+	private Period period;
+	private ProjectionTerm term;
+	private ProjectionSeason season;
 	
+	
+
+	public Period getPeriod() {
+		return period;
+	}
+
+	public void setPeriod(Period period) {
+		this.period = period;
+	}
+
+	public ProjectionTerm getTerm() {
+		return term;
+	}
+
+	public void setTerm(ProjectionTerm term) {
+		this.term = term;
+	}
+
+	public ProjectionSeason getSeason() {
+		return season;
+	}
+
+	public void setSeason(ProjectionSeason season) {
+		this.season = season;
+	}
 
 	public Resolution getScale() {
 		return scale;

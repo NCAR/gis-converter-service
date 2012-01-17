@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileFilter;
 import java.util.Map;
 
+import org.apache.commons.io.IOCase;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
 
 import ucar.ral.gis.services.web.RequestParameters;
@@ -47,21 +48,25 @@ public class DataFileFactory {
 		//tasmin_A1.20C3M_1.CCSM.atmm.1870-01_cat_1999-12.nc
 		String fileNamePattern = productRequest.getVariable() + "_";
 		
-		fileNamePattern += productRequest.getEnsemble().getName() + "_";
+		//fileNamePattern += productRequest.getEnsemble().getName() + "_";
 		
 		if(productRequest.getTemporalres() == TemporalResolution.ANNUAL_MEAN) {
-			fileNamePattern += productRequest.getEnsemble().getName() + "annual_avg_";
+			fileNamePattern += productRequest.getScenario() + "_annual_avg";
 		} 
 		else if(productRequest.getTemporalres() == TemporalResolution.LONGTERM_AVERAGE) {
 			fileNamePattern += productRequest.getEnsemble().getName() + "annual_avg_";
 		}
 		
-		String wildCardPattern = fileNamePattern.format(fileNamePattern, productRequest.getVariable(), this.scenarioDirectoryMap.get(productRequest.getScale()));
 		
-		File files = findFile(searchDirectory, wildCardPattern);
+//		File result = new File(searchDirectory, fileNamePattern + ".nc");
+		
+		File result = findFile(searchDirectory, fileNamePattern + ".nc");
 		
 		
-		return files;
+		System.out.println("File: " + result.getAbsolutePath() + ", exists: " + result.exists());
+	
+		
+		return result;
 	}
 	
 	public File findMonthlyDataFile(RequestParameters productRequest) {
@@ -103,7 +108,7 @@ public class DataFileFactory {
 		System.out.println("Searching directory: " + directory.getAbsolutePath() + " using: " + wildCardPattern );
 		
 		//File dir = new File(".");
-		 FileFilter fileFilter = new WildcardFileFilter(wildCardPattern);
+		 FileFilter fileFilter = new WildcardFileFilter(wildCardPattern, IOCase.INSENSITIVE);
 		 File[] files = directory.listFiles(fileFilter);
 		 for (int i = 0; i < files.length; i++) {
 		   System.out.println(files[i]);

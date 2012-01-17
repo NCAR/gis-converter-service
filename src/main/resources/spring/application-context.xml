@@ -26,6 +26,10 @@
 	</bean>	
 	
 	
+	<bean id="string2ProjectionPeriodConverter" class="ucar.ral.gis.services.converters.String2PeriodConverter" />
+	<bean id="string2ProjectionSeasonConverter" class="ucar.ral.gis.services.converters.String2ProjectionSeasonConverter" />
+	<bean id="string2ProjectionTermConverter" class="ucar.ral.gis.services.converters.String2ProjectionTermConverter" />
+	
 	<bean id="string2MonthConverter" class="ucar.ral.gis.services.converters.String2MonthConverter" />
 	
 	<bean id="string2ScaleConverter" class="ucar.ral.gis.services.converters.String2ScaleConverter">
@@ -59,6 +63,9 @@
                 <ref bean="ensembleMemberConverter" />
                 <ref bean="string2TemporalResolutionConverter" />
                 <ref bean="string2MonthConverter" />
+                <ref bean="string2ProjectionSeasonConverter" />
+                <ref bean="string2ProjectionTermConverter" />
+                <ref bean="string2ProjectionPeriodConverter" />
             </set>
         </property>
         <property name="formatters">
@@ -70,8 +77,6 @@
             </set>
         </property>
     </bean>
-	
-
 	
 	<bean id="dataFileFactory" class="ucar.ral.gis.services.DataFileFactory" >
 		<constructor-arg index="0" value="${data.root.directory}" />
