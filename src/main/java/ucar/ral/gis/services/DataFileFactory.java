@@ -7,7 +7,7 @@ import java.util.Map;
 import org.apache.commons.io.IOCase;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
 
-import ucar.ral.gis.services.web.RequestParameters;
+import ucar.ral.gis.services.web.MonthlyMeanParameters;
 
 public class DataFileFactory {
 	
@@ -22,9 +22,9 @@ public class DataFileFactory {
 		this.scenarioDirectoryMap = scenarioDirectoryMap;
 	}
 	
-	public File findDataFile(RequestParameters productRequest) {
+	public File findDataFile(MonthlyMeanParameters productRequest) {
 		
-		if(productRequest.getTemporalres() == TemporalResolution.MONTHLY_MEAN) {
+		if(productRequest.getTemporalResolution() == TemporalResolution.MONTHLY_MEAN) {
 			return this.findMonthlyDataFile(productRequest);
 		}
 		else {
@@ -33,7 +33,7 @@ public class DataFileFactory {
 	}
 	
 	
-	public File findProductDataFile(RequestParameters productRequest) {
+	public File findProductDataFile(MonthlyMeanParameters productRequest) {
 		
 		
 		// FIXME - Inject this!
@@ -50,11 +50,15 @@ public class DataFileFactory {
 		
 		//fileNamePattern += productRequest.getEnsemble().getName() + "_";
 		
-		if(productRequest.getTemporalres() == TemporalResolution.ANNUAL_MEAN) {
+		if(productRequest.getTemporalResolution() == TemporalResolution.ANNUAL_MEAN) {
 			fileNamePattern += productRequest.getScenario() + "_annual_avg";
 		} 
-		else if(productRequest.getTemporalres() == TemporalResolution.LONGTERM_AVERAGE) {
-			fileNamePattern += productRequest.getEnsemble().getName() + "annual_avg_";
+		else if(productRequest.getTemporalResolution() == TemporalResolution.LONGTERM_AVERAGE) {
+			fileNamePattern += productRequest.getScenario() + "_" + productRequest.getTerm() + "_" + productRequest.getPeriod() ;
+		}
+		
+		if(productRequest.getScale() == Resolution.DOWNSCALED) {
+			fileNamePattern += "_down";
 		}
 		
 		
@@ -69,7 +73,7 @@ public class DataFileFactory {
 		return result;
 	}
 	
-	public File findMonthlyDataFile(RequestParameters productRequest) {
+	public File findMonthlyDataFile(MonthlyMeanParameters productRequest) {
 		
 		//http://commons.apache.org/io/api-release/org/apache/commons/io/filefilter/WildcardFileFilter.html
 		

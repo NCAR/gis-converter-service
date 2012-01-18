@@ -10,6 +10,8 @@
  	<import resource="classpath:default-servlet-context.xml" /> 
 	<import resource="classpath:infrastructure-context.xml" />
 	
+	<bean id="outputFilenameFactory" class="ucar.ral.gis.services.OutputFileNameFactory" />
+	
 	<bean id="propertyConfigurer" class="sgf.spring.extensions.LoggingPropertyPlaceholderConfigurer">
 		<constructor-arg index="0">
 			<set>
@@ -117,6 +119,7 @@
 	
 	<bean id="outputFileProcessor" class="ucar.ral.gis.services.pipeline.OutputFileProcessor" >
 		<constructor-arg index="0" value="${conversion.work.directory}" />
+		<constructor-arg index="1" ref="outputFilenameFactory" />
 	</bean>
 	
 	<bean id="zipArchiveProcessor" class="ucar.ral.gis.services.pipeline.ZipArchiveProcessor" />
@@ -124,7 +127,7 @@
 	
 	
 	<bean id="convertNetCDF2Shapefile" class="ucar.ral.gis.services.web.NetCDF2Shapefile" >
-		<constructor-arg index="0" ref="dataFileFactory" />
+		<constructor-arg index="0" ref="outputFilenameFactory" />
 		<constructor-arg index="1" ref="conversionProcessor" />
 		
 	</bean>

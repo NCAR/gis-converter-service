@@ -5,7 +5,8 @@ import java.io.OutputStream;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
-import ucar.ral.gis.services.web.RequestParameters;
+import ucar.ral.gis.services.web.BaseParameters;
+import ucar.ral.gis.services.web.MonthlyMeanParameters;
 import edu.ucar.gis.ipcc.ConversionRequest;
 import edu.ucar.gis.ipcc.model.netcdf2gis.AxisConstraint2;
 import edu.ucar.gis.ipcc.model.netcdf2gis.Latitude;
@@ -17,7 +18,7 @@ public class ConversionRequestImpl implements ConversionRequest {
 	private static final NumberFormat yearFormat = new DecimalFormat("0000");
 	
 	
-	private RequestParameters productRequest;
+	private MonthlyMeanParameters productRequest;
 	private File dataFile;
 	
 	private File outputDirectory;
@@ -26,7 +27,7 @@ public class ConversionRequestImpl implements ConversionRequest {
 	private OutputStream outputStream;
 	private OutputType outputType;
 	
-	public ConversionRequestImpl(RequestParameters productRequest, OutputStream outputStream, OutputType outputType) {
+	public ConversionRequestImpl(MonthlyMeanParameters productRequest, OutputStream outputStream, OutputType outputType) {
 		super();
 		this.productRequest = productRequest;
 		this.outputStream = outputStream;
@@ -121,10 +122,9 @@ public class ConversionRequestImpl implements ConversionRequest {
 	
 	}
 
-	public RequestParameters getProductRequest() {
+	public BaseParameters getProductRequest() {
 		return productRequest;
 	}
-	
 	
 
 }

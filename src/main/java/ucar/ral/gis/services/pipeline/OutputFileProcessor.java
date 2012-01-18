@@ -4,20 +4,23 @@ import java.io.File;
 import java.util.UUID;
 
 import ucar.ral.gis.services.ConversionRequestImpl;
-import ucar.ral.gis.services.OutputFilename;
+import ucar.ral.gis.services.OutputFileNameFactory;
 
 public class OutputFileProcessor implements Processor {
 	
 	private File scratchDirectory;
+	private OutputFileNameFactory outputFileNameFactory;
 	
-	public OutputFileProcessor(File scratchDirectory) {
+	
+	public OutputFileProcessor(File scratchDirectory, OutputFileNameFactory outputFileNameFactory) {
 		super();
 		this.scratchDirectory = scratchDirectory;
+		this.outputFileNameFactory = outputFileNameFactory;
 	}
 
 	public void process(ConversionRequestImpl conversionRequest) {
 		
-		OutputFilename outputFilename = new OutputFilename(conversionRequest.getProductRequest());
+		String outputFilename = this.outputFileNameFactory.create(conversionRequest.getProductRequest());
 		
 		
 		File workDirectory = new File(this.scratchDirectory, UUID.randomUUID().toString());
@@ -25,7 +28,7 @@ public class OutputFileProcessor implements Processor {
 		
 		outputDirectory.mkdirs();
 		
-		File outputFile = new File(outputDirectory, outputFilename.getName() + conversionRequest.getOutputType().getFileExtension());
+		File outputFile = new File(outputDirectory, outputFilename + "." + conversionRequest.getOutputType().getFileExtension());
 		
 		conversionRequest.setWorkDirectory(workDirectory);
 		conversionRequest.setOutputDirectory(outputFile);
