@@ -12,6 +12,13 @@
 
 <body>
 
+Monthly Mean Product Request Details:
+
+Resolution: ${}<br>
+Variable: ${}<br>
+Scenario: ${}<br>
+Ensemble: ${}<br>
+
 Requested File: ${filePath}<br>
 File Exists: ${fileAvailable}<br>
 

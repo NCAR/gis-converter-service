@@ -37,6 +37,12 @@ public class MonthlyMeanConversionRequestImpl implements ConversionRequestMessag
 		this.dataFile = dataFile;
 	}
 	
+	public File getDataFile() {
+		return dataFile;
+	}
+
+	
+	// FIXME - Just return the file instance
 	public String getDataFileName() {
 		
 		return this.dataFile.getAbsolutePath();

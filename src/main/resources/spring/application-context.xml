@@ -93,6 +93,15 @@
 		</constructor-arg>
 	</bean>
 	
+	<bean id="debugInputProcessor" class="ucar.ral.gis.services.pipeline.Pipeline" >
+		<constructor-arg index="0">
+			<list>
+				<ref bean="sourceDatafileProcessor"/>
+			</list>
+		</constructor-arg>
+	
+	</bean>
+	
 	<bean id="conversionProcessor" class="ucar.ral.gis.services.pipeline.Pipeline" >
 		<constructor-arg index="0">
 			<list>
@@ -129,7 +138,7 @@
 	<bean id="convertNetCDF2Shapefile" class="ucar.ral.gis.services.web.NetCDF2Shapefile" >
 		<constructor-arg index="0" ref="outputFilenameFactory" />
 		<constructor-arg index="1" ref="conversionProcessor" />
-		
+		<constructor-arg index="2" ref="debugInputProcessor" />
 	</bean>
 	
 </beans>

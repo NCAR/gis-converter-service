@@ -6,6 +6,7 @@ import java.util.concurrent.ExecutionException;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -20,17 +21,33 @@ import ucar.ral.gis.services.pipeline.Processor;
 public class NetCDF2Shapefile {
 	
 	private Processor shapefileProcessor;
+	private Processor debugProcessor;
 	
 	private OutputFileNameFactory outputFileNameFactory;
 	
 	
-	public NetCDF2Shapefile(OutputFileNameFactory outputFileNameFactory, Processor shapefileProcessor) {
+	public NetCDF2Shapefile(OutputFileNameFactory outputFileNameFactory, Processor shapefileProcessor, Processor debugProcessor) {
 		super();
 		this.outputFileNameFactory = outputFileNameFactory;
 		this.shapefileProcessor = shapefileProcessor;
+		this.debugProcessor = debugProcessor;
 	}
 
-	@RequestMapping(value="/{scale}/{variable}/{scenario}/{ensemble}/mome.shp")
+	@RequestMapping(value="/{scale}/{variable}/{scenario}/{ensemble}/{month}/{startYear}/{endYear}")
+	public ModelAndView monthlyMeanToShapefileDiagnostics(MonthlyMeanParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
+		
+		MonthlyMeanConversionRequestImpl conversionRequestMessage = new MonthlyMeanConversionRequestImpl(requestParameters, null);
+		
+		this.debugProcessor.process(conversionRequestMessage);
+		
+		ModelMap modelMap = new ModelMap("conversionRequest", conversionRequestMessage);
+		modelMap.addAttribute("dataFileExists", conversionRequestMessage.getDataFile().exists());
+		
+		
+		return new ModelAndView("validate-monthly-mean", modelMap); 
+	}
+	
+	@RequestMapping(value="/{scale}/{variable}/{scenario}/{ensemble}/{month}/{startYear}/{endYear}.shp")
 	public ModelAndView convertMonthlyMeanToShapefile(MonthlyMeanParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
 		
 		requestParameters.setOutputType(OutputType.SHAPE);
@@ -40,7 +57,7 @@ public class NetCDF2Shapefile {
 		return null; 
 	}
 	
-	@RequestMapping(value="/{scale}/{variable}/{scenario}/{ensemble}/mome.txt")
+	@RequestMapping(value="/{scale}/{variable}/{scenario}/{ensemble}/{month}/{startYear}/{endYear}.txt")
 	public ModelAndView convertMonthlyMeanToTextfile(MonthlyMeanParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
 		
 		requestParameters.setOutputType(OutputType.TEXT);
@@ -49,6 +66,9 @@ public class NetCDF2Shapefile {
 		
 		return null;
 	}
+	
+	///
+	
 	
 	@RequestMapping(value="/{scale}/{variable}/{scenario}/{ensemble}/anme.shp")
 	public ModelAndView convertAnnualMeanToShapefile(DerivedProductParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
