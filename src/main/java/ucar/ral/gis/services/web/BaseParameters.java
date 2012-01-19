@@ -1,5 +1,6 @@
 package ucar.ral.gis.services.web;
 
+import ucar.ral.gis.services.OutputType;
 import ucar.ral.gis.services.Resolution;
 import ucar.ral.gis.services.TemporalResolution;
 
@@ -9,6 +10,7 @@ public class BaseParameters {
 	protected String variable;
 	protected String scenario;
 	protected TemporalResolution temporalResolution;
+	protected OutputType outputType;
 	protected Float xmin = -180.0F;
 	protected Float xmax = 180.0F;
 	protected Float ymin = -90.0F;
@@ -80,6 +82,14 @@ public class BaseParameters {
 
 	public void setYmax(Float ymax) {
 		this.ymax = ymax;
+	}
+
+	public OutputType getOutputType() {
+		return outputType;
+	}
+
+	public void setOutputType(OutputType outputType) {
+		this.outputType = outputType;
 	}
 	
 	

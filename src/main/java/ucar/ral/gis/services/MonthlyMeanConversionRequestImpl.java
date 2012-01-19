@@ -5,6 +5,8 @@ import java.io.OutputStream;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
+import ucar.ral.gis.services.messages.ConversionOutput;
+import ucar.ral.gis.services.messages.ConversionRequestMessage;
 import ucar.ral.gis.services.web.BaseParameters;
 import ucar.ral.gis.services.web.MonthlyMeanParameters;
 import edu.ucar.gis.ipcc.ConversionRequest;
@@ -12,7 +14,7 @@ import edu.ucar.gis.ipcc.model.netcdf2gis.AxisConstraint2;
 import edu.ucar.gis.ipcc.model.netcdf2gis.Latitude;
 import edu.ucar.gis.ipcc.model.netcdf2gis.Longitude;
 
-public class ConversionRequestImpl implements ConversionRequest {
+public class MonthlyMeanConversionRequestImpl implements ConversionRequestMessage, ConversionRequest {
 	
 	private static final NumberFormat monthFormat = new DecimalFormat("00");
 	private static final NumberFormat yearFormat = new DecimalFormat("0000");
@@ -21,61 +23,20 @@ public class ConversionRequestImpl implements ConversionRequest {
 	private MonthlyMeanParameters productRequest;
 	private File dataFile;
 	
-	private File outputDirectory;
-	private File workDirectory;
 	
-	private OutputStream outputStream;
-	private OutputType outputType;
+	private ConversionOutput conversionOutput;
 	
-	public ConversionRequestImpl(MonthlyMeanParameters productRequest, OutputStream outputStream, OutputType outputType) {
+	public MonthlyMeanConversionRequestImpl(MonthlyMeanParameters productRequest, OutputStream outputStream) {
 		super();
 		this.productRequest = productRequest;
-		this.outputStream = outputStream;
-		this.outputType = outputType;
+		
+		this.conversionOutput = new ConversionOutput(outputStream);
 	}
 	
-	
-	
-	public OutputType getOutputType() {
-		return outputType;
-	}
-
-	public OutputStream getOutputStream() {
-		return outputStream;
-	}
-
-	
-	
-	public File getWorkDirectory() {
-		return workDirectory;
-	}
-
-
-
-	public void setWorkDirectory(File workDirectory) {
-		this.workDirectory = workDirectory;
-	}
-
-
-
 	public void setDataFile(File dataFile) {
 		this.dataFile = dataFile;
 	}
-
-	public void setOutputDirectory(File outputDirectory) {
-		this.outputDirectory = outputDirectory;
-	}
-
-	public String getOutputFileName() {
-		
-		return this.outputDirectory.getAbsolutePath();
-	}
 	
-	public File getOutputFile() {
-		
-		return this.outputDirectory;
-	}
-
 	public String getDataFileName() {
 		
 		return this.dataFile.getAbsolutePath();
@@ -122,7 +83,20 @@ public class ConversionRequestImpl implements ConversionRequest {
 	
 	}
 
-	public BaseParameters getProductRequest() {
+	public String getOutputFileName() {
+		
+		return this.conversionOutput.getOutputFile().getAbsolutePath();
+	}
+
+	public ConversionOutput getConversionOutput() {
+		
+		return this.conversionOutput;
+	}
+
+
+
+
+	public BaseParameters getParameters() {
 		return productRequest;
 	}
 	

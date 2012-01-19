@@ -2,8 +2,8 @@ package ucar.ral.gis.services.pipeline;
 
 import java.io.File;
 
-import ucar.ral.gis.services.ConversionRequestImpl;
-import edu.ucar.gis.ipcc.model.netcdf2gis.CCSM2ShapeFileConverter;
+import ucar.ral.gis.services.messages.ConversionRequestMessage;
+import edu.ucar.gis.ipcc.ConversionRequest;
 import edu.ucar.gis.ipcc.model.netcdf2gis.CCSM2TextFileConverter;
 import edu.ucar.gis.ipcc.model.netcdf2gis.ExtractionResults;
 
@@ -13,13 +13,13 @@ public class TextfileConversionProcessor implements Processor {
 		super();
 	}
 
-	public void process(ConversionRequestImpl conversionRequest) {
+	public void process(ConversionRequestMessage conversionRequest) {
 		
 		try {
 		
-			File outputFile = new File(conversionRequest.getOutputFileName());
+			File outputFile = conversionRequest.getConversionOutput().getOutputFile();
 			
-			CCSM2TextFileConverter converter = new CCSM2TextFileConverter(conversionRequest, outputFile);
+			CCSM2TextFileConverter converter = new CCSM2TextFileConverter((ConversionRequest) conversionRequest, outputFile);
 			
 			ExtractionResults results = converter.execute();
 		

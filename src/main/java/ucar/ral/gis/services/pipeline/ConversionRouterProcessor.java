@@ -1,7 +1,7 @@
 package ucar.ral.gis.services.pipeline;
 
-import ucar.ral.gis.services.ConversionRequestImpl;
 import ucar.ral.gis.services.OutputType;
+import ucar.ral.gis.services.messages.ConversionRequestMessage;
 
 public class ConversionRouterProcessor implements Processor {
 	
@@ -15,9 +15,9 @@ public class ConversionRouterProcessor implements Processor {
 		this.textFileProcessor = textFileProcessor;
 	}
 
-	public void process(ConversionRequestImpl conversionRequest) {
+	public void process(ConversionRequestMessage conversionRequest) {
 		
-		if(conversionRequest.getOutputType() == OutputType.SHAPE) {
+		if(conversionRequest.getParameters().getOutputType() == OutputType.SHAPE) {
 			this.shapeFileProcessor.process(conversionRequest);
 		} 
 		else {

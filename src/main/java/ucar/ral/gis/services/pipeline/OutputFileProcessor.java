@@ -3,8 +3,11 @@ package ucar.ral.gis.services.pipeline;
 import java.io.File;
 import java.util.UUID;
 
-import ucar.ral.gis.services.ConversionRequestImpl;
+import ucar.ral.gis.services.MonthlyMeanConversionRequestImpl;
 import ucar.ral.gis.services.OutputFileNameFactory;
+import ucar.ral.gis.services.messages.ConversionOutput;
+import ucar.ral.gis.services.messages.ConversionRequestMessage;
+import ucar.ral.gis.services.web.BaseParameters;
 
 public class OutputFileProcessor implements Processor {
 	
@@ -18,9 +21,11 @@ public class OutputFileProcessor implements Processor {
 		this.outputFileNameFactory = outputFileNameFactory;
 	}
 
-	public void process(ConversionRequestImpl conversionRequest) {
+	public void process(ConversionRequestMessage conversionRequest) {
 		
-		String outputFilename = this.outputFileNameFactory.create(conversionRequest.getProductRequest());
+		BaseParameters parameters = conversionRequest.getParameters();
+		
+		String outputFilename = this.outputFileNameFactory.create(parameters);
 		
 		
 		File workDirectory = new File(this.scratchDirectory, UUID.randomUUID().toString());
@@ -28,12 +33,13 @@ public class OutputFileProcessor implements Processor {
 		
 		outputDirectory.mkdirs();
 		
-		File outputFile = new File(outputDirectory, outputFilename + "." + conversionRequest.getOutputType().getFileExtension());
+		File outputFile = new File(outputDirectory, outputFilename + "." + parameters.getOutputType().getFileExtension());
 		
-		conversionRequest.setWorkDirectory(workDirectory);
-		conversionRequest.setOutputDirectory(outputFile);
+		ConversionOutput conversionOutput = conversionRequest.getConversionOutput();
 		
-
+		conversionOutput.setWorkingDirectory(workDirectory);
+		conversionOutput.setOutputFile(outputFile);
+		
 	}
 
 }

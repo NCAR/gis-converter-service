@@ -2,8 +2,9 @@ package ucar.ral.gis.services.pipeline;
 
 import java.io.File;
 
-import ucar.ral.gis.services.ConversionRequestImpl;
+import ucar.ral.gis.services.MonthlyMeanConversionRequestImpl;
 import ucar.ral.gis.services.DataFileFactory;
+import ucar.ral.gis.services.messages.ConversionRequestMessage;
 import ucar.ral.gis.services.web.MonthlyMeanParameters;
 
 public class SourceDatafileProcessor implements Processor {
@@ -15,9 +16,9 @@ public class SourceDatafileProcessor implements Processor {
 		this.dataFileFactory = dataFileFactory;
 	}
 
-	public void process(ConversionRequestImpl conversionRequest) {
+	public void process(ConversionRequestMessage conversionRequest) {
 		
-		File dataFile = this.dataFileFactory.findDataFile((MonthlyMeanParameters) conversionRequest.getProductRequest());
+		File dataFile = this.dataFileFactory.findDataFile(conversionRequest.getParameters());
 		
 		conversionRequest.setDataFile(dataFile);
 

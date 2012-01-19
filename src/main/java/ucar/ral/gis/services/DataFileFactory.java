@@ -7,6 +7,8 @@ import java.util.Map;
 import org.apache.commons.io.IOCase;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
 
+import ucar.ral.gis.services.web.BaseParameters;
+import ucar.ral.gis.services.web.DerivedProductParameters;
 import ucar.ral.gis.services.web.MonthlyMeanParameters;
 
 public class DataFileFactory {
@@ -22,18 +24,18 @@ public class DataFileFactory {
 		this.scenarioDirectoryMap = scenarioDirectoryMap;
 	}
 	
-	public File findDataFile(MonthlyMeanParameters productRequest) {
+	public File findDataFile(BaseParameters productRequest) {
 		
-		if(productRequest.getTemporalResolution() == TemporalResolution.MONTHLY_MEAN) {
-			return this.findMonthlyDataFile(productRequest);
+		if(productRequest instanceof MonthlyMeanParameters) {
+			return this.findMonthlyDataFile((MonthlyMeanParameters) productRequest);
 		}
 		else {
-			return this.findProductDataFile(productRequest);
+			return this.findProductDataFile((DerivedProductParameters) productRequest);
 		}
 	}
 	
 	
-	public File findProductDataFile(MonthlyMeanParameters productRequest) {
+	public File findProductDataFile(DerivedProductParameters productRequest) {
 		
 		
 		// FIXME - Inject this!
