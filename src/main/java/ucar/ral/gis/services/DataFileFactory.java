@@ -53,7 +53,12 @@ public class DataFileFactory {
 		//fileNamePattern += productRequest.getEnsemble().getName() + "_";
 		
 		if(productRequest.getTemporalResolution() == TemporalResolution.ANNUAL_MEAN) {
-			fileNamePattern += productRequest.getScenario() + "_annual_avg";
+			if(productRequest.getVariable().equalsIgnoreCase("tas")) {
+				fileNamePattern += productRequest.getScenario() + "_annual_avg";
+			}
+			else {
+				fileNamePattern += productRequest.getScenario() + "_annual_sum";
+			}
 		} 
 		else if(productRequest.getTemporalResolution() == TemporalResolution.LONGTERM_AVERAGE) {
 			fileNamePattern += productRequest.getScenario() + "_" + productRequest.getTerm() + "_" + productRequest.getPeriod() ;

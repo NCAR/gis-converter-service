@@ -38,8 +38,11 @@ public class DerivedProductConversionRequestImpl implements ConversionRequestMes
 	public void setDataFile(File dataFile) {
 		this.dataFile = dataFile;
 	}
-
 	
+	public File getDataFile() {
+		return dataFile;
+	}
+
 	public String getDataFileName() {
 		
 		return this.dataFile.getAbsolutePath();
