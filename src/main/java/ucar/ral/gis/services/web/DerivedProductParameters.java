@@ -15,7 +15,7 @@ public class DerivedProductParameters extends BaseParameters {
 	private Integer endYear = 1870;
 	
 	private Period period;
-	private ProjectionTerm term;
+	private String term;
 	private ProjectionSeason season;
 	
 	
@@ -28,11 +28,11 @@ public class DerivedProductParameters extends BaseParameters {
 		this.period = period;
 	}
 
-	public ProjectionTerm getTerm() {
+	public String getTerm() {
 		return term;
 	}
 
-	public void setTerm(ProjectionTerm term) {
+	public void setTerm(String term) {
 		this.term = term;
 	}
 

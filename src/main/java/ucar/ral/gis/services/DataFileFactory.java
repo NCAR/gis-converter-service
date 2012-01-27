@@ -60,12 +60,16 @@ public class DataFileFactory {
 				fileNamePattern += productRequest.getScenario() + "_annual_sum";
 			}
 		} 
-		else if(productRequest.getTemporalResolution() == TemporalResolution.LONGTERM_AVERAGE) {
-			fileNamePattern += productRequest.getScenario() + "_" + productRequest.getTerm() + "_" + productRequest.getPeriod() ;
+		else if ((productRequest.getTemporalResolution() == TemporalResolution.LONGTERM_AVERAGE) || (productRequest.getTemporalResolution() == TemporalResolution.CLIMATE_ANOMOLY))  {
+			fileNamePattern += productRequest.getScenario() + "_" + productRequest.getSeason() + "_" + productRequest.getPeriod() ;
 		}
 		
 		if(productRequest.getScale() == Resolution.DOWNSCALED) {
 			fileNamePattern += "_down";
+		}
+		
+		if(productRequest.getTemporalResolution() == TemporalResolution.CLIMATE_ANOMOLY) {
+			fileNamePattern += "_anomoly";
 		}
 		
 		

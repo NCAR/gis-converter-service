@@ -108,27 +108,56 @@ public class NetCDF2Shapefile {
 		
 		return null;
 	}
-		
-//	@RequestMapping(value="/{scale}/{variable}/{scenario}/{ensemble}/{temporalResolution}.shp")
-//	public ModelAndView convertToShapefile(MonthlyMeanParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
-//		
-//		requestParameters.setOutputType(OutputType.SHAPE);
-//		
-//		this.convert(new MonthlyMeanConversionRequestImpl(requestParameters, response.getOutputStream()), response);
-//		
-//		return null; 
-//	}
-//	
-//	@RequestMapping(value="/{scale}/{variable}/{scenario}/{ensemble}/{temporalResolution}.txt")
-//	public ModelAndView convertToTextfile(MonthlyMeanParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
-//		
-//		requestParameters.setOutputType(OutputType.TEXT);
-//		
-//		this.convert(new MonthlyMeanConversionRequestImpl(requestParameters, response.getOutputStream()), response);
-//		
-//		return null;
-//	}
 	
+	/**
+	 * 
+	 * timePeriod -> monthly | annual | seasonal
+	 * 
+	 * monthly --> [Jan-Dec] [near, mid, end, last]
+	 * annual --> [annual] [near, mid, end, last]
+	 * seasonal --> [winter, spring, summmer, fall] [near, mid, end, last]
+	 */
+	
+	@RequestMapping(value="/{scale}/{variable}/{scenario}/ltav/{period}/{term}/{season}")
+	public ModelAndView longTermAverageDiagnostics(DerivedProductParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
+		
+		DerivedProductConversionRequestImpl conversionRequestMessage = new DerivedProductConversionRequestImpl(requestParameters, null);
+		
+		// FIXME - Find a better way to deal with this.
+		conversionRequestMessage.getParameters().setTemporalResolution(TemporalResolution.LONGTERM_AVERAGE);
+		
+		this.debugProcessor.process(conversionRequestMessage);
+		
+		ModelMap modelMap = new ModelMap("conversionRequest", conversionRequestMessage);
+		modelMap.addAttribute("dataFileExists", conversionRequestMessage.getDataFile().exists());
+		
+		
+		return new ModelAndView("validate-annual-mean", modelMap); 
+	}
+	
+		
+	@RequestMapping(value="/{scale}/{variable}/{scenario}/ltav/{period}/{term}/{season}.shp")
+	public ModelAndView convertToShapefile(DerivedProductParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
+		
+		requestParameters.setOutputType(OutputType.SHAPE);
+		requestParameters.setTemporalResolution(TemporalResolution.LONGTERM_AVERAGE);
+		
+		this.convert(new DerivedProductConversionRequestImpl(requestParameters, response.getOutputStream()), response);
+		
+		return null; 
+	}
+	
+	@RequestMapping(value="/{scale}/{variable}/{scenario}/ltav/{period}/{month}/{season}.txt")
+	public ModelAndView convertToTextfile(DerivedProductParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
+		
+		requestParameters.setOutputType(OutputType.TEXT);
+		requestParameters.setTemporalResolution(TemporalResolution.LONGTERM_AVERAGE);
+		
+		this.convert(new DerivedProductConversionRequestImpl(requestParameters, response.getOutputStream()), response);
+		
+		return null;
+	}
+
 	
 	
 	
