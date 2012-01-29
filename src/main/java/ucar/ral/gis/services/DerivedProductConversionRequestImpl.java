@@ -11,6 +11,9 @@ import ucar.ral.gis.services.web.BaseParameters;
 import ucar.ral.gis.services.web.DerivedProductParameters;
 import ucar.ral.gis.services.web.MonthlyMeanParameters;
 import edu.ucar.gis.ipcc.ConversionRequest;
+import edu.ucar.gis.ipcc.TimeConstraint;
+import edu.ucar.gis.ipcc.YearMonthTimeConstraint;
+import edu.ucar.gis.ipcc.YearTimeConstraint;
 import edu.ucar.gis.ipcc.model.netcdf2gis.AxisConstraint2;
 import edu.ucar.gis.ipcc.model.netcdf2gis.Latitude;
 import edu.ucar.gis.ipcc.model.netcdf2gis.Longitude;
@@ -54,24 +57,10 @@ public class DerivedProductConversionRequestImpl implements ConversionRequestMes
 		return this.productRequest.getVariable();
 	}
 
-	public AxisConstraint2<String> getTimeConstraint() {	
+	public TimeConstraint getTimeConstraint() {	
 		
-		AxisConstraint2<String> result = new AxisConstraint2<String>();
-		
-		String startYearStr = yearFormat.format(this.productRequest.getStartYear());
-		String endYearStr = yearFormat.format(this.productRequest.getEndYear());
-		
-		if(0 == this.productRequest.getMonth().getId()) {
-			result.setMin(startYearStr + "/01/01");
-			result.setMax(endYearStr + "/12/31");
-		}
-		else {
-			result.setMin(startYearStr + "/" +monthFormat.format(this.productRequest.getMonth().getId())+ "/01");
-			result.setMax(endYearStr + "/" +monthFormat.format(this.productRequest.getMonth().getId())+ "/28");
-		}
-		
-		result.setStep(this.productRequest.getMonth().getTimeStep());
-		
+		TimeConstraint result = new YearTimeConstraint(this.productRequest.getStartYear(), this.productRequest.getEndYear());
+				
 		return result;
 		
 	}

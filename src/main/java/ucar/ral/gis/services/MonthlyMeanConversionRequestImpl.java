@@ -10,6 +10,9 @@ import ucar.ral.gis.services.messages.ConversionRequestMessage;
 import ucar.ral.gis.services.web.BaseParameters;
 import ucar.ral.gis.services.web.MonthlyMeanParameters;
 import edu.ucar.gis.ipcc.ConversionRequest;
+import edu.ucar.gis.ipcc.TimeConstraint;
+import edu.ucar.gis.ipcc.YearMonthTimeConstraint;
+import edu.ucar.gis.ipcc.YearTimeConstraint;
 import edu.ucar.gis.ipcc.model.netcdf2gis.AxisConstraint2;
 import edu.ucar.gis.ipcc.model.netcdf2gis.Latitude;
 import edu.ucar.gis.ipcc.model.netcdf2gis.Longitude;
@@ -53,24 +56,22 @@ public class MonthlyMeanConversionRequestImpl implements ConversionRequestMessag
 		return this.productRequest.getVariable();
 	}
 
-	public AxisConstraint2<String> getTimeConstraint() {	
+	public TimeConstraint getTimeConstraint() {	
 		
-		AxisConstraint2<String> result = new AxisConstraint2<String>();
+		TimeConstraint result = null;
 		
-		String startYearStr = yearFormat.format(this.productRequest.getStartYear());
-		String endYearStr = yearFormat.format(this.productRequest.getEndYear());
+		// Figure out if we are getting all or selected months.
 		
-		if(0 == this.productRequest.getMonth().getId()) {
-			result.setMin(startYearStr + "/01/01");
-			result.setMax(endYearStr + "/12/31");
+		// Do all months first
+		if (0 == this.productRequest.getMonth().getTimeStep()) {
+			
+			result = new YearTimeConstraint(this.productRequest.getStartYear(), this.productRequest.getEndYear());
 		}
 		else {
-			result.setMin(startYearStr + "/" +monthFormat.format(this.productRequest.getMonth().getId())+ "/01");
-			result.setMax(endYearStr + "/" +monthFormat.format(this.productRequest.getMonth().getId())+ "/28");
+			// WARNING the month is 0 based!!!!
+			result = new YearMonthTimeConstraint(this.productRequest.getStartYear(), this.productRequest.getEndYear(), this.productRequest.getMonth().getTimeStep()-1);
 		}
-		
-		result.setStep(this.productRequest.getMonth().getTimeStep());
-		
+				
 		return result;
 		
 	}
