@@ -1,4 +1,4 @@
-package ucar.ral.gis.services;
+package ucar.ral.gis.services.pipeline.conversion.netcdf.sourcefile;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -7,6 +7,9 @@ import java.util.Map;
 import org.apache.commons.io.IOCase;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
 
+import ucar.ral.gis.services.Resolution;
+import ucar.ral.gis.services.RunMember;
+import ucar.ral.gis.services.TemporalResolution;
 import ucar.ral.gis.services.netcdf2shapefile.rest.BaseParameters;
 import ucar.ral.gis.services.netcdf2shapefile.rest.DerivedProductParameters;
 import ucar.ral.gis.services.netcdf2shapefile.rest.monthly.MonthlyMeanParameters;

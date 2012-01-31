@@ -10,7 +10,9 @@ public class BaseParameters {
 	protected String variable;
 	protected String scenario;
 	protected TemporalResolution temporalResolution;
+	
 	protected OutputType outputType;
+	
 	protected Float xmin = -180.0F;
 	protected Float xmax = 180.0F;
 	protected Float ymin = -90.0F;

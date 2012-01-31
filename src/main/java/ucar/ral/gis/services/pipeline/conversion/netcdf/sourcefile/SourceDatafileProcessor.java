@@ -1,9 +1,8 @@
-package ucar.ral.gis.services.pipeline.conversion.netcdf;
+package ucar.ral.gis.services.pipeline.conversion.netcdf.sourcefile;
 
 import java.io.File;
 
 import ucar.ral.gis.services.MonthlyMeanConversionRequestImpl;
-import ucar.ral.gis.services.DataFileFactory;
 import ucar.ral.gis.services.messages.ConversionRequestMessage;
 import ucar.ral.gis.services.netcdf2shapefile.rest.monthly.MonthlyMeanParameters;
 import ucar.ral.gis.services.pipeline.Processor;

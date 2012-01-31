@@ -2,7 +2,6 @@ package ucar.ral.gis.services.pipeline;
 
 import java.util.List;
 
-import ucar.ral.gis.services.MonthlyMeanConversionRequestImpl;
 import ucar.ral.gis.services.messages.ConversionRequestMessage;
 
 public class Pipeline implements Processor {

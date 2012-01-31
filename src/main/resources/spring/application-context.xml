@@ -80,7 +80,7 @@
         </property>
     </bean>
 	
-	<bean id="dataFileFactory" class="ucar.ral.gis.services.DataFileFactory" >
+	<bean id="dataFileFactory" class="ucar.ral.gis.services.pipeline.conversion.netcdf.sourcefile.DataFileFactory" >
 		<constructor-arg index="0" value="${data.root.directory}" />
 		<constructor-arg index="1">
 			<map>
@@ -114,7 +114,7 @@
 	
 	</bean>
 	
-	<bean id="sourceDatafileProcessor" class="ucar.ral.gis.services.pipeline.conversion.netcdf.SourceDatafileProcessor" >
+	<bean id="sourceDatafileProcessor" class="ucar.ral.gis.services.pipeline.conversion.netcdf.sourcefile.SourceDatafileProcessor" >
 		<constructor-arg index="0" ref="dataFileFactory" />
 	</bean>
 	
