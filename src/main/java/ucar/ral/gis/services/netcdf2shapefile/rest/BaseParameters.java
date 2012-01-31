@@ -1,4 +1,4 @@
-package ucar.ral.gis.services.web;
+package ucar.ral.gis.services.netcdf2shapefile.rest;
 
 import ucar.ral.gis.services.OutputType;
 import ucar.ral.gis.services.Resolution;

@@ -7,9 +7,9 @@ import java.text.NumberFormat;
 
 import ucar.ral.gis.services.messages.ConversionOutput;
 import ucar.ral.gis.services.messages.ConversionRequestMessage;
-import ucar.ral.gis.services.web.BaseParameters;
-import ucar.ral.gis.services.web.DerivedProductParameters;
-import ucar.ral.gis.services.web.MonthlyMeanParameters;
+import ucar.ral.gis.services.netcdf2shapefile.rest.BaseParameters;
+import ucar.ral.gis.services.netcdf2shapefile.rest.DerivedProductParameters;
+import ucar.ral.gis.services.netcdf2shapefile.rest.MonthlyMeanParameters;
 import edu.ucar.gis.ipcc.ConversionRequest;
 import edu.ucar.gis.ipcc.TimeConstraint;
 import edu.ucar.gis.ipcc.YearMonthTimeConstraint;

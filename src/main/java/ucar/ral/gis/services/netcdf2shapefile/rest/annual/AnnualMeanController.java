@@ -15,8 +15,8 @@ import ucar.ral.gis.services.OutputFileNameFactory;
 import ucar.ral.gis.services.OutputType;
 import ucar.ral.gis.services.TemporalResolution;
 import ucar.ral.gis.services.messages.ConversionRequestMessage;
+import ucar.ral.gis.services.netcdf2shapefile.rest.DerivedProductParameters;
 import ucar.ral.gis.services.pipeline.Processor;
-import ucar.ral.gis.services.web.DerivedProductParameters;
 
 @Controller
 public class AnnualMeanController {
@@ -37,7 +37,7 @@ public class AnnualMeanController {
 	
 	
 	// Annual mean methods
-	@RequestMapping(value="/{scale}/{variable}/{scenario}/annual/{startYear}/{endYear}")
+	@RequestMapping(value="/{scale}/{variable}/{scenario}/annual/mean/{startYear}/{endYear}")
 	public ModelAndView annualMeanDiagnostics(DerivedProductParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
 		
 		DerivedProductConversionRequestImpl conversionRequestMessage = new DerivedProductConversionRequestImpl(requestParameters, null);
@@ -55,7 +55,7 @@ public class AnnualMeanController {
 	}
 	
 	
-	@RequestMapping(value="/{scale}/{variable}/{scenario}/annual/{startYear}/{endYear}.shp")
+	@RequestMapping(value="/{scale}/{variable}/{scenario}/annual/mean/{startYear}/{endYear}.shp")
 	public ModelAndView convertAnnualMeanToShapefile(DerivedProductParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
 		
 		requestParameters.setTemporalResolution(TemporalResolution.ANNUAL_MEAN);
@@ -66,7 +66,7 @@ public class AnnualMeanController {
 		return null; 
 	}
 	
-	@RequestMapping(value="/{scale}/{variable}/{scenario}/annual/{startYear}/{endYear}.txt")
+	@RequestMapping(value="/{scale}/{variable}/{scenario}/annual/mean/{startYear}/{endYear}.txt")
 	public ModelAndView convertAnnualMeanToTextfile(DerivedProductParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
 		
 		requestParameters.setTemporalResolution(TemporalResolution.ANNUAL_MEAN);

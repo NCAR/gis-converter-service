@@ -1,21 +1,26 @@
-package ucar.ral.gis.services.web;
+package ucar.ral.gis.services.netcdf2shapefile.rest;
 
+import ucar.ral.gis.services.EnsembleMember;
 import ucar.ral.gis.services.Period;
 import ucar.ral.gis.services.ProjectionSeason;
 import ucar.ral.gis.services.ProjectionTerm;
+import ucar.ral.gis.services.Resolution;
+import ucar.ral.gis.services.TemporalResolution;
 import edu.ucar.gis.ipcc.Month;
 import edu.ucar.gis.ipcc.Months;
 
 
-public class DerivedProductParameters extends BaseParameters {
-
+public class MonthlyMeanParameters extends BaseParameters {
+	
+	private EnsembleMember ensemble;
+	
 	private Month month = Months.getMonth("0");
 	
 	private Integer startYear = 1870;
 	private Integer endYear = 1870;
 	
 	private Period period;
-	private String term;
+	private ProjectionTerm term;
 	private ProjectionSeason season;
 	
 	
@@ -28,11 +33,11 @@ public class DerivedProductParameters extends BaseParameters {
 		this.period = period;
 	}
 
-	public String getTerm() {
+	public ProjectionTerm getTerm() {
 		return term;
 	}
 
-	public void setTerm(String term) {
+	public void setTerm(ProjectionTerm term) {
 		this.term = term;
 	}
 
@@ -52,7 +57,14 @@ public class DerivedProductParameters extends BaseParameters {
 	public void setScenario(String scenario) {
 		this.scenario = scenario;
 	}
-	
+
+	public EnsembleMember getEnsemble() {
+		return ensemble;
+	}
+
+	public void setEnsemble(EnsembleMember ensemble) {
+		this.ensemble = ensemble;
+	}
 
 	public Month getMonth() {
 		return month;

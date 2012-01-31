@@ -7,9 +7,9 @@ import java.util.Map;
 import org.apache.commons.io.IOCase;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
 
-import ucar.ral.gis.services.web.BaseParameters;
-import ucar.ral.gis.services.web.DerivedProductParameters;
-import ucar.ral.gis.services.web.MonthlyMeanParameters;
+import ucar.ral.gis.services.netcdf2shapefile.rest.BaseParameters;
+import ucar.ral.gis.services.netcdf2shapefile.rest.DerivedProductParameters;
+import ucar.ral.gis.services.netcdf2shapefile.rest.MonthlyMeanParameters;
 
 public class DataFileFactory {
 	

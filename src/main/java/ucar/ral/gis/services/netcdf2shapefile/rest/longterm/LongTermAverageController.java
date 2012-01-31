@@ -15,8 +15,8 @@ import ucar.ral.gis.services.OutputFileNameFactory;
 import ucar.ral.gis.services.OutputType;
 import ucar.ral.gis.services.TemporalResolution;
 import ucar.ral.gis.services.messages.ConversionRequestMessage;
+import ucar.ral.gis.services.netcdf2shapefile.rest.DerivedProductParameters;
 import ucar.ral.gis.services.pipeline.Processor;
-import ucar.ral.gis.services.web.DerivedProductParameters;
 
 @Controller
 public class LongTermAverageController {
@@ -43,7 +43,7 @@ public class LongTermAverageController {
 	 * seasonal --> [winter, spring, summmer, fall] [near, mid, end, last]
 	 */
 	
-	@RequestMapping(value="/{scale}/{variable}/{scenario}/ltav/{period}/{term}/{season}")
+	@RequestMapping(value="/{scale}/{variable}/{scenario}/longtermv/average/{period}/{term}/{season}")
 	public ModelAndView longTermAverageDiagnostics(DerivedProductParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
 		
 		DerivedProductConversionRequestImpl conversionRequestMessage = new DerivedProductConversionRequestImpl(requestParameters, null);
@@ -61,7 +61,7 @@ public class LongTermAverageController {
 	}
 	
 		
-	@RequestMapping(value="/{scale}/{variable}/{scenario}/ltav/{period}/{term}/{season}.shp")
+	@RequestMapping(value="/{scale}/{variable}/{scenario}/longterm/average/{period}/{term}/{season}.shp")
 	public ModelAndView convertToShapefile(DerivedProductParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
 		
 		requestParameters.setOutputType(OutputType.SHAPE);
@@ -72,7 +72,7 @@ public class LongTermAverageController {
 		return null; 
 	}
 	
-	@RequestMapping(value="/{scale}/{variable}/{scenario}/ltav/{period}/{month}/{season}.txt")
+	@RequestMapping(value="/{scale}/{variable}/{scenario}/longterm/average/{period}/{month}/{season}.txt")
 	public ModelAndView convertToTextfile(DerivedProductParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
 		
 		requestParameters.setOutputType(OutputType.TEXT);

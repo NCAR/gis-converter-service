@@ -38,7 +38,7 @@ public class AnomalyController {
 	 * seasonal --> [winter, spring, summmer, fall] [near, mid, end, last]
 	 */
 	
-//	@RequestMapping(value="/{scale}/{variable}/{scenario}/ltav/{period}/{term}/{season}")
+//	@RequestMapping(value="/{scale}/{variable}/{scenario}/anomaly/{period}/{term}/{season}")
 //	public ModelAndView longTermAverageDiagnostics(DerivedProductParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
 //		
 //		DerivedProductConversionRequestImpl conversionRequestMessage = new DerivedProductConversionRequestImpl(requestParameters, null);
@@ -56,7 +56,7 @@ public class AnomalyController {
 //	}
 //	
 //		
-//	@RequestMapping(value="/{scale}/{variable}/{scenario}/ltav/{period}/{term}/{season}.shp")
+//	@RequestMapping(value="/{scale}/{variable}/{scenario}/anomaly/{period}/{term}/{season}.shp")
 //	public ModelAndView convertToShapefile(DerivedProductParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
 //		
 //		requestParameters.setOutputType(OutputType.SHAPE);
@@ -67,7 +67,7 @@ public class AnomalyController {
 //		return null; 
 //	}
 //	
-//	@RequestMapping(value="/{scale}/{variable}/{scenario}/ltav/{period}/{month}/{season}.txt")
+//	@RequestMapping(value="/{scale}/{variable}/{scenario}/anomaly/{period}/{month}/{season}.txt")
 //	public ModelAndView convertToTextfile(DerivedProductParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
 //		
 //		requestParameters.setOutputType(OutputType.TEXT);

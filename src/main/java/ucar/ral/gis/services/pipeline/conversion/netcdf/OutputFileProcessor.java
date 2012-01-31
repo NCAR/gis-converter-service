@@ -7,8 +7,8 @@ import ucar.ral.gis.services.MonthlyMeanConversionRequestImpl;
 import ucar.ral.gis.services.OutputFileNameFactory;
 import ucar.ral.gis.services.messages.ConversionOutput;
 import ucar.ral.gis.services.messages.ConversionRequestMessage;
+import ucar.ral.gis.services.netcdf2shapefile.rest.BaseParameters;
 import ucar.ral.gis.services.pipeline.Processor;
-import ucar.ral.gis.services.web.BaseParameters;
 
 public class OutputFileProcessor implements Processor {
 	

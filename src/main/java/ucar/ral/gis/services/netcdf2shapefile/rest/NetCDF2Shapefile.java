@@ -17,8 +17,6 @@ import ucar.ral.gis.services.OutputType;
 import ucar.ral.gis.services.TemporalResolution;
 import ucar.ral.gis.services.messages.ConversionRequestMessage;
 import ucar.ral.gis.services.pipeline.Processor;
-import ucar.ral.gis.services.web.DerivedProductParameters;
-import ucar.ral.gis.services.web.MonthlyMeanParameters;
 
 @Controller
 public class NetCDF2Shapefile {

@@ -14,8 +14,8 @@ import ucar.ral.gis.services.MonthlyMeanConversionRequestImpl;
 import ucar.ral.gis.services.OutputFileNameFactory;
 import ucar.ral.gis.services.OutputType;
 import ucar.ral.gis.services.netcdf2shapefile.rest.AbstractConverterController;
+import ucar.ral.gis.services.netcdf2shapefile.rest.MonthlyMeanParameters;
 import ucar.ral.gis.services.pipeline.Processor;
-import ucar.ral.gis.services.web.MonthlyMeanParameters;
 
 @Controller
 public class MonthlyMeanController extends AbstractConverterController {
@@ -30,7 +30,7 @@ public class MonthlyMeanController extends AbstractConverterController {
 		this.debugProcessor = debugProcessor;
 	}
 
-	@RequestMapping(value="/{scale}/{variable}/{scenario}/monthly/{ensemble}/{month}/{startYear}/{endYear}")
+	@RequestMapping(value="/{scale}/{variable}/{scenario}/monthly/mean/{ensemble}/{month}/{startYear}/{endYear}")
 	public ModelAndView monthlyMeanToShapefileDiagnostics(MonthlyMeanParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
 		
 		MonthlyMeanConversionRequestImpl conversionRequestMessage = new MonthlyMeanConversionRequestImpl(requestParameters, null);
@@ -44,7 +44,7 @@ public class MonthlyMeanController extends AbstractConverterController {
 		return new ModelAndView("validate-monthly-mean", modelMap); 
 	}
 	
-	@RequestMapping(value="/{scale}/{variable}/{scenario}/monthly/{ensemble}/{month}/{startYear}/{endYear}.shp")
+	@RequestMapping(value="/{scale}/{variable}/{scenario}/monthly/mean/{ensemble}/{month}/{startYear}/{endYear}.shp")
 	public ModelAndView convertMonthlyMeanToShapefile(MonthlyMeanParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
 		
 		requestParameters.setOutputType(OutputType.SHAPE);
@@ -54,7 +54,7 @@ public class MonthlyMeanController extends AbstractConverterController {
 		return null; 
 	}
 	
-	@RequestMapping(value="/{scale}/{variable}/{scenario}/monthly/{ensemble}/{month}/{startYear}/{endYear}.txt")
+	@RequestMapping(value="/{scale}/{variable}/{scenario}/monthly/mean/{ensemble}/{month}/{startYear}/{endYear}.txt")
 	public ModelAndView convertMonthlyMeanToTextfile(MonthlyMeanParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
 		
 		requestParameters.setOutputType(OutputType.TEXT);
