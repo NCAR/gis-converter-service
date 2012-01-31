@@ -1,4 +1,4 @@
-package ucar.ral.gis.services.pipeline;
+package ucar.ral.gis.services.pipeline.conversion.netcdf;
 
 import java.io.FileInputStream;
 
@@ -10,6 +10,7 @@ import org.apache.commons.io.IOUtils;
 
 import ucar.ral.gis.services.messages.ConversionOutput;
 import ucar.ral.gis.services.messages.ConversionRequestMessage;
+import ucar.ral.gis.services.pipeline.Processor;
 
 public class ZipArchiveProcessor implements Processor {
 	

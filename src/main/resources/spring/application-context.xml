@@ -114,28 +114,28 @@
 	
 	</bean>
 	
-	<bean id="sourceDatafileProcessor" class="ucar.ral.gis.services.pipeline.SourceDatafileProcessor" >
+	<bean id="sourceDatafileProcessor" class="ucar.ral.gis.services.pipeline.conversion.netcdf.SourceDatafileProcessor" >
 		<constructor-arg index="0" ref="dataFileFactory" />
 	</bean>
 	
-	<bean id="conversionRouterProcessor" class="ucar.ral.gis.services.pipeline.ConversionRouterProcessor" >
+	<bean id="conversionRouterProcessor" class="ucar.ral.gis.services.pipeline.conversion.netcdf.ConversionRouterProcessor" >
 		<constructor-arg index="0" ref="shapefileConversionProcessor" />
 		<constructor-arg index="1" ref="textfileConversionProcessor" />
 	</bean>
 	
-	<bean id="shapefileConversionProcessor" class="ucar.ral.gis.services.pipeline.ShapefileConversionProcessor" />
-	<bean id="textfileConversionProcessor" class="ucar.ral.gis.services.pipeline.TextfileConversionProcessor" />
+	<bean id="shapefileConversionProcessor" class="ucar.ral.gis.services.pipeline.conversion.netcdf.ShapefileConversionProcessor" />
+	<bean id="textfileConversionProcessor" class="ucar.ral.gis.services.pipeline.conversion.netcdf.TextfileConversionProcessor" />
 	
-	<bean id="outputFileProcessor" class="ucar.ral.gis.services.pipeline.OutputFileProcessor" >
+	<bean id="outputFileProcessor" class="ucar.ral.gis.services.pipeline.conversion.netcdf.OutputFileProcessor" >
 		<constructor-arg index="0" value="${conversion.work.directory}" />
 		<constructor-arg index="1" ref="outputFilenameFactory" />
 	</bean>
 	
-	<bean id="zipArchiveProcessor" class="ucar.ral.gis.services.pipeline.ZipArchiveProcessor" />
+	<bean id="zipArchiveProcessor" class="ucar.ral.gis.services.pipeline.conversion.netcdf.ZipArchiveProcessor" />
 	
 	
 	
-	<bean id="convertNetCDF2Shapefile" class="ucar.ral.gis.services.web.NetCDF2Shapefile" >
+	<bean id="convertNetCDF2Shapefile" class="ucar.ral.gis.services.netcdf2shapefile.rest.NetCDF2Shapefile" >
 		<constructor-arg index="0" ref="outputFilenameFactory" />
 		<constructor-arg index="1" ref="conversionProcessor" />
 		<constructor-arg index="2" ref="debugInputProcessor" />

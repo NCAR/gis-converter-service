@@ -1,10 +1,11 @@
-package ucar.ral.gis.services.pipeline;
+package ucar.ral.gis.services.pipeline.conversion.netcdf;
 
 import java.io.File;
 
 import ucar.ral.gis.services.MonthlyMeanConversionRequestImpl;
 import ucar.ral.gis.services.DataFileFactory;
 import ucar.ral.gis.services.messages.ConversionRequestMessage;
+import ucar.ral.gis.services.pipeline.Processor;
 import ucar.ral.gis.services.web.MonthlyMeanParameters;
 
 public class SourceDatafileProcessor implements Processor {

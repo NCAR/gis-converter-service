@@ -1,7 +1,8 @@
-package ucar.ral.gis.services.pipeline;
+package ucar.ral.gis.services.pipeline.conversion.netcdf;
 
 import ucar.ral.gis.services.OutputType;
 import ucar.ral.gis.services.messages.ConversionRequestMessage;
+import ucar.ral.gis.services.pipeline.Processor;
 
 public class ConversionRouterProcessor implements Processor {
 	
