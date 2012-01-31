@@ -10,9 +10,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import ucar.ral.gis.services.MonthlyMeanConversionRequestImpl;
 import ucar.ral.gis.services.OutputFileNameFactory;
 import ucar.ral.gis.services.OutputType;
+import ucar.ral.gis.services.messages.MonthlyMeanConversionRequestImpl;
 import ucar.ral.gis.services.netcdf2shapefile.rest.AbstractConverterController;
 import ucar.ral.gis.services.pipeline.Processor;
 

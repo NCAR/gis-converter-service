@@ -7,6 +7,10 @@ public class LongTermAverageParameters extends BaseParameters {
 
 	private Integer startYear = 1870;
 	private Integer endYear = 1870;
+	
+	private String period;
+	private String term;
+	private String season;
 		
 	public Integer getStartYear() {
 		return startYear;
@@ -22,6 +26,30 @@ public class LongTermAverageParameters extends BaseParameters {
 
 	public void setEndYear(Integer endYear) {
 		this.endYear = endYear;
+	}
+
+	public String getPeriod() {
+		return period;
+	}
+
+	public void setPeriod(String period) {
+		this.period = period;
+	}
+
+	public String getTerm() {
+		return term;
+	}
+
+	public void setTerm(String term) {
+		this.term = term;
+	}
+
+	public String getSeason() {
+		return season;
+	}
+
+	public void setSeason(String season) {
+		this.season = season;
 	}
 	
 	
