@@ -6,16 +6,13 @@ import java.util.concurrent.ExecutionException;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import ucar.ral.gis.services.DerivedProductConversionRequestImpl;
 import ucar.ral.gis.services.OutputFileNameFactory;
 import ucar.ral.gis.services.OutputType;
 import ucar.ral.gis.services.TemporalResolution;
 import ucar.ral.gis.services.messages.ConversionRequestMessage;
-import ucar.ral.gis.services.netcdf2shapefile.rest.DerivedProductParameters;
 import ucar.ral.gis.services.pipeline.Processor;
 
 @Controller
@@ -38,41 +35,43 @@ public class AnnualMeanController {
 	
 	// Annual mean methods
 	@RequestMapping(value="/{scale}/{variable}/{scenario}/annual/mean/{startYear}/{endYear}")
-	public ModelAndView annualMeanDiagnostics(DerivedProductParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
+	public ModelAndView annualMeanDiagnostics(AnnualMeanParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
 		
-		DerivedProductConversionRequestImpl conversionRequestMessage = new DerivedProductConversionRequestImpl(requestParameters, null);
+//		DerivedProductConversionRequestImpl conversionRequestMessage = new DerivedProductConversionRequestImpl(requestParameters, null);
+//		
+//		// FIXME - Find a better way to deal with this.
+//		conversionRequestMessage.getParameters().setTemporalResolution(TemporalResolution.ANNUAL_MEAN);
+//		
+//		this.debugProcessor.process(conversionRequestMessage);
+//		
+//		ModelMap modelMap = new ModelMap("conversionRequest", conversionRequestMessage);
+//		modelMap.addAttribute("dataFileExists", conversionRequestMessage.getDataFile().exists());
+//		
+//		
+//		return new ModelAndView("validate-annual-mean", modelMap); 
 		
-		// FIXME - Find a better way to deal with this.
-		conversionRequestMessage.getParameters().setTemporalResolution(TemporalResolution.ANNUAL_MEAN);
-		
-		this.debugProcessor.process(conversionRequestMessage);
-		
-		ModelMap modelMap = new ModelMap("conversionRequest", conversionRequestMessage);
-		modelMap.addAttribute("dataFileExists", conversionRequestMessage.getDataFile().exists());
-		
-		
-		return new ModelAndView("validate-annual-mean", modelMap); 
+		return null;
 	}
 	
 	
 	@RequestMapping(value="/{scale}/{variable}/{scenario}/annual/mean/{startYear}/{endYear}.shp")
-	public ModelAndView convertAnnualMeanToShapefile(DerivedProductParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
+	public ModelAndView convertAnnualMeanToShapefile(AnnualMeanParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
 		
 		requestParameters.setTemporalResolution(TemporalResolution.ANNUAL_MEAN);
 		requestParameters.setOutputType(OutputType.SHAPE);
 		
-		this.convert(new DerivedProductConversionRequestImpl(requestParameters, response.getOutputStream()), response);
+		//this.convert(new DerivedProductConversionRequestImpl(requestParameters, response.getOutputStream()), response);
 		
 		return null; 
 	}
 	
 	@RequestMapping(value="/{scale}/{variable}/{scenario}/annual/mean/{startYear}/{endYear}.txt")
-	public ModelAndView convertAnnualMeanToTextfile(DerivedProductParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
+	public ModelAndView convertAnnualMeanToTextfile(AnnualMeanParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
 		
 		requestParameters.setTemporalResolution(TemporalResolution.ANNUAL_MEAN);
 		requestParameters.setOutputType(OutputType.TEXT);
 		
-		this.convert(new DerivedProductConversionRequestImpl(requestParameters, response.getOutputStream()), response);
+		//this.convert(new DerivedProductConversionRequestImpl(requestParameters, response.getOutputStream()), response);
 		
 		return null;
 	}

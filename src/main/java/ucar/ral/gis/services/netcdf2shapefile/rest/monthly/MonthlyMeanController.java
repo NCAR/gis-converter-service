@@ -14,7 +14,6 @@ import ucar.ral.gis.services.MonthlyMeanConversionRequestImpl;
 import ucar.ral.gis.services.OutputFileNameFactory;
 import ucar.ral.gis.services.OutputType;
 import ucar.ral.gis.services.netcdf2shapefile.rest.AbstractConverterController;
-import ucar.ral.gis.services.netcdf2shapefile.rest.MonthlyMeanParameters;
 import ucar.ral.gis.services.pipeline.Processor;
 
 @Controller

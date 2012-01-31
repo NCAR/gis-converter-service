@@ -9,7 +9,7 @@ import org.apache.commons.io.filefilter.WildcardFileFilter;
 
 import ucar.ral.gis.services.netcdf2shapefile.rest.BaseParameters;
 import ucar.ral.gis.services.netcdf2shapefile.rest.DerivedProductParameters;
-import ucar.ral.gis.services.netcdf2shapefile.rest.MonthlyMeanParameters;
+import ucar.ral.gis.services.netcdf2shapefile.rest.monthly.MonthlyMeanParameters;
 
 public class DataFileFactory {
 	

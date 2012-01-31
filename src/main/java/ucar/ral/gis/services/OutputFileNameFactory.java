@@ -3,26 +3,25 @@ package ucar.ral.gis.services;
 
 
 import ucar.ral.gis.services.netcdf2shapefile.rest.BaseParameters;
-import ucar.ral.gis.services.netcdf2shapefile.rest.DerivedProductParameters;
-import ucar.ral.gis.services.netcdf2shapefile.rest.MonthlyMeanParameters;
+import ucar.ral.gis.services.netcdf2shapefile.rest.monthly.MonthlyMeanParameters;
 
 public class OutputFileNameFactory {
 	
 	public String create(BaseParameters parameters) {
 		
 		if(parameters instanceof MonthlyMeanParameters) {
-			return this.create( (MonthlyMeanParameters) parameters);
-		}
-		if(parameters instanceof DerivedProductParameters) {
-			return this.create( (DerivedProductParameters) parameters);
+			return this._create( (MonthlyMeanParameters) parameters);
 		}
 		else {
-			throw new RuntimeException("Can't create filename based on base parameters");
+			return this._create( parameters);
 		}
+//		else {
+//			throw new RuntimeException("Can't create filename based on base parameters");
+//		}
 	}
 
 	
-	public String create(MonthlyMeanParameters parameters) {
+	public String _create(MonthlyMeanParameters parameters) {
 		
 		return parameters.getVariable() + "_" + parameters.getMonth().getDescription().replace(" ", "_") + "_" + parameters.getStartYear() + "_" + 
 				parameters.getEndYear() + "_" + parameters.getScenario() + 
@@ -30,10 +29,9 @@ public class OutputFileNameFactory {
 				parameters.getYmin() + "_" + parameters.getYmax();
 	}
 	
-	public String create(DerivedProductParameters parameters) {
+	public String _create(BaseParameters parameters) {
 		
-		return parameters.getVariable() + "_" + parameters.getMonth().getDescription().replace(" ", "_") + "_" + parameters.getStartYear() + "_" + 
-				parameters.getEndYear() + "_" + parameters.getScenario() + 
+		return parameters.getVariable() + "_" + parameters.getScenario() + 
 				parameters.getXmin() + "_" + parameters.getXmax() + "_" +
 				parameters.getYmin() + "_" + parameters.getYmax();
 	}
