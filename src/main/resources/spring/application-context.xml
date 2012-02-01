@@ -56,6 +56,26 @@
 	
 	<bean id="ensembleMemberConverter" class="ucar.ral.gis.services.converters.EnsembleMemberConverter"/>
 	
+	<bean id="monthIndexMap" class="org.springframework.beans.factory.config.MapFactoryBean">
+	  <property name="sourceMap">
+	      <map>
+	        <entry key="january" value="1"/>
+	        <entry key="february" value="2"/>
+	        <entry key="march" value="3"/>
+	        <entry key="april" value="4"/>
+	        <entry key="may" value="5"/>
+	        <entry key="june" value="6"/>
+	        <entry key="july" value="7"/>
+	        <entry key="august" value="8"/>
+	        <entry key="september" value="9"/>
+	        <entry key="october" value="10"/>
+	        <entry key="november" value="11"/>
+	        <entry key="december" value="12"/>
+	      </map>
+	  </property>
+	</bean>
+	
+	
 	
 	 <bean id="conversionService"
           class="org.springframework.format.support.FormattingConversionServiceFactoryBean">

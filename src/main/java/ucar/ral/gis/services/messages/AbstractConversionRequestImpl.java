@@ -1,6 +1,11 @@
 package ucar.ral.gis.services.messages;
 
 import java.io.File;
+import java.util.Locale;
+
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import ucar.ral.gis.services.netcdf2shapefile.rest.BaseParameters;
 import edu.ucar.gis.ipcc.model.netcdf2gis.AxisConstraint2;
@@ -63,4 +68,13 @@ public class AbstractConversionRequestImpl {
 		return productRequest;
 	}
 
+	protected int getMonthIndex(String month) {
+		
+		DateTimeFormatter format = DateTimeFormat.forPattern("MMM");
+	    DateTime instance = format.parseDateTime(month);  
+
+	    int monthIndex = instance.getMonthOfYear();
+
+	    return monthIndex;
+	}
 }

@@ -21,7 +21,9 @@ public class DerivedProductFileHandler extends AbstractSourceFileHandler {
 	@Override
 	protected boolean canHandle(BaseParameters baseParameters) {
 		
-		boolean result = baseParameters instanceof AnnualMeanParameters;
+		boolean result = ((baseParameters instanceof AnnualMeanParameters) ||
+						 (baseParameters instanceof LongTermAverageParameters) || 
+						 (baseParameters instanceof LongTermAverageParameters));
 		
 		return result;
 	}
@@ -65,6 +67,8 @@ public class DerivedProductFileHandler extends AbstractSourceFileHandler {
 		if(baseParameters.getTemporalResolution() == TemporalResolution.CLIMATE_ANOMOLY) {
 			fileNamePattern += "_anomoly";
 		}
+		
+		fileNamePattern += ".nc";
 		
 		FileSpecification fileSpec = new FileSpecification(searchDirectory, fileNamePattern);
 		
