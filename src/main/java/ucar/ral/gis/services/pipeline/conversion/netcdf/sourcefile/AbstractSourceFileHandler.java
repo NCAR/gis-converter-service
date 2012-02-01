@@ -6,6 +6,11 @@ public abstract class AbstractSourceFileHandler implements SourceFileHandler {
 
 	private SourceFileHandler nextHandler;
 	
+	public AbstractSourceFileHandler(SourceFileHandler nextHandler) {
+		super();
+		this.nextHandler = nextHandler;
+	}
+
 	public FileSpecification resolveSourceFile(BaseParameters baseParameters) {
 
 		if (this.canHandle(baseParameters)) {

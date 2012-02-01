@@ -1,10 +1,8 @@
 package ucar.ral.gis.services.pipeline.conversion.netcdf.sourcefile;
 
 import java.io.File;
-import java.util.Map;
 
 import ucar.ral.gis.services.Resolution;
-import ucar.ral.gis.services.RunMember;
 import ucar.ral.gis.services.TemporalResolution;
 import ucar.ral.gis.services.netcdf2shapefile.rest.BaseParameters;
 import ucar.ral.gis.services.netcdf2shapefile.rest.longterm.LongTermAverageParameters;
@@ -14,6 +12,11 @@ public class DerivedProductFileHandler extends AbstractSourceFileHandler {
 		
 	private File baseDirectory;
 	
+	private DerivedProductFileHandler(SourceFileHandler nextHandler, File baseDirectory) {
+		super(nextHandler);
+		this.baseDirectory = baseDirectory;
+	}
+
 	@Override
 	protected boolean canHandle(BaseParameters baseParameters) {
 		

@@ -81,16 +81,16 @@
     </bean>
 	
 	<bean id="dataFileFactory" class="ucar.ral.gis.services.pipeline.conversion.netcdf.sourcefile.DataFileFactory" >
-		<constructor-arg index="0" value="${data.root.directory}" />
-		<constructor-arg index="1">
-			<map>
-				<entry key="20C3M" value="20C3M"/>
-				<entry key="Commit" value="Commit"/>
-				<entry key="SRESA1B" value="SRESA1B"/>
-				<entry key="SRESB1" value="SRESB1"/>
-				<entry key="SRESA2" value="SRESA2"/>
-			</map>
-		</constructor-arg>
+<!-- 		<constructor-arg index="0" value="${data.root.directory}" /> -->
+<!-- 		<constructor-arg index="1"> -->
+<!-- 			<map> -->
+<!-- 				<entry key="20C3M" value="20C3M"/> -->
+<!-- 				<entry key="Commit" value="Commit"/> -->
+<!-- 				<entry key="SRESA1B" value="SRESA1B"/> -->
+<!-- 				<entry key="SRESB1" value="SRESB1"/> -->
+<!-- 				<entry key="SRESA2" value="SRESA2"/> -->
+<!-- 			</map> -->
+<!-- 		</constructor-arg> -->
 	</bean>
 	
 	<bean id="debugInputProcessor" class="ucar.ral.gis.services.pipeline.Pipeline" >
@@ -114,8 +114,28 @@
 	
 	</bean>
 	
+	<bean id="monthlyMeanFileHandler" class="ucar.ral.gis.services.pipeline.conversion.netcdf.sourcefile.MonthlyMeanFileHandler">
+		<constructor-arg index="0" ref="derivedProductFileHandler" />
+		<constructor-arg index="1" value="${data.root.directory}" />
+		<constructor-arg index="2">
+			<map>
+				<entry key="20C3M" value="20C3M"/>
+				<entry key="Commit" value="Commit"/>
+				<entry key="SRESA1B" value="SRESA1B"/>
+				<entry key="SRESB1" value="SRESB1"/>
+				<entry key="SRESA2" value="SRESA2"/>
+			</map>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="derivedProductFileHandler" class="ucar.ral.gis.services.pipeline.conversion.netcdf.sourcefile.DerivedProductFileHandler">
+		<constructor-arg index="0"><null/></constructor-arg>
+		<constructor-arg index="1" value="${data.root.directory}" />
+	</bean>
+	
+	
 	<bean id="sourceDatafileProcessor" class="ucar.ral.gis.services.pipeline.conversion.netcdf.sourcefile.SourceDatafileProcessor" >
-		<constructor-arg index="0" ref="dataFileFactory" />
+		<constructor-arg index="0" ref="monthlyMeanFileHandler" />
 	</bean>
 	
 	<bean id="conversionRouterProcessor" class="ucar.ral.gis.services.pipeline.conversion.netcdf.ConversionRouterProcessor" >
@@ -133,9 +153,25 @@
 	
 	<bean id="zipArchiveProcessor" class="ucar.ral.gis.services.pipeline.conversion.netcdf.ZipArchiveProcessor" />
 	
+	<bean id="monthlyMeanController" class="ucar.ral.gis.services.netcdf2shapefile.rest.monthly.MonthlyMeanController" >
+		<constructor-arg index="0" ref="outputFilenameFactory" />
+		<constructor-arg index="1" ref="conversionProcessor" />
+		<constructor-arg index="2" ref="debugInputProcessor" />
+	</bean>
 	
+	<bean id="annualMeanController" class="ucar.ral.gis.services.netcdf2shapefile.rest.annual.AnnualMeanController" >
+		<constructor-arg index="0" ref="outputFilenameFactory" />
+		<constructor-arg index="1" ref="conversionProcessor" />
+		<constructor-arg index="2" ref="debugInputProcessor" />
+	</bean>
 	
-	<bean id="convertNetCDF2Shapefile" class="ucar.ral.gis.services.netcdf2shapefile.rest.NetCDF2Shapefile" >
+	<bean id="longTermAverageController" class="ucar.ral.gis.services.netcdf2shapefile.rest.longterm.LongTermAverageController" >
+		<constructor-arg index="0" ref="outputFilenameFactory" />
+		<constructor-arg index="1" ref="conversionProcessor" />
+		<constructor-arg index="2" ref="debugInputProcessor" />
+	</bean>
+	
+	<bean id="anomalyController" class="ucar.ral.gis.services.netcdf2shapefile.rest.anomaly.AnomalyController" >
 		<constructor-arg index="0" ref="outputFilenameFactory" />
 		<constructor-arg index="1" ref="conversionProcessor" />
 		<constructor-arg index="2" ref="debugInputProcessor" />

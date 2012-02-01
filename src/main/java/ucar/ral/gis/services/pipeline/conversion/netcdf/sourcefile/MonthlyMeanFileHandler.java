@@ -12,6 +12,12 @@ public class MonthlyMeanFileHandler extends AbstractSourceFileHandler {
 		
 	private File baseDirectory;
 	private Map<String, String> scenarioDirectoryMap;
+	
+	private MonthlyMeanFileHandler(SourceFileHandler nextHandler, File baseDirectory, Map<String, String> scenarioDirectoryMap) {
+		super(nextHandler);
+		this.baseDirectory = baseDirectory;
+		this.scenarioDirectoryMap = scenarioDirectoryMap;
+	}
 
 	@Override
 	protected boolean canHandle(BaseParameters baseParameters) {
