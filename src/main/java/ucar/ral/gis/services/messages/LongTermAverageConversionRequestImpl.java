@@ -30,7 +30,9 @@ public class LongTermAverageConversionRequestImpl extends AbstractConversionRequ
 		else if (parameters.getPeriod().equalsIgnoreCase("annual")) {
 			result = new AllTimesConstraint();
 		}
-		// seasonal dates: 2099/2/14, 2099/5/15, 2099/8/15, 2099/11/15, 
+		else if (parameters.getPeriod().equalsIgnoreCase("seasonal")) {
+			result = new MonthTimeConstraint(this.getMonthIndexForSeason(parameters.getTerm()));
+		}
 		
 		return result;
 		

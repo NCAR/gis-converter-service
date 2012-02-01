@@ -77,4 +77,27 @@ public class AbstractConversionRequestImpl {
 
 	    return monthIndex;
 	}
+	
+	// seasonal dates: 2099/2/14, 2099/5/15, 2099/8/15, 2099/11/15, 
+	
+	protected int getMonthIndexForSeason(String season) {
+		
+		int monthIndex = 0;
+		
+		if (season.equalsIgnoreCase("spring")) {
+			monthIndex = 2;
+		}
+		else if (season.equalsIgnoreCase("summer")) {
+			monthIndex = 5;
+		}
+		else if (season.equalsIgnoreCase("fall")) {
+			monthIndex = 8;
+		}
+		else if (season.equalsIgnoreCase("winter")) {
+			monthIndex = 11;
+		}
+		
+	    return monthIndex;
+	}
+	
 }
