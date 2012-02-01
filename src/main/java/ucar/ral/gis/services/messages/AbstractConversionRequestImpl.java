@@ -3,14 +3,13 @@ package ucar.ral.gis.services.messages;
 import java.io.File;
 
 import ucar.ral.gis.services.netcdf2shapefile.rest.BaseParameters;
-import ucar.ral.gis.services.netcdf2shapefile.rest.monthly.MonthlyMeanParameters;
 import edu.ucar.gis.ipcc.model.netcdf2gis.AxisConstraint2;
 import edu.ucar.gis.ipcc.model.netcdf2gis.Latitude;
 import edu.ucar.gis.ipcc.model.netcdf2gis.Longitude;
 
 public class AbstractConversionRequestImpl {
 
-	protected MonthlyMeanParameters productRequest;
+	protected BaseParameters productRequest;
 	private File dataFile;
 	protected ConversionOutput conversionOutput;
 

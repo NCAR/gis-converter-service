@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import ucar.ral.gis.services.OutputFileNameFactory;
 import ucar.ral.gis.services.OutputType;
 import ucar.ral.gis.services.TemporalResolution;
+import ucar.ral.gis.services.messages.AnnualMeanConversionRequestImpl;
 import ucar.ral.gis.services.messages.ConversionRequestMessage;
 import ucar.ral.gis.services.pipeline.Processor;
 
@@ -60,7 +61,7 @@ public class AnnualMeanController {
 		requestParameters.setTemporalResolution(TemporalResolution.ANNUAL_MEAN);
 		requestParameters.setOutputType(OutputType.SHAPE);
 		
-		//this.convert(new DerivedProductConversionRequestImpl(requestParameters, response.getOutputStream()), response);
+		this.convert(new AnnualMeanConversionRequestImpl(requestParameters, response.getOutputStream()), response);
 		
 		return null; 
 	}
@@ -71,7 +72,7 @@ public class AnnualMeanController {
 		requestParameters.setTemporalResolution(TemporalResolution.ANNUAL_MEAN);
 		requestParameters.setOutputType(OutputType.TEXT);
 		
-		//this.convert(new DerivedProductConversionRequestImpl(requestParameters, response.getOutputStream()), response);
+		this.convert(new AnnualMeanConversionRequestImpl(requestParameters, response.getOutputStream()), response);
 		
 		return null;
 	}

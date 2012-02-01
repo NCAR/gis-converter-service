@@ -5,6 +5,7 @@ import java.io.File;
 import ucar.ral.gis.services.Resolution;
 import ucar.ral.gis.services.TemporalResolution;
 import ucar.ral.gis.services.netcdf2shapefile.rest.BaseParameters;
+import ucar.ral.gis.services.netcdf2shapefile.rest.annual.AnnualMeanParameters;
 import ucar.ral.gis.services.netcdf2shapefile.rest.longterm.LongTermAverageParameters;
 import ucar.ral.gis.services.netcdf2shapefile.rest.monthly.MonthlyMeanParameters;
 
@@ -20,7 +21,7 @@ public class DerivedProductFileHandler extends AbstractSourceFileHandler {
 	@Override
 	protected boolean canHandle(BaseParameters baseParameters) {
 		
-		boolean result = baseParameters instanceof MonthlyMeanParameters;
+		boolean result = baseParameters instanceof AnnualMeanParameters;
 		
 		return result;
 	}

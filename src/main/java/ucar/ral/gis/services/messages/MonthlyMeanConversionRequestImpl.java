@@ -19,18 +19,21 @@ public class MonthlyMeanConversionRequestImpl extends AbstractConversionRequestI
 	
 	public TimeConstraint getTimeConstraint() {	
 		
+		MonthlyMeanParameters monthlyMeanParameters = (MonthlyMeanParameters) this.productRequest;
+		
+		
 		TimeConstraint result = null;
 		
 		// Figure out if we are getting all or selected months.
 		
 		// Do all months first
-		if (0 == this.productRequest.getMonth().getTimeStep()) {
+		if (0 == monthlyMeanParameters.getMonth().getTimeStep()) {
 			
-			result = new YearTimeConstraint(this.productRequest.getStartYear(), this.productRequest.getEndYear());
+			result = new YearTimeConstraint(monthlyMeanParameters.getStartYear(), monthlyMeanParameters.getEndYear());
 		}
 		else {
 			// WARNING the month is 0 based!!!!
-			result = new YearMonthTimeConstraint(this.productRequest.getStartYear(), this.productRequest.getEndYear(), this.productRequest.getMonth().getTimeStep()-1);
+			result = new YearMonthTimeConstraint(monthlyMeanParameters.getStartYear(), monthlyMeanParameters.getEndYear(), monthlyMeanParameters.getMonth().getId());
 		}
 				
 		return result;
