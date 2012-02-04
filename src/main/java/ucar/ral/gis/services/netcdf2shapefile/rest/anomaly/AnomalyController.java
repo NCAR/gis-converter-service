@@ -43,7 +43,7 @@ public class AnomalyController {
 	 * seasonal --> [winter, spring, summmer, fall] [near, mid, end, last]
 	 */
 	
-	@RequestMapping(value="/{scale}/{variable}/{scenario}/anomaly/monthly/{term}/{season}")
+	@RequestMapping(value="/{scale}/{variable}/{scenario}/anomaly/monthly/{month}/{term}")
 	public ModelAndView longTermAverageDiagnostics(LongTermAverageParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
 		
 		requestParameters.setPeriod("monthly");
@@ -64,7 +64,7 @@ public class AnomalyController {
 	}
 	
 		
-	@RequestMapping(value="/{scale}/{variable}/{scenario}/anomaly/monthly/{term}/{season}.shp")
+	@RequestMapping(value="/{scale}/{variable}/{scenario}/anomaly/monthly/{month}/{term}.shp")
 	public ModelAndView convertToShapefile(LongTermAverageParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
 		
 		requestParameters.setOutputType(OutputType.SHAPE);
@@ -77,7 +77,7 @@ public class AnomalyController {
 		return null; 
 	}
 	
-	@RequestMapping(value="/{scale}/{variable}/{scenario}/anomaly/monthly/{term}/{season}.txt")
+	@RequestMapping(value="/{scale}/{variable}/{scenario}/anomaly/monthly/{month}/{term}.txt")
 	public ModelAndView convertToTextfile(LongTermAverageParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
 		
 		requestParameters.setOutputType(OutputType.TEXT);
@@ -89,7 +89,7 @@ public class AnomalyController {
 		return null;
 	}
 
-	@RequestMapping(value="/{scale}/{variable}/{scenario}/anomaly/annual/{season}")
+	@RequestMapping(value="/{scale}/{variable}/{scenario}/anomaly/annual/{term}")
 	public ModelAndView longTermAverageDiagnosticsAnnual(LongTermAverageParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
 		
 		requestParameters.setPeriod("annual");
@@ -110,7 +110,7 @@ public class AnomalyController {
 	}
 	
 		
-	@RequestMapping(value="/{scale}/{variable}/{scenario}/anomaly/annual/{season}.shp")
+	@RequestMapping(value="/{scale}/{variable}/{scenario}/anomaly/annual/{term}.shp")
 	public ModelAndView convertToShapefileAnnual(LongTermAverageParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
 		
 		requestParameters.setOutputType(OutputType.SHAPE);
@@ -123,7 +123,7 @@ public class AnomalyController {
 		return null; 
 	}
 	
-	@RequestMapping(value="/{scale}/{variable}/{scenario}/anomaly/annual/{season}.txt")
+	@RequestMapping(value="/{scale}/{variable}/{scenario}/anomaly/annual/{term}.txt")
 	public ModelAndView convertToTextfileAnnual(LongTermAverageParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
 		
 		requestParameters.setOutputType(OutputType.TEXT);
@@ -135,6 +135,52 @@ public class AnomalyController {
 		return null;
 	}
 
+	
+	@RequestMapping(value="/{scale}/{variable}/{scenario}/anomaly/seasonal/{season}/{term}")
+	public ModelAndView longTermAverageDiagnosticsSeasonal(LongTermAverageParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
+		
+		requestParameters.setPeriod("seasonal");
+		
+		LongTermAverageConversionRequestImpl conversionRequestMessage = new LongTermAverageConversionRequestImpl(requestParameters, null);
+		
+		// FIXME - Find a better way to deal with this.
+		conversionRequestMessage.getParameters().setTemporalResolution(TemporalResolution.LONGTERM_AVERAGE);
+		
+		this.debugProcessor.process(conversionRequestMessage);
+		
+		ModelMap modelMap = new ModelMap("conversionRequest", conversionRequestMessage);
+		modelMap.addAttribute("dataFileExists", conversionRequestMessage.getDataFile().exists());
+		
+		
+		return new ModelAndView("validate-annual-mean", modelMap); 
+		
+	}
+	
+		
+	@RequestMapping(value="/{scale}/{variable}/{scenario}/anomaly/seasonal/{season}/{term}.shp")
+	public ModelAndView convertToShapefileSeasonal(LongTermAverageParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
+		
+		requestParameters.setOutputType(OutputType.SHAPE);
+		requestParameters.setTemporalResolution(TemporalResolution.LONGTERM_AVERAGE);
+		requestParameters.setPeriod("seasonal");
+		
+		
+		this.convert(new LongTermAverageConversionRequestImpl(requestParameters, response.getOutputStream()), response);
+		
+		return null; 
+	}
+	
+	@RequestMapping(value="/{scale}/{variable}/{scenario}/anomaly/seasonal/{season}/{term}.txt")
+	public ModelAndView convertToTextfileSeasonal(LongTermAverageParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
+		
+		requestParameters.setOutputType(OutputType.TEXT);
+		requestParameters.setTemporalResolution(TemporalResolution.LONGTERM_AVERAGE);
+		requestParameters.setPeriod("seasonal");
+		
+		this.convert(new LongTermAverageConversionRequestImpl(requestParameters, response.getOutputStream()), response);
+		
+		return null;
+	}
 	
 	
 	public void convert(ConversionRequestMessage conversionRequestMessage, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
