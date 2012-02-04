@@ -8,6 +8,8 @@ public class LongTermAverageParameters extends BaseParameters {
 	private Integer startYear = 1870;
 	private Integer endYear = 1870;
 	
+	private String month;
+	
 	private String period;
 	private String term;
 	private String season;
@@ -50,6 +52,14 @@ public class LongTermAverageParameters extends BaseParameters {
 
 	public void setSeason(String season) {
 		this.season = season;
+	}
+
+	public String getMonth() {
+		return month;
+	}
+
+	public void setMonth(String month) {
+		this.month = month;
 	}
 	
 	

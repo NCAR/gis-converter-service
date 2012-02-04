@@ -39,7 +39,7 @@ public class MonthlyMeanFileHandler extends AbstractSourceFileHandler {
 		} 
 		else {
 			// Pull it from the scenario map
-			String scenarioDirectory = this.scenarioDirectoryMap.get(parameters.getScenario());
+			String scenarioDirectory = this.scenarioDirectoryMap.get(parameters.getScenario().toUpperCase());
 			productDirectory = scenarioDirectory;
 			
 			if(parameters.getEnsemble() instanceof RunMember) {
@@ -54,7 +54,7 @@ public class MonthlyMeanFileHandler extends AbstractSourceFileHandler {
 		//tasmin_A1.20C3M_1.CCSM.atmm.1870-01_cat_1999-12.nc
 		String fileNamePattern = "%s_A1.%s_*.nc";
 		
-		String wildCardPattern = fileNamePattern.format(fileNamePattern, parameters.getVariable(), this.scenarioDirectoryMap.get(parameters.getScenario()));
+		String wildCardPattern = fileNamePattern.format(fileNamePattern, parameters.getVariable(), this.scenarioDirectoryMap.get(parameters.getScenario().toUpperCase()));
 		
 		FileSpecification fileSpec = new FileSpecification(result, wildCardPattern);
 		

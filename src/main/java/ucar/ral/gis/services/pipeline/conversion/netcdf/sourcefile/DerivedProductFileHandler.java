@@ -57,7 +57,7 @@ public class DerivedProductFileHandler extends AbstractSourceFileHandler {
 			
 			LongTermAverageParameters ltaParameters = (LongTermAverageParameters) baseParameters;
 			
-			fileNamePattern += baseParameters.getScenario() + "_" + ltaParameters.getSeason() + "_" + ltaParameters.getPeriod() ;
+			fileNamePattern += baseParameters.getScenario() + "_" + ltaParameters.getTerm() + "_" + ltaParameters.getPeriod() ;
 		}
 		
 		if(baseParameters.getScale() == Resolution.DOWNSCALED) {

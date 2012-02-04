@@ -2,8 +2,6 @@ package ucar.ral.gis.services.messages;
 
 import java.io.OutputStream;
 
-import org.springframework.util.StringUtils;
-
 import ucar.ral.gis.services.netcdf2shapefile.rest.monthly.MonthlyMeanParameters;
 import edu.ucar.gis.ipcc.ConversionRequest;
 import edu.ucar.gis.ipcc.TimeConstraint;
@@ -29,7 +27,7 @@ public class MonthlyMeanConversionRequestImpl extends AbstractConversionRequestI
 		// Figure out if we are getting all or selected months.
 		
 		// Do all months first
-		if (!StringUtils.hasText(monthlyMeanParameters.getMonth())) {
+		if ("all".equalsIgnoreCase(monthlyMeanParameters.getMonth())) {
 			
 			result = new YearTimeConstraint(monthlyMeanParameters.getStartYear(), monthlyMeanParameters.getEndYear());
 		}

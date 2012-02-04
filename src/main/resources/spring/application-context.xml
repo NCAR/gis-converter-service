@@ -56,24 +56,7 @@
 	
 	<bean id="ensembleMemberConverter" class="ucar.ral.gis.services.converters.EnsembleMemberConverter"/>
 	
-	<bean id="monthIndexMap" class="org.springframework.beans.factory.config.MapFactoryBean">
-	  <property name="sourceMap">
-	      <map>
-	        <entry key="january" value="1"/>
-	        <entry key="february" value="2"/>
-	        <entry key="march" value="3"/>
-	        <entry key="april" value="4"/>
-	        <entry key="may" value="5"/>
-	        <entry key="june" value="6"/>
-	        <entry key="july" value="7"/>
-	        <entry key="august" value="8"/>
-	        <entry key="september" value="9"/>
-	        <entry key="october" value="10"/>
-	        <entry key="november" value="11"/>
-	        <entry key="december" value="12"/>
-	      </map>
-	  </property>
-	</bean>
+	
 	
 	
 	
@@ -140,7 +123,7 @@
 		<constructor-arg index="2">
 			<map>
 				<entry key="20C3M" value="20C3M"/>
-				<entry key="Commit" value="Commit"/>
+				<entry key="COMMIT" value="Commit"/>
 				<entry key="SRESA1B" value="SRESA1B"/>
 				<entry key="SRESB1" value="SRESB1"/>
 				<entry key="SRESA2" value="SRESA2"/>

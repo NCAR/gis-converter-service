@@ -18,7 +18,7 @@
 	Variable: ${conversionRequest.parameters.variable}<br>
 	Scenario: ${conversionRequest.parameters.scenario}<br>
 	Ensemble: ${conversionRequest.parameters.ensemble.name}<br>
-	Month: ${conversionRequest.parameters.month.description}<br>
+	Month: ${conversionRequest.parameters.month}<br>
 	Start Year: ${conversionRequest.parameters.startYear}<br>
 	End Year: ${conversionRequest.parameters.endYear}<br>
 	

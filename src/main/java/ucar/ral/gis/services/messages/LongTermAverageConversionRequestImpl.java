@@ -25,13 +25,13 @@ public class LongTermAverageConversionRequestImpl extends AbstractConversionRequ
 		TimeConstraint result = null;
 		
 		if (parameters.getPeriod().equalsIgnoreCase("monthly")) {
-			result = new MonthTimeConstraint(this.getMonthIndex(parameters.getTerm()));
+			result = new MonthTimeConstraint(this.getMonthIndex(parameters.getMonth()));
 		}
 		else if (parameters.getPeriod().equalsIgnoreCase("annual")) {
 			result = new AllTimesConstraint();
 		}
 		else if (parameters.getPeriod().equalsIgnoreCase("seasonal")) {
-			result = new MonthTimeConstraint(this.getMonthIndexForSeason(parameters.getTerm()));
+			result = new MonthTimeConstraint(this.getMonthIndexForSeason(parameters.getSeason()));
 		}
 		
 		return result;

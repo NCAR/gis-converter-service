@@ -14,8 +14,8 @@ public class EnsembleMemberConverter implements Converter<String, EnsembleMember
 		
 		EnsembleMember result;
 		
-		if (esembleAverageName.equalsIgnoreCase(source)) {
-			result = new EnsembleAverage(source);
+		if ("ea".equalsIgnoreCase(source)) {
+			result = new EnsembleAverage(esembleAverageName);
 		}
 		else {
 			result = new RunMember(source);
