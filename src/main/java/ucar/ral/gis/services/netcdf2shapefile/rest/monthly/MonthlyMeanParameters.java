@@ -2,16 +2,14 @@ package ucar.ral.gis.services.netcdf2shapefile.rest.monthly;
 
 import ucar.ral.gis.services.EnsembleMember;
 import ucar.ral.gis.services.netcdf2shapefile.rest.BaseParameters;
-import edu.ucar.gis.ipcc.ConversionRequest;
 import edu.ucar.gis.ipcc.Month;
-import edu.ucar.gis.ipcc.Months;
 
 
 public class MonthlyMeanParameters extends BaseParameters {
 	
 	private EnsembleMember ensemble;
 	
-	private Month month = Months.getMonth("0");
+	private String month = null;
 	
 	private Integer startYear = 1870;
 	private Integer endYear = 1870;
@@ -32,11 +30,11 @@ public class MonthlyMeanParameters extends BaseParameters {
 		this.ensemble = ensemble;
 	}
 
-	public Month getMonth() {
+	public String getMonth() {
 		return month;
 	}
 
-	public void setMonth(Month month) {
+	public void setMonth(String month) {
 		this.month = month;
 	}
 

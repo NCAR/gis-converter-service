@@ -2,6 +2,8 @@ package ucar.ral.gis.services;
 
 
 
+import org.springframework.util.StringUtils;
+
 import ucar.ral.gis.services.netcdf2shapefile.rest.BaseParameters;
 import ucar.ral.gis.services.netcdf2shapefile.rest.monthly.MonthlyMeanParameters;
 
@@ -23,7 +25,13 @@ public class OutputFileNameFactory {
 	
 	public String _create(MonthlyMeanParameters parameters) {
 		
-		return parameters.getVariable() + "_" + parameters.getMonth().getDescription().replace(" ", "_") + "_" + parameters.getStartYear() + "_" + 
+		String monthName = parameters.getMonth();
+		
+		if (!StringUtils.hasText(monthName)) {
+			monthName = "all_months";
+		}
+		
+		return parameters.getVariable() + "_" + monthName + "_" + parameters.getStartYear() + "_" + 
 				parameters.getEndYear() + "_" + parameters.getScenario() + 
 				parameters.getXmin() + "_" + parameters.getXmax() + "_" +
 				parameters.getYmin() + "_" + parameters.getYmax();
