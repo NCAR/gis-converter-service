@@ -27,13 +27,6 @@
 		
 	</bean>	
 	
-	
-	<bean id="string2ProjectionPeriodConverter" class="ucar.ral.gis.services.converters.String2PeriodConverter" />
-	<bean id="string2ProjectionSeasonConverter" class="ucar.ral.gis.services.converters.String2ProjectionSeasonConverter" />
-	<bean id="string2ProjectionTermConverter" class="ucar.ral.gis.services.converters.String2ProjectionTermConverter" />
-	
-	<bean id="string2MonthConverter" class="ucar.ral.gis.services.converters.String2MonthConverter" />
-	
 	<bean id="string2ScaleConverter" class="ucar.ral.gis.services.converters.String2ScaleConverter">
 		<constructor-arg>
 			<map>
@@ -67,10 +60,6 @@
                 <ref bean="string2ScaleConverter" />
                 <ref bean="ensembleMemberConverter" />
                 <ref bean="string2TemporalResolutionConverter" />
-                <ref bean="string2MonthConverter" />
-                <ref bean="string2ProjectionSeasonConverter" />
-                <ref bean="string2ProjectionTermConverter" />
-                <ref bean="string2ProjectionPeriodConverter" />
             </set>
         </property>
         <property name="formatters">
@@ -82,19 +71,6 @@
             </set>
         </property>
     </bean>
-	
-	<bean id="dataFileFactory" class="ucar.ral.gis.services.pipeline.conversion.netcdf.sourcefile.DataFileFactory" >
-<!-- 		<constructor-arg index="0" value="${data.root.directory}" /> -->
-<!-- 		<constructor-arg index="1"> -->
-<!-- 			<map> -->
-<!-- 				<entry key="20C3M" value="20C3M"/> -->
-<!-- 				<entry key="Commit" value="Commit"/> -->
-<!-- 				<entry key="SRESA1B" value="SRESA1B"/> -->
-<!-- 				<entry key="SRESB1" value="SRESB1"/> -->
-<!-- 				<entry key="SRESA2" value="SRESA2"/> -->
-<!-- 			</map> -->
-<!-- 		</constructor-arg> -->
-	</bean>
 	
 	<bean id="debugInputProcessor" class="ucar.ral.gis.services.pipeline.Pipeline" >
 		<constructor-arg index="0">
