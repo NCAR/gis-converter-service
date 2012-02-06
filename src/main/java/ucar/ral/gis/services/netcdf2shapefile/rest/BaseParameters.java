@@ -13,10 +13,10 @@ public class BaseParameters {
 	
 	protected OutputType outputType;
 	
-	protected Float ymin = -180.0F;
-	protected Float ymax = 180.0F;
-	protected Float xmin = -90.0F;
-	protected Float xmax = 90.0F;
+	protected Float xmin = -180.0F;
+	protected Float xmax = 180.0F;
+	protected Float ymin = -90.0F;
+	protected Float ymax = 90.0F;
 
 	public BaseParameters() {
 		super();
