@@ -1,7 +1,6 @@
 package ucar.ral.gis.services.messages;
 
 import java.io.File;
-import java.util.Locale;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -42,14 +41,14 @@ public class AbstractConversionRequestImpl {
 
 	public AxisConstraint2<Latitude> getLatitudeConstraint() {
 		
-		AxisConstraint2<Latitude> result = new AxisConstraint2<Latitude>(new Latitude(this.productRequest.getXmin()), new Latitude(this.productRequest.getXmax()), 1);
+		AxisConstraint2<Latitude> result = new AxisConstraint2<Latitude>(new Latitude(this.productRequest.getYmin()), new Latitude(this.productRequest.getYmax()), 1);
 		return result;
 	
 	}
 
 	public AxisConstraint2<Longitude> getLongitudeConstraint() {
 	
-		AxisConstraint2<Longitude> result = new AxisConstraint2<Longitude>(new Longitude(this.productRequest.getYmin()), new Longitude(this.productRequest.getYmax()), 1);
+		AxisConstraint2<Longitude> result = new AxisConstraint2<Longitude>(new Longitude(this.productRequest.getXmin()), new Longitude(this.productRequest.getXmax()), 1);
 		return result;
 	
 	}
