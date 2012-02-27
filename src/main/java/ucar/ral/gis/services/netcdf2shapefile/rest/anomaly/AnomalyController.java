@@ -51,7 +51,7 @@ public class AnomalyController {
 		LongTermAverageConversionRequestImpl conversionRequestMessage = new LongTermAverageConversionRequestImpl(requestParameters, null);
 		
 		// FIXME - Find a better way to deal with this.
-		conversionRequestMessage.getParameters().setTemporalResolution(TemporalResolution.LONGTERM_AVERAGE);
+		conversionRequestMessage.getParameters().setTemporalResolution(TemporalResolution.CLIMATE_ANOMOLY);
 		
 		this.debugProcessor.process(conversionRequestMessage);
 		
@@ -68,7 +68,7 @@ public class AnomalyController {
 	public ModelAndView convertToShapefile(LongTermAverageParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
 		
 		requestParameters.setOutputType(OutputType.SHAPE);
-		requestParameters.setTemporalResolution(TemporalResolution.LONGTERM_AVERAGE);
+		requestParameters.setTemporalResolution(TemporalResolution.CLIMATE_ANOMOLY);
 		requestParameters.setPeriod("monthly");
 		
 		
@@ -81,7 +81,7 @@ public class AnomalyController {
 	public ModelAndView convertToTextfile(LongTermAverageParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
 		
 		requestParameters.setOutputType(OutputType.TEXT);
-		requestParameters.setTemporalResolution(TemporalResolution.LONGTERM_AVERAGE);
+		requestParameters.setTemporalResolution(TemporalResolution.CLIMATE_ANOMOLY);
 		requestParameters.setPeriod("monthly");
 		
 		this.convert(new LongTermAverageConversionRequestImpl(requestParameters, response.getOutputStream()), response);
@@ -97,7 +97,7 @@ public class AnomalyController {
 		LongTermAverageConversionRequestImpl conversionRequestMessage = new LongTermAverageConversionRequestImpl(requestParameters, null);
 		
 		// FIXME - Find a better way to deal with this.
-		conversionRequestMessage.getParameters().setTemporalResolution(TemporalResolution.LONGTERM_AVERAGE);
+		conversionRequestMessage.getParameters().setTemporalResolution(TemporalResolution.CLIMATE_ANOMOLY);
 		
 		this.debugProcessor.process(conversionRequestMessage);
 		
@@ -114,7 +114,7 @@ public class AnomalyController {
 	public ModelAndView convertToShapefileAnnual(LongTermAverageParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
 		
 		requestParameters.setOutputType(OutputType.SHAPE);
-		requestParameters.setTemporalResolution(TemporalResolution.LONGTERM_AVERAGE);
+		requestParameters.setTemporalResolution(TemporalResolution.CLIMATE_ANOMOLY);
 		requestParameters.setPeriod("annual");
 		
 		
@@ -127,7 +127,7 @@ public class AnomalyController {
 	public ModelAndView convertToTextfileAnnual(LongTermAverageParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
 		
 		requestParameters.setOutputType(OutputType.TEXT);
-		requestParameters.setTemporalResolution(TemporalResolution.LONGTERM_AVERAGE);
+		requestParameters.setTemporalResolution(TemporalResolution.CLIMATE_ANOMOLY);
 		requestParameters.setPeriod("annual");
 		
 		this.convert(new LongTermAverageConversionRequestImpl(requestParameters, response.getOutputStream()), response);
@@ -144,7 +144,7 @@ public class AnomalyController {
 		LongTermAverageConversionRequestImpl conversionRequestMessage = new LongTermAverageConversionRequestImpl(requestParameters, null);
 		
 		// FIXME - Find a better way to deal with this.
-		conversionRequestMessage.getParameters().setTemporalResolution(TemporalResolution.LONGTERM_AVERAGE);
+		conversionRequestMessage.getParameters().setTemporalResolution(TemporalResolution.CLIMATE_ANOMOLY);
 		
 		this.debugProcessor.process(conversionRequestMessage);
 		
@@ -161,7 +161,7 @@ public class AnomalyController {
 	public ModelAndView convertToShapefileSeasonal(LongTermAverageParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
 		
 		requestParameters.setOutputType(OutputType.SHAPE);
-		requestParameters.setTemporalResolution(TemporalResolution.LONGTERM_AVERAGE);
+		requestParameters.setTemporalResolution(TemporalResolution.CLIMATE_ANOMOLY);
 		requestParameters.setPeriod("seasonal");
 		
 		
@@ -174,7 +174,7 @@ public class AnomalyController {
 	public ModelAndView convertToTextfileSeasonal(LongTermAverageParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
 		
 		requestParameters.setOutputType(OutputType.TEXT);
-		requestParameters.setTemporalResolution(TemporalResolution.LONGTERM_AVERAGE);
+		requestParameters.setTemporalResolution(TemporalResolution.CLIMATE_ANOMOLY);
 		requestParameters.setPeriod("seasonal");
 		
 		this.convert(new LongTermAverageConversionRequestImpl(requestParameters, response.getOutputStream()), response);

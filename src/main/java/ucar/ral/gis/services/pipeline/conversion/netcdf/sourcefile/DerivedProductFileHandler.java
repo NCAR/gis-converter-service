@@ -65,7 +65,7 @@ public class DerivedProductFileHandler extends AbstractSourceFileHandler {
 		}
 		
 		if(baseParameters.getTemporalResolution() == TemporalResolution.CLIMATE_ANOMOLY) {
-			fileNamePattern += "_anomoly";
+			fileNamePattern += "_anomaly";
 		}
 		
 		fileNamePattern += ".nc";
