@@ -84,16 +84,16 @@ public class AbstractConversionRequestImpl {
 		int monthIndex = 0;
 		
 		if (season.equalsIgnoreCase("spring")) {
-			monthIndex = 2;
-		}
-		else if (season.equalsIgnoreCase("summer")) {
 			monthIndex = 5;
 		}
-		else if (season.equalsIgnoreCase("fall")) {
+		else if (season.equalsIgnoreCase("summer")) {
 			monthIndex = 8;
 		}
-		else if (season.equalsIgnoreCase("winter")) {
+		else if (season.equalsIgnoreCase("fall")) {
 			monthIndex = 11;
+		}
+		else if (season.equalsIgnoreCase("winter")) {
+			monthIndex = 2;
 		}
 		
 	    return monthIndex;
