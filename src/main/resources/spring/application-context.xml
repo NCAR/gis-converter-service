@@ -93,6 +93,16 @@
 	
 	</bean>
 	
+	<bean id="wmsProcessor" class="ucar.ral.gis.services.pipeline.Pipeline" >
+		<constructor-arg index="0">
+			<list>
+				<ref bean="sourceDatafileProcessor"/>
+				
+			</list>
+		</constructor-arg>
+	
+	</bean>
+	
 	<bean id="monthlyMeanFileHandler" class="ucar.ral.gis.services.pipeline.conversion.netcdf.sourcefile.MonthlyMeanFileHandler">
 		<constructor-arg index="0" ref="derivedProductFileHandler" />
 		<constructor-arg index="1" value="${data.root.directory}" />
@@ -148,6 +158,7 @@
 		<constructor-arg index="0" ref="outputFilenameFactory" />
 		<constructor-arg index="1" ref="conversionProcessor" />
 		<constructor-arg index="2" ref="debugInputProcessor" />
+		<constructor-arg index="3" ref="wmsProcessor" />
 	</bean>
 	
 	<bean id="anomalyController" class="ucar.ral.gis.services.netcdf2shapefile.rest.anomaly.AnomalyController" >

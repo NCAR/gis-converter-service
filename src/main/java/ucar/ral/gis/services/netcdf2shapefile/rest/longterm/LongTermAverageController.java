@@ -15,21 +15,24 @@ import ucar.ral.gis.services.OutputType;
 import ucar.ral.gis.services.TemporalResolution;
 import ucar.ral.gis.services.messages.ConversionRequestMessage;
 import ucar.ral.gis.services.messages.LongTermAverageConversionRequestImpl;
+import ucar.ral.gis.services.messages.LongTermAverageWMSRequestImpl;
 import ucar.ral.gis.services.pipeline.Processor;
 
 @Controller
 public class LongTermAverageController {
 	
 	private Processor shapefileProcessor;
+	private Processor wmsProcessor;
 	private Processor debugProcessor;
 	
 	private OutputFileNameFactory outputFileNameFactory;
 	
 	
-	public LongTermAverageController(OutputFileNameFactory outputFileNameFactory, Processor shapefileProcessor, Processor debugProcessor) {
+	public LongTermAverageController(OutputFileNameFactory outputFileNameFactory, Processor shapefileProcessor, Processor debugProcessor, Processor wmsProcessor) {
 		super();
 		this.outputFileNameFactory = outputFileNameFactory;
 		this.shapefileProcessor = shapefileProcessor;
+		this.wmsProcessor = wmsProcessor;
 		this.debugProcessor = debugProcessor;
 	}
 	
@@ -84,6 +87,18 @@ public class LongTermAverageController {
 		requestParameters.setPeriod("monthly");
 		
 		this.convert(new LongTermAverageConversionRequestImpl(requestParameters, response.getOutputStream()), response);
+		
+		return null;
+	}
+	
+	@RequestMapping(value="/{scale}/{variable}/{scenario}/longterm/average/monthly/{month}/{term}.wms")
+	public ModelAndView convertToWMS(LongTermAverageParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
+		
+		requestParameters.setOutputType(OutputType.TEXT);
+		requestParameters.setTemporalResolution(TemporalResolution.LONGTERM_AVERAGE);
+		requestParameters.setPeriod("monthly");
+		
+		this.generateWMS(new LongTermAverageWMSRequestImpl(requestParameters, response.getOutputStream()), response);
 		
 		return null;
 	}
@@ -192,6 +207,19 @@ public class LongTermAverageController {
 //		/MonthlyMeanConversionRequestImpl conversionRequest = new MonthlyMeanConversionRequestImpl(requestParameters, response.getOutputStream(), outputType);
 		
 		this.shapefileProcessor.process(conversionRequestMessage);
+		
+	}
+	
+	public void generateWMS(LongTermAverageWMSRequestImpl wmsRequestMessage, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
+		
+		String outputFilename = this.outputFileNameFactory.create(wmsRequestMessage.getParameters());
+		
+		response.setHeader("Content-Type", "application/zip");
+		response.setHeader("Content-Disposition", "attachment; filename=" + outputFilename + ".zip");
+		
+//		/MonthlyMeanConversionRequestImpl conversionRequest = new MonthlyMeanConversionRequestImpl(requestParameters, response.getOutputStream(), outputType);
+		
+		this.wmsProcessor.process(wmsRequestMessage);
 		
 	}
 	
