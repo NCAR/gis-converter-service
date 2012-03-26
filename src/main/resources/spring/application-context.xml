@@ -97,10 +97,13 @@
 		<constructor-arg index="0">
 			<list>
 				<ref bean="sourceDatafileProcessor"/>
-				
+				<ref bean="WMSProcessor"/>
 			</list>
 		</constructor-arg>
 	
+	</bean>
+	
+	<bean id="WMSProcessor" class="ucar.ral.gis.services.pipeline.conversion.wms.WMSProcessor">
 	</bean>
 	
 	<bean id="monthlyMeanFileHandler" class="ucar.ral.gis.services.pipeline.conversion.netcdf.sourcefile.MonthlyMeanFileHandler">
