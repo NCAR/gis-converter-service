@@ -49,7 +49,20 @@
 	
 	<bean id="ensembleMemberConverter" class="ucar.ral.gis.services.converters.EnsembleMemberConverter"/>
 	
+	<bean name="httpClientFactory" class="sgf.gateway.utils.httpclient.impl.RetryHttpClientFactoryImpl" >
+	</bean>
 	
+	<bean id="readOnlyHttpClient" factory-method="createHttpClient" factory-bean="readOnlyHttpClientFactory">
+	</bean>
+	
+	<bean name="commonsClientHttpRequestFactory" class="org.springframework.http.client.CommonsClientHttpRequestFactory" >
+		<constructor-arg index="0" ref="readOnlyHttpClient" />
+	</bean>
+	
+	<bean name="readOnlyRestTemplate" class="org.springframework.web.client.RestTemplate" >
+		<property name="requestFactory" ref="commonsClientHttpRequestFactory" />
+	
+	</bean>
 	
 	
 	

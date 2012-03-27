@@ -1,6 +1,10 @@
 <configuration>
 
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+  
+  	<encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
     <layout class="ch.qos.logback.classic.PatternLayout">
       <Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
     </layout>
@@ -8,7 +12,14 @@
 
 	<logger name="org.springframework" level="DEBUG"/>
 	
-  <root level="debug">
+<!-- 	<logger name="org.apache.http.wire" level="DEBUG"/> -->
+<!-- 	<logger name="log4j.logger.httpclient.wire" level="DEBUG"/> -->
+	
+	
+	
+  <root level="DEBUG">
     <appender-ref ref="STDOUT" />
   </root>
+  
+  
 </configuration>
