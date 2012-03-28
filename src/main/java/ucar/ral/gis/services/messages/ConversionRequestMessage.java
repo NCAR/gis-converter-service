@@ -11,6 +11,8 @@ public interface ConversionRequestMessage {
 	BaseParameters getParameters();
 
 	void setDataFile(File dataFile);
+	
+	File getDataFile();
 
 
 }
