@@ -22,17 +22,17 @@ public class RangeFilter implements Processor {
 
 	/* Give the min / max values JSON */
 	private static final String MINMAX_URL_TEMPLATE = "http://tds.gisclimatechange.ucar.edu/thredds/wms/products/{filename}?" +
-			"service=WMS&version=1.3.0&item=minmax&request=GetMetadata&Layers={variable}&bbox=-124,24,66,49&SRS=ESPG:4326&CRS=CRS:84&width=850&height=500&TIME=2039-02-10T00:00:00.000Z";
+			"service=WMS&version=1.3.0&item=minmax&request=GetMetadata&Layers={variable}&bbox=-124,24,66,49&SRS=ESPG:4326&CRS=CRS:84&width=850&height=500&TIME={date}";
 	
 	
 	public void process(ConversionRequestMessage conversionRequest) {
 		
-		UriComponents uriComponents = UriComponentsBuilder.fromHttpUrl(MINMAX_URL_TEMPLATE).build();
-		
-		URI requestUri = uriComponents.expand(conversionRequest.getDataFile().getName(), conversionRequest.getParameters().getVariable()).toUri();
-	
 		WMSRequestMessage wmsRequestMessage = (WMSRequestMessage) conversionRequest;
 		
+		UriComponents uriComponents = UriComponentsBuilder.fromHttpUrl(MINMAX_URL_TEMPLATE).build();
+		
+		URI requestUri = uriComponents.expand(conversionRequest.getDataFile().getName(), conversionRequest.getParameters().getVariable(), wmsRequestMessage.getDates().get(0) ).toUri();
+
 		Range range = restTemplate.getForObject(requestUri, Range.class);
 		
 		System.out.println("Range: " + range.getMin() + ", " + range.getMax());
