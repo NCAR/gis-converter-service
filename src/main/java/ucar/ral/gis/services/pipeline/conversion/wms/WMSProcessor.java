@@ -7,6 +7,7 @@ import net.lingala.zip4j.model.ZipParameters;
 import net.lingala.zip4j.util.Zip4jConstants;
 
 import org.springframework.http.HttpMethod;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -26,11 +27,11 @@ public class WMSProcessor implements Processor {
 	}
 
 	
-	private static final String IMAGE_URL_TEMPLATE = "http://tds.gisclimatechange.ucar.edu/thredds/wms/products/ppt_SRESB1_near_seasonal_down_anomaly.nc?" +
-			"service=WMS&version=1.3.0&request=GetMap&Layers=ppt&bbox=-124,24,-66,49&SRS=ESPG:4326&CRS=CRS:84&COLORSCALERANGE=-100,55&width=850&height=500&styles=BOXFILL/rainbow&format=image/png&TIME=2039-02-10T00:00:00.000Z";
+	private static final String IMAGE_URL_TEMPLATE = "http://tds.gisclimatechange.ucar.edu/thredds/wms/products/{filename}?" +
+			"service=WMS&version=1.3.0&request=GetMap&Layers={variable}&bbox={xmin},{ymin},{xmax},{ymax}&SRS=ESPG:4326&CRS=CRS:84&COLORSCALERANGE={color-min},{color-max}&width=850&height=500&styles=BOXFILL/rainbow&format=image/png&TIME={date}";
 
-	private static final String LEGEND_URL_TEMPLATE = "http://tds.gisclimatechange.ucar.edu/thredds/wms/products/ppt_SRESB1_near_seasonal_down_anomaly.nc?" +
-			"service=WMS&version=1.3.0&request=GetLegendGraphic&LAYER=ppt&LAYERS=ppt&COLORSCALERANGE=-100,55&PALETTE=rainbow";
+	private static final String LEGEND_URL_TEMPLATE = "http://tds.gisclimatechange.ucar.edu/thredds/wms/products/{filename}?" +
+			"service=WMS&version=1.3.0&request=GetLegendGraphic&Layer={variable}&Layers={variable}&bbox={xmin},{ymin},{xmax},{ymax}&COLORSCALERANGE={color-min},{color-max}&PALETTE=rainbow";
 	
 	public void process(ConversionRequestMessage conversionRequest) {
 	
@@ -54,8 +55,23 @@ public class WMSProcessor implements Processor {
 				
 				outputStream.putNextEntry(null, parameters);
 				
+				ModelMap model = new ModelMap();
+				
+				model.addAttribute("filename", conversionRequest.getDataFile().getName());
+				model.addAttribute("variable", conversionRequest.getParameters().getVariable());
+				
+				model.addAttribute("xmin", conversionRequest.getParameters().getXmin());
+				model.addAttribute("xmax", conversionRequest.getParameters().getXmax());
+				model.addAttribute("ymin", conversionRequest.getParameters().getYmin());
+				model.addAttribute("ymax", conversionRequest.getParameters().getYmax());
+				
+				model.addAttribute("color-min", String.format("%.6g", message.getRange().getMin()));
+				model.addAttribute("color-max", String.format("%.6g", message.getRange().getMax()));
+				
+				model.addAttribute("date", date);
+				
 				UriComponents mapUri = UriComponentsBuilder.fromHttpUrl(IMAGE_URL_TEMPLATE).build();
-				URI mapRequestUri = mapUri.expand(conversionRequest.getDataFile().getName(), conversionRequest.getParameters().getVariable(), message.getDates().get(0) ).toUri();
+				URI mapRequestUri = mapUri.expand(model).toUri();
 				
 				Integer bytesCopied = restTemplate.execute(mapRequestUri, HttpMethod.GET, null, new ImageExtractor(outputStream));
 				
@@ -63,19 +79,23 @@ public class WMSProcessor implements Processor {
 				
 				outputStream.closeEntry();
 				
-				parameters.setFileNameInZip("legend-" + date + ".png");
-				
-				outputStream.putNextEntry(null, parameters);
-				
-				bytesCopied = restTemplate.execute(LEGEND_URL_TEMPLATE, HttpMethod.GET, null, new ImageExtractor(outputStream));
-				
-				System.out.println("Bytes copied: " + bytesCopied);
-				
-				outputStream.closeEntry();
+//				parameters.setFileNameInZip("legend-" + date + ".png");
+//				
+//				outputStream.putNextEntry(null, parameters);
+//				
+//				UriComponents legendUri = UriComponentsBuilder.fromHttpUrl(LEGEND_URL_TEMPLATE).build();
+//				URI legendRequestUri = legendUri.expand(model).toUri();
+//				
+//				bytesCopied = restTemplate.execute(legendRequestUri, HttpMethod.GET, null, new ImageExtractor(outputStream));
+//				
+//				System.out.println("Bytes copied: " + bytesCopied);
+//				
+//				outputStream.closeEntry();
 			}
 			
 			//ZipOutputStream now writes zip header information to the zip file
 			outputStream.finish();
+			outputStream.close();
 			
 		} catch (Exception e) {
 			throw new RuntimeException(e);

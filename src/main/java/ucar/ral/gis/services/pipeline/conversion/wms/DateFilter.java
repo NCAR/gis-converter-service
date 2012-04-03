@@ -26,15 +26,14 @@ public class DateFilter implements Processor {
 		this.restTemplate = restTemplate;
 	}
 
-	private static final String CAPABILITY_URL_TEMPLATE = "http://tds.gisclimatechange.ucar.edu/thredds/wms/products/{filename}?" +
-			"service=WMS&version=1.3.0&request=GetCapabilities&Layers={variable}&bbox=-124,24,-66,49&SRS=ESPG:4326&CRS=CRS:84&COLORSCALERANGE=-100,55&width=850&height=500&styles=BOXFILL/rainbow&format=image/png&TIME=2039-02-10T00:00:00.000Z";
+	private static final String CAPABILITY_URL_TEMPLATE = "http://tds.gisclimatechange.ucar.edu/thredds/wms/products/{filename}?service=WMS&version=1.3.0&request=GetCapabilities";
 
 	
 	public void process(ConversionRequestMessage conversionRequest) {
 		
 		UriComponents uriComponents = UriComponentsBuilder.fromHttpUrl(CAPABILITY_URL_TEMPLATE).build();
 		
-		URI requestUri = uriComponents.expand(conversionRequest.getDataFile().getName(), conversionRequest.getParameters().getVariable()).toUri();
+		URI requestUri = uriComponents.expand(conversionRequest.getDataFile().getName()).toUri();
 		
 		
 		WMSCapabilities wmsCapabilities = restTemplate.getForObject(requestUri, WMSCapabilities.class);
