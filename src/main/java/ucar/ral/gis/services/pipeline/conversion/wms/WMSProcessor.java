@@ -55,7 +55,7 @@ public class WMSProcessor implements Processor {
 				outputStream.putNextEntry(null, parameters);
 				
 				UriComponents mapUri = UriComponentsBuilder.fromHttpUrl(IMAGE_URL_TEMPLATE).build();
-				URI mapRequestUri = mapUri.expand(conversionRequest.getDataFile().getName(), conversionRequest.getParameters().getVariable(), wmsRequestMessage.getDates().get(0) ).toUri();
+				URI mapRequestUri = mapUri.expand(conversionRequest.getDataFile().getName(), conversionRequest.getParameters().getVariable(), message.getDates().get(0) ).toUri();
 				
 				Integer bytesCopied = restTemplate.execute(mapRequestUri, HttpMethod.GET, null, new ImageExtractor(outputStream));
 				
