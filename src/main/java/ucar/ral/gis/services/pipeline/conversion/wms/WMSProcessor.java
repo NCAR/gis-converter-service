@@ -79,18 +79,18 @@ public class WMSProcessor implements Processor {
 				
 				outputStream.closeEntry();
 				
-//				parameters.setFileNameInZip("legend-" + date + ".png");
-//				
-//				outputStream.putNextEntry(null, parameters);
-//				
-//				UriComponents legendUri = UriComponentsBuilder.fromHttpUrl(LEGEND_URL_TEMPLATE).build();
-//				URI legendRequestUri = legendUri.expand(model).toUri();
-//				
-//				bytesCopied = restTemplate.execute(legendRequestUri, HttpMethod.GET, null, new ImageExtractor(outputStream));
-//				
-//				System.out.println("Bytes copied: " + bytesCopied);
-//				
-//				outputStream.closeEntry();
+				parameters.setFileNameInZip("legend-" + date + ".png");
+				
+				outputStream.putNextEntry(null, parameters);
+				
+				UriComponents legendUri = UriComponentsBuilder.fromHttpUrl(LEGEND_URL_TEMPLATE).build();
+				URI legendRequestUri = legendUri.expand(model).toUri();
+				
+				bytesCopied = restTemplate.execute(legendRequestUri, HttpMethod.GET, null, new ImageExtractor(outputStream));
+				
+				System.out.println("Bytes copied: " + bytesCopied);
+				
+				outputStream.closeEntry();
 			}
 			
 			//ZipOutputStream now writes zip header information to the zip file
