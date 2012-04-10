@@ -65,8 +65,8 @@ public class WMSProcessor implements Processor {
 				model.addAttribute("ymin", conversionRequest.getParameters().getYmin());
 				model.addAttribute("ymax", conversionRequest.getParameters().getYmax());
 				
-				model.addAttribute("color-min", String.format("%.3f", message.getRange().getMin()));
-				model.addAttribute("color-max", String.format("%.3f", message.getRange().getMax()));
+				model.addAttribute("color-min", String.format("%.1f", message.getRange().getMin()));
+				model.addAttribute("color-max", String.format("%.1f", message.getRange().getMax()));
 				
 				model.addAttribute("date", date);
 				
