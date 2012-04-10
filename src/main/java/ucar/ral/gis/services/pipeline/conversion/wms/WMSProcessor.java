@@ -51,7 +51,7 @@ public class WMSProcessor implements Processor {
 				parameters.setCompressionMethod(Zip4jConstants.COMP_DEFLATE);
 				parameters.setCompressionLevel(Zip4jConstants.DEFLATE_LEVEL_NORMAL);
 				parameters.setSourceExternalStream(true);
-				parameters.setFileNameInZip("map-" + date + ".png");
+				parameters.setFileNameInZip("map" +  ".png");
 				
 				outputStream.putNextEntry(null, parameters);
 				
@@ -79,7 +79,7 @@ public class WMSProcessor implements Processor {
 				
 				outputStream.closeEntry();
 				
-				parameters.setFileNameInZip("legend-" + date + ".png");
+				parameters.setFileNameInZip("legend" + ".png");
 				
 				outputStream.putNextEntry(null, parameters);
 				
