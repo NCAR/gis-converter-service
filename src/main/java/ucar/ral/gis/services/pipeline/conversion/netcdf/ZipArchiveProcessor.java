@@ -46,7 +46,7 @@ public class ZipArchiveProcessor implements Processor {
 			
 			parameters.setFileNameInZip(FilenameUtils.getName(xmlFileName));
 			
-			//zipFile.addFile(new File(xmlFileName), parameters);
+			zipFile.addFile(new File(xmlFileName), parameters);
 			
 			parameters.setFileNameInZip("");
 			
