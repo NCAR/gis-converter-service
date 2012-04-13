@@ -1,11 +1,14 @@
 package ucar.ral.gis.services.pipeline.conversion.netcdf;
 
+import java.io.File;
 import java.io.FileInputStream;
 
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.model.ZipParameters;
 import net.lingala.zip4j.util.Zip4jConstants;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 
 import ucar.ral.gis.services.messages.ConversionOutput;
@@ -40,6 +43,13 @@ public class ZipArchiveProcessor implements Processor {
 			// Add folder to the zip file
 			zipFile.addFolder(conversionOutput.getOutputFile().getParent(), parameters);
 			
+			String xmlFileName = conversionRequest.getDataFile().toString().replace(".nc", ".xml");
+			
+			parameters.setFileNameInZip(FilenameUtils.getName(xmlFileName));
+			
+			//System.out.println("Adding filename: " + FilenameUtils.getName(xmlFileName));
+			
+			zipFile.addFile(new File(xmlFileName), parameters);
 			
 			IOUtils.copy(new FileInputStream(zipFile.getFile()), conversionOutput.getOutputStream());
 			
