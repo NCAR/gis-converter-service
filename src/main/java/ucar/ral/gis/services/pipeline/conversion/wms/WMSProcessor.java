@@ -105,7 +105,7 @@ public class WMSProcessor implements Processor {
 				
 				outputStream.closeEntry();
 				
-				parameters.setFileNameInZip(null);
+				parameters.setFileNameInZip("");
 				
 				for (int i = 0; i < this.projectionMetadata.listFiles().length; i++) {
 
