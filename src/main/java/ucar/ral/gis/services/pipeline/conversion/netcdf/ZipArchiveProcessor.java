@@ -48,9 +48,9 @@ public class ZipArchiveProcessor implements Processor {
 			
 			zipFile.addFile(new File(xmlFileName), parameters);
 			
-			parameters.setFileNameInZip(null);
+			parameters.setFileNameInZip("");
 			
-			parameters.setRootFolderInZip(null);
+			parameters.setRootFolderInZip("/");
 			
 			zipFile.addFolder(this.projectMetadata, parameters);
 			
