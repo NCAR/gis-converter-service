@@ -1,11 +1,13 @@
 package ucar.ral.gis.services.pipeline.conversion.wms;
 
+import java.io.File;
 import java.net.URI;
 
 import net.lingala.zip4j.io.ZipOutputStream;
 import net.lingala.zip4j.model.ZipParameters;
 import net.lingala.zip4j.util.Zip4jConstants;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.http.HttpMethod;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.client.RestTemplate;
@@ -20,6 +22,8 @@ import ucar.ral.gis.services.pipeline.Processor;
 public class WMSProcessor implements Processor {
 	
 	private RestTemplate restTemplate;
+	
+	private File projectionMetadata;
 
 	public WMSProcessor(RestTemplate restTemplate) {
 		super();
@@ -91,6 +95,27 @@ public class WMSProcessor implements Processor {
 				System.out.println("Bytes copied: " + bytesCopied);
 				
 				outputStream.closeEntry();
+				
+				
+				String xmlFileName = conversionRequest.getDataFile().toString().replace(".nc", ".xml");
+				
+				parameters.setFileNameInZip(FilenameUtils.getName(xmlFileName));
+				
+				outputStream.putNextEntry(new File(xmlFileName), parameters);
+				
+				outputStream.closeEntry();
+				
+				parameters.setFileNameInZip(null);
+				
+				for (int i = 0; i < this.projectionMetadata.listFiles().length; i++) {
+
+					File file = this.projectionMetadata.listFiles()[i];
+
+					outputStream.putNextEntry(file, parameters);
+					
+					outputStream.closeEntry();
+				}
+				
 			}
 			
 			//ZipOutputStream now writes zip header information to the zip file
