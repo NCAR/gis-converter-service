@@ -7,7 +7,6 @@ import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.model.ZipParameters;
 import net.lingala.zip4j.util.Zip4jConstants;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 
@@ -17,10 +16,13 @@ import ucar.ral.gis.services.pipeline.Processor;
 
 public class ZipArchiveProcessor implements Processor {
 	
-	public ZipArchiveProcessor() {
+	private File projectMetadata;
+	
+	public ZipArchiveProcessor(File projectMetadata) {
 		super();
+		this.projectMetadata = projectMetadata;
 	}
-
+	
 	public void process(ConversionRequestMessage conversionRequest) {
 		
 		try {
@@ -44,12 +46,11 @@ public class ZipArchiveProcessor implements Processor {
 			
 			parameters.setFileNameInZip(FilenameUtils.getName(xmlFileName));
 			
-			//System.out.println("Adding filename: " + FilenameUtils.getName(xmlFileName));
-			
 			zipFile.addFile(new File(xmlFileName), parameters);
 			
 			parameters.setFileNameInZip(null);
 			
+			zipFile.addFolder(this.projectMetadata, parameters);
 			
 			// Add folder to the zip file
 			zipFile.addFolder(conversionOutput.getOutputFile().getParent(), parameters);

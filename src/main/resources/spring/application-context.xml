@@ -177,7 +177,9 @@
 		<constructor-arg index="1" ref="outputFilenameFactory" />
 	</bean>
 	
-	<bean id="zipArchiveProcessor" class="ucar.ral.gis.services.pipeline.conversion.netcdf.ZipArchiveProcessor" />
+	<bean id="zipArchiveProcessor" class="ucar.ral.gis.services.pipeline.conversion.netcdf.ZipArchiveProcessor" >
+		<constructor-arg index="0" value="${application.home}/projection/" />
+	</bean>
 	
 	<bean id="monthlyMeanController" class="ucar.ral.gis.services.netcdf2shapefile.rest.monthly.MonthlyMeanController" >
 		<constructor-arg index="0" ref="outputFilenameFactory" />
