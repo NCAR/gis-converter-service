@@ -42,21 +42,16 @@ public class ZipArchiveProcessor implements Processor {
 			// Set the compression level
 			parameters.setCompressionLevel(Zip4jConstants.DEFLATE_LEVEL_NORMAL);
 			
-			zipFile.addFolder(this.projectMetadata, parameters);
-			
-			// Add folder to the zip file
-			zipFile.addFolder(conversionOutput.getOutputFile().getParent(), parameters);
-			
 			String xmlFileName = conversionRequest.getDataFile().toString().replace(".nc", ".xml");
 			
 			parameters.setFileNameInZip(FilenameUtils.getName(xmlFileName));
 			
-			zipFile.addFile(new File(xmlFileName), parameters);
+			//zipFile.addFile(new File(xmlFileName), parameters);
 			
-//			parameters.setFileNameInZip("");
-//			
-//			parameters.setRootFolderInZip("");
-//			
+			parameters.setFileNameInZip("");
+			
+			parameters.setIncludeRootFolder(false);
+			
 			zipFile.addFolder(this.projectMetadata, parameters);
 			
 			// Add folder to the zip file
