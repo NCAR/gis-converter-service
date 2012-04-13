@@ -50,7 +50,7 @@ public class ZipArchiveProcessor implements Processor {
 			
 			parameters.setFileNameInZip("");
 			
-			parameters.setRootFolderInZip("/");
+			parameters.setRootFolderInZip("");
 			
 			zipFile.addFolder(this.projectMetadata, parameters);
 			
