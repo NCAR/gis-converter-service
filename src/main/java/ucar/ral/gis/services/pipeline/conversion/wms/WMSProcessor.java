@@ -105,16 +105,16 @@ public class WMSProcessor implements Processor {
 				
 				outputStream.closeEntry();
 				
-				parameters.setFileNameInZip("");
-				
-				for (int i = 0; i < this.projectionMetadata.listFiles().length; i++) {
-
-					File file = this.projectionMetadata.listFiles()[i];
-
-					outputStream.putNextEntry(file, parameters);
-					
-					outputStream.closeEntry();
-				}
+//				parameters.setFileNameInZip("");
+//				
+//				for (int i = 0; i < this.projectionMetadata.listFiles().length; i++) {
+//
+//					File file = this.projectionMetadata.listFiles()[i];
+//
+//					outputStream.putNextEntry(file, parameters);
+//					
+//					outputStream.closeEntry();
+//				}
 				
 			}
 			
