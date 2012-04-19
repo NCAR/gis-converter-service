@@ -97,24 +97,24 @@ public class WMSProcessor implements Processor {
 				outputStream.closeEntry();
 				
 				
-//				String xmlFileName = conversionRequest.getDataFile().toString().replace(".nc", ".xml");
-//				
-//				parameters.setFileNameInZip(FilenameUtils.getName(xmlFileName));
-//				
-//				outputStream.putNextEntry(new File(xmlFileName), parameters);
-//				
-//				outputStream.closeEntry();
+				String xmlFileName = conversionRequest.getDataFile().toString().replace(".nc", ".xml");
 				
-//				parameters.setFileNameInZip("");
-//				
-//				for (int i = 0; i < this.projectionMetadata.listFiles().length; i++) {
-//
-//					File file = this.projectionMetadata.listFiles()[i];
-//
-//					outputStream.putNextEntry(file, parameters);
-//					
-//					outputStream.closeEntry();
-//				}
+				parameters.setFileNameInZip(FilenameUtils.getName(xmlFileName));
+				
+				outputStream.putNextEntry(new File(xmlFileName), parameters);
+				
+				outputStream.closeEntry();
+				
+				parameters.setFileNameInZip("");
+				
+				for (int i = 0; i < this.projectionMetadata.listFiles().length; i++) {
+
+					File file = this.projectionMetadata.listFiles()[i];
+
+					outputStream.putNextEntry(file, parameters);
+					
+					outputStream.closeEntry();
+				}
 				
 			}
 			
