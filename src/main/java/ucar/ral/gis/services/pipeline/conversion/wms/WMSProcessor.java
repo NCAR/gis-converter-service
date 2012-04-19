@@ -25,9 +25,10 @@ public class WMSProcessor implements Processor {
 	
 	private File projectionMetadata;
 
-	public WMSProcessor(RestTemplate restTemplate) {
+	public WMSProcessor(RestTemplate restTemplate, File projectionMetadata) {
 		super();
 		this.restTemplate = restTemplate;
+		this.projectionMetadata = projectionMetadata;
 	}
 
 	

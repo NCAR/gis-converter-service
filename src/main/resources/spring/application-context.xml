@@ -130,6 +130,7 @@
 	
 	<bean id="WMSProcessor" class="ucar.ral.gis.services.pipeline.conversion.wms.WMSProcessor">
 		<constructor-arg index="0" ref="restTemplate" />
+		<constructor-arg index="1" value="${application.home}/projection/" />
 	</bean>
 	
 	<bean id="WMSRangeFilter" class="ucar.ral.gis.services.pipeline.conversion.wms.RangeFilter">
