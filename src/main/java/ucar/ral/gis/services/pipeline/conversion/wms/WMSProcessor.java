@@ -104,6 +104,10 @@ public class WMSProcessor implements Processor {
 				outputStream.putNextEntry(new File(xmlFileName), parameters);
 				
 				outputStream.closeEntry();
+				
+				System.out.println("About to list ProjectMetadata dir");
+				
+				System.out.println("ProjectionMetadata: " + this.projectionMetadata.toString());
 					
 				for (int i = 0; i < this.projectionMetadata.listFiles().length; i++) {
 
