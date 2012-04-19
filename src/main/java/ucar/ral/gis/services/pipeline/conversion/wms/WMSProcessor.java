@@ -1,6 +1,7 @@
 package ucar.ral.gis.services.pipeline.conversion.wms;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.net.URI;
 
 import net.lingala.zip4j.io.ZipOutputStream;
@@ -8,6 +9,7 @@ import net.lingala.zip4j.model.ZipParameters;
 import net.lingala.zip4j.util.Zip4jConstants;
 
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOUtils;
 import org.springframework.http.HttpMethod;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.client.RestTemplate;
@@ -104,24 +106,22 @@ public class WMSProcessor implements Processor {
 				
 				outputStream.putNextEntry(new File(xmlFileName), parameters);
 				
+				IOUtils.copy(new FileInputStream(xmlFileName), outputStream);
+				
 				outputStream.closeEntry();
-				
-				System.out.println("About to list ProjectMetadata dir");
-				
-				System.out.println("ProjectionMetadata: " + this.projectionMetadata.toString());
 					
-//				for (int i = 0; i < this.projectionMetadata.listFiles().length; i++) {
-//
-//					File file = this.projectionMetadata.listFiles()[i];
-//					
-//					System.out.println("Adding projection file: " + file.getName() + " exists: " + file.exists() + " size: " + file.length());
-//					
-//					parameters.setFileNameInZip(file.getName());
-//				
-//					outputStream.putNextEntry(file, parameters);
-//					
-//					outputStream.closeEntry();
-//				}
+				for (int i = 0; i < this.projectionMetadata.listFiles().length; i++) {
+
+					File file = this.projectionMetadata.listFiles()[i];
+					
+					parameters.setFileNameInZip(file.getName());
+				
+					outputStream.putNextEntry(file, parameters);
+					
+					IOUtils.copy(new FileInputStream(file), outputStream);
+					
+					outputStream.closeEntry();
+				}
 				
 			}
 			
