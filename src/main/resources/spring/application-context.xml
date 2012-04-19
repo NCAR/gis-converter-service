@@ -205,6 +205,7 @@
 		<constructor-arg index="0" ref="outputFilenameFactory" />
 		<constructor-arg index="1" ref="conversionProcessor" />
 		<constructor-arg index="2" ref="debugInputProcessor" />
+		<constructor-arg index="3" ref="wmsProcessor" />
 	</bean>
 	
 </beans>

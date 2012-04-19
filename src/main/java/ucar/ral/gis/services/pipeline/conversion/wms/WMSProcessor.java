@@ -82,8 +82,6 @@ public class WMSProcessor implements Processor {
 				
 				Integer bytesCopied = restTemplate.execute(mapRequestUri, HttpMethod.GET, null, new ImageExtractor(outputStream));
 				
-				System.out.println("Bytes copied: " + bytesCopied);
-				
 				outputStream.closeEntry();
 				
 				parameters.setFileNameInZip("legend" + ".png");
@@ -94,8 +92,6 @@ public class WMSProcessor implements Processor {
 				URI legendRequestUri = legendUri.expand(model).toUri();
 				
 				bytesCopied = restTemplate.execute(legendRequestUri, HttpMethod.GET, null, new ImageExtractor(outputStream));
-				
-				System.out.println("Bytes copied: " + bytesCopied);
 				
 				outputStream.closeEntry();
 				

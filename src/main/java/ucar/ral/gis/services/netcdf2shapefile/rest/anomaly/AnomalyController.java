@@ -15,6 +15,7 @@ import ucar.ral.gis.services.OutputType;
 import ucar.ral.gis.services.TemporalResolution;
 import ucar.ral.gis.services.messages.ConversionRequestMessage;
 import ucar.ral.gis.services.messages.LongTermAverageConversionRequestImpl;
+import ucar.ral.gis.services.messages.LongTermAverageWMSRequestImpl;
 import ucar.ral.gis.services.netcdf2shapefile.rest.longterm.LongTermAverageParameters;
 import ucar.ral.gis.services.pipeline.Processor;
 
@@ -23,16 +24,21 @@ public class AnomalyController {
 	
 	private Processor shapefileProcessor;
 	private Processor debugProcessor;
+	private Processor wmsProcessor;
+	
 	
 	private OutputFileNameFactory outputFileNameFactory;
 	
 	
-	public AnomalyController(OutputFileNameFactory outputFileNameFactory, Processor shapefileProcessor, Processor debugProcessor) {
+	public AnomalyController(OutputFileNameFactory outputFileNameFactory, Processor shapefileProcessor, Processor debugProcessor, Processor wmsProcessor) {
 		super();
 		this.outputFileNameFactory = outputFileNameFactory;
 		this.shapefileProcessor = shapefileProcessor;
 		this.debugProcessor = debugProcessor;
+		this.wmsProcessor = wmsProcessor;
 	}
+	
+	
 	
 	/**
 	 * 
@@ -88,6 +94,18 @@ public class AnomalyController {
 		
 		return null;
 	}
+	
+	@RequestMapping(value="/{scale}/{variable}/{scenario}/anomaly/monthly/{month}/{term}.wms")
+	public ModelAndView convertToWMS(LongTermAverageParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
+		
+		requestParameters.setOutputType(OutputType.TEXT);
+		requestParameters.setTemporalResolution(TemporalResolution.CLIMATE_ANOMOLY);
+		requestParameters.setPeriod("monthly");
+		
+		this.generateWMS(new LongTermAverageWMSRequestImpl(requestParameters, response.getOutputStream()), response);
+		
+		return null;
+	}
 
 	@RequestMapping(value="/{scale}/{variable}/{scenario}/anomaly/annual/{term}")
 	public ModelAndView longTermAverageDiagnosticsAnnual(LongTermAverageParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
@@ -131,6 +149,18 @@ public class AnomalyController {
 		requestParameters.setPeriod("annual");
 		
 		this.convert(new LongTermAverageConversionRequestImpl(requestParameters, response.getOutputStream()), response);
+		
+		return null;
+	}
+	
+	@RequestMapping(value="/{scale}/{variable}/{scenario}/anomaly/annual/{term}.wms")
+	public ModelAndView convertToWMSAnnual(LongTermAverageParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
+		
+		requestParameters.setOutputType(OutputType.TEXT);
+		requestParameters.setTemporalResolution(TemporalResolution.CLIMATE_ANOMOLY);
+		requestParameters.setPeriod("annual");
+		
+		this.generateWMS(new LongTermAverageWMSRequestImpl(requestParameters, response.getOutputStream()), response);
 		
 		return null;
 	}
@@ -182,6 +212,18 @@ public class AnomalyController {
 		return null;
 	}
 	
+	@RequestMapping(value="/{scale}/{variable}/{scenario}/anomaly/seasonal/{season}/{term}.wms")
+	public ModelAndView convertToWMSSeasonal(LongTermAverageParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
+		
+		requestParameters.setOutputType(OutputType.TEXT);
+		requestParameters.setTemporalResolution(TemporalResolution.CLIMATE_ANOMOLY);
+		requestParameters.setPeriod("seasonal");
+		
+		this.generateWMS(new LongTermAverageWMSRequestImpl(requestParameters, response.getOutputStream()), response);
+		
+		return null;
+	}
+	
 	
 	public void convert(ConversionRequestMessage conversionRequestMessage, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
 		
@@ -193,6 +235,19 @@ public class AnomalyController {
 //		/MonthlyMeanConversionRequestImpl conversionRequest = new MonthlyMeanConversionRequestImpl(requestParameters, response.getOutputStream(), outputType);
 		
 		this.shapefileProcessor.process(conversionRequestMessage);
+		
+	}
+	
+	public void generateWMS(LongTermAverageWMSRequestImpl wmsRequestMessage, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
+		
+		String outputFilename = this.outputFileNameFactory.create(wmsRequestMessage.getParameters());
+		
+		response.setHeader("Content-Type", "application/zip");
+		response.setHeader("Content-Disposition", "attachment; filename=" + outputFilename + ".zip");
+		
+//		/MonthlyMeanConversionRequestImpl conversionRequest = new MonthlyMeanConversionRequestImpl(requestParameters, response.getOutputStream(), outputType);
+		
+		this.wmsProcessor.process(wmsRequestMessage);
 		
 	}
 	

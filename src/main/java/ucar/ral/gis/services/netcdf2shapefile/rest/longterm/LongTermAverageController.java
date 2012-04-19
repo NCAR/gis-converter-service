@@ -149,7 +149,17 @@ public class LongTermAverageController {
 		return null;
 	}
 
-	
+	@RequestMapping(value="/{scale}/{variable}/{scenario}/longterm/average/annual/{term}.wms")
+	public ModelAndView convertToWMSAnnual(LongTermAverageParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
+		
+		requestParameters.setOutputType(OutputType.TEXT);
+		requestParameters.setTemporalResolution(TemporalResolution.LONGTERM_AVERAGE);
+		requestParameters.setPeriod("annual");
+		
+		this.generateWMS(new LongTermAverageWMSRequestImpl(requestParameters, response.getOutputStream()), response);
+		
+		return null;
+	}
 	@RequestMapping(value="/{scale}/{variable}/{scenario}/longterm/average/seasonal/{season}/{term}")
 	public ModelAndView longTermAverageDiagnosticsSeasonal(LongTermAverageParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
 		
@@ -195,6 +205,20 @@ public class LongTermAverageController {
 		
 		return null;
 	}
+	
+	@RequestMapping(value="/{scale}/{variable}/{scenario}/longterm/average/seasonal/{season}/{term}.wms")
+	public ModelAndView convertToWMSSeasonal(LongTermAverageParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
+		
+		requestParameters.setOutputType(OutputType.TEXT);
+		requestParameters.setTemporalResolution(TemporalResolution.LONGTERM_AVERAGE);
+		requestParameters.setPeriod("seasonal");
+		
+		this.generateWMS(new LongTermAverageWMSRequestImpl(requestParameters, response.getOutputStream()), response);
+		
+		return null;
+	}
+	
+	
 	
 	
 	public void convert(ConversionRequestMessage conversionRequestMessage, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
