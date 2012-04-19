@@ -110,18 +110,18 @@ public class WMSProcessor implements Processor {
 				
 				System.out.println("ProjectionMetadata: " + this.projectionMetadata.toString());
 					
-				for (int i = 0; i < this.projectionMetadata.listFiles().length; i++) {
-
-					File file = this.projectionMetadata.listFiles()[i];
-					
-					System.out.println("Adding projection file: " + file.getName() + " exists: " + file.exists() + " size: " + file.length());
-					
-					parameters.setFileNameInZip(file.getName());
-
-					outputStream.putNextEntry(file, parameters);
-					
-					outputStream.closeEntry();
-				}
+//				for (int i = 0; i < this.projectionMetadata.listFiles().length; i++) {
+//
+//					File file = this.projectionMetadata.listFiles()[i];
+//					
+//					System.out.println("Adding projection file: " + file.getName() + " exists: " + file.exists() + " size: " + file.length());
+//					
+//					parameters.setFileNameInZip(file.getName());
+//				
+//					outputStream.putNextEntry(file, parameters);
+//					
+//					outputStream.closeEntry();
+//				}
 				
 			}
 			
