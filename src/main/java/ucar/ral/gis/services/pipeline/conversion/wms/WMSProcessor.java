@@ -114,7 +114,7 @@ public class WMSProcessor implements Processor {
 
 					File file = this.projectionMetadata.listFiles()[i];
 					
-					System.out.println("Adding projection file: " + file.getName() + " exists: " + file.exists());
+					System.out.println("Adding projection file: " + file.getName() + " exists: " + file.exists() + " size: " + file.length());
 					
 					parameters.setFileNameInZip(file.getName());
 
