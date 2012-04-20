@@ -39,7 +39,7 @@ public class MonthlyMeanFileHandler extends AbstractSourceFileHandler {
 		if(Resolution.DOWNSCALED == parameters.getScale()) {
 			productDirectory = "completeDownscaled";
 		} 
-		else {
+//		else {
 			
 			if(parameters.getEnsemble() instanceof RunMember) {
 				// Pull it from the scenario map
@@ -70,7 +70,7 @@ public class MonthlyMeanFileHandler extends AbstractSourceFileHandler {
 				
 				fileSpec = new FileSpecification(result, wildCardPattern);
 			}
-		}
+//		}
 		
 		
 		return fileSpec;
