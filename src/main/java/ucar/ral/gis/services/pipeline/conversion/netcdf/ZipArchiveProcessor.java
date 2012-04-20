@@ -95,7 +95,12 @@ public class ZipArchiveProcessor implements Processor {
 			
 			parameters.setFileNameInZip(FilenameUtils.getName(xmlFileName));
 			
-			zipFile.addFile(new File(xmlFileName), parameters);
+			File metadataFile = new File(xmlFileName);
+			
+			if (metadataFile.exists()) {
+				zipFile.addFile(new File(xmlFileName), parameters);
+			}
+			
 		} catch (Exception e) {
 			
 			throw new RuntimeException("Failed to add metadata file: " + xmlFileName, e);
