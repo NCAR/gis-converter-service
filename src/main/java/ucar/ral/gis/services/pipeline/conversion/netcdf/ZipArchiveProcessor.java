@@ -2,8 +2,11 @@ package ucar.ral.gis.services.pipeline.conversion.netcdf;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import net.lingala.zip4j.core.ZipFile;
+import net.lingala.zip4j.exception.ZipException;
 import net.lingala.zip4j.model.ZipParameters;
 import net.lingala.zip4j.util.Zip4jConstants;
 
@@ -42,28 +45,61 @@ public class ZipArchiveProcessor implements Processor {
 			// Set the compression level
 			parameters.setCompressionLevel(Zip4jConstants.DEFLATE_LEVEL_NORMAL);
 			
-			String xmlFileName = conversionRequest.getDataFile().toString().replace(".nc", ".xml");
+			includeMetadata(conversionRequest, zipFile, parameters);
 			
-			parameters.setFileNameInZip(FilenameUtils.getName(xmlFileName));
-			
-			zipFile.addFile(new File(xmlFileName), parameters);
-			
-			parameters.setFileNameInZip("");
-			
-			parameters.setIncludeRootFolder(false);
-			
-			zipFile.addFolder(this.projectMetadata, parameters);
+			includeProjection(zipFile, parameters);
 			
 			// Add folder to the zip file
-			zipFile.addFolder(conversionOutput.getOutputFile().getParent(), parameters);
+			includeOutput(conversionOutput, zipFile, parameters);
 			
 			IOUtils.copy(new FileInputStream(zipFile.getFile()), conversionOutput.getOutputStream());
 			
 
-		} catch (Exception e) {
+		} catch (ZipException e) {
+			throw new RuntimeException(e);
+		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 
+	}
+
+	private void includeOutput(ConversionOutput conversionOutput, ZipFile zipFile, ZipParameters parameters) {
+		try {
+			zipFile.addFolder(conversionOutput.getOutputFile().getParent(), parameters);
+		} catch (Exception e) {
+			throw new RuntimeException("Failed to add output directory: " + this.projectMetadata.toString(), e);
+		}
+	}
+
+	private void includeProjection(ZipFile zipFile, ZipParameters parameters) {
+		
+		try {
+		
+			parameters.setFileNameInZip("");
+			parameters.setIncludeRootFolder(false);
+			zipFile.addFolder(this.projectMetadata, parameters);
+			
+		} catch (Exception e) {
+			
+			throw new RuntimeException("Failed to add projection directory: " + this.projectMetadata.toString(), e);
+		}
+	}
+
+	private void includeMetadata(ConversionRequestMessage conversionRequest, ZipFile zipFile, ZipParameters parameters)  {
+		
+		String xmlFileName = "";
+		
+		try {
+			
+			xmlFileName = conversionRequest.getDataFile().toString().replace(".nc", ".xml");
+			
+			parameters.setFileNameInZip(FilenameUtils.getName(xmlFileName));
+			
+			zipFile.addFile(new File(xmlFileName), parameters);
+		} catch (Exception e) {
+			
+			throw new RuntimeException("Failed to add metadata file: " + xmlFileName, e);
+		}
 	}
 
 }
