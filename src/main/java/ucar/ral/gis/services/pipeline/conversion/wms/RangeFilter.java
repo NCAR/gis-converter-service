@@ -30,28 +30,31 @@ public class RangeFilter implements Processor {
 		
 		WMSRequestMessage wmsRequestMessage = (WMSRequestMessage) conversionRequest;
 		
-		UriComponents uriComponents = UriComponentsBuilder.fromHttpUrl(MINMAX_URL_TEMPLATE).build();
+		if(null == wmsRequestMessage.getRange()) {
 		
-		ModelMap model = new ModelMap();
-		
-		model.addAttribute("filename", conversionRequest.getDataFile().getName());
-		model.addAttribute("variable", conversionRequest.getParameters().getVariable());
-		
-		model.addAttribute("xmin", conversionRequest.getParameters().getXmin());
-		model.addAttribute("xmax", conversionRequest.getParameters().getXmax());
-		model.addAttribute("ymin", conversionRequest.getParameters().getYmin());
-		model.addAttribute("ymax", conversionRequest.getParameters().getYmax());
-		
-		model.addAttribute("date", wmsRequestMessage.getDates().get(0));
-		
-		
-		URI requestUri = uriComponents.expand(model).toUri();
-
-		Range range = restTemplate.getForObject(requestUri, Range.class);
-		
-		System.out.println("Range: " + range.getMin() + ", " + range.getMax());
-
-		wmsRequestMessage.setRange(range);
+			UriComponents uriComponents = UriComponentsBuilder.fromHttpUrl(MINMAX_URL_TEMPLATE).build();
+			
+			ModelMap model = new ModelMap();
+			
+			model.addAttribute("filename", conversionRequest.getDataFile().getName());
+			model.addAttribute("variable", conversionRequest.getParameters().getVariable());
+			
+			model.addAttribute("xmin", conversionRequest.getParameters().getXmin());
+			model.addAttribute("xmax", conversionRequest.getParameters().getXmax());
+			model.addAttribute("ymin", conversionRequest.getParameters().getYmin());
+			model.addAttribute("ymax", conversionRequest.getParameters().getYmax());
+			
+			model.addAttribute("date", wmsRequestMessage.getDates().get(0));
+			
+			
+			URI requestUri = uriComponents.expand(model).toUri();
+	
+			Range range = restTemplate.getForObject(requestUri, Range.class);
+			
+			System.out.println("Range: " + range.getMin() + ", " + range.getMax());
+	
+			wmsRequestMessage.setRange(range);
+		}
 	}
 
 }

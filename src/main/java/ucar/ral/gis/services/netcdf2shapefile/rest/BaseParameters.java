@@ -17,6 +17,9 @@ public class BaseParameters {
 	protected Float xmax = 180.0F;
 	protected Float ymin = -90.0F;
 	protected Float ymax = 90.0F;
+	
+	protected Float colorMin = null;
+	protected Float colorMax = null;
 
 	public BaseParameters() {
 		super();
@@ -92,6 +95,22 @@ public class BaseParameters {
 
 	public void setOutputType(OutputType outputType) {
 		this.outputType = outputType;
+	}
+
+	public Float getColorMin() {
+		return colorMin;
+	}
+
+	public void setColorMin(Float colorMin) {
+		this.colorMin = colorMin;
+	}
+
+	public Float getColorMax() {
+		return colorMax;
+	}
+
+	public void setColorMax(Float colorMax) {
+		this.colorMax = colorMax;
 	}
 	
 	

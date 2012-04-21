@@ -19,6 +19,14 @@ public class LongTermAverageWMSRequestImpl extends AbstractConversionRequestImpl
 		this.productRequest = productRequest;
 		
 		this.conversionOutput = new ConversionOutput(outputStream);
+		
+		if((null != productRequest.getColorMin()) && (null != productRequest.getColorMax())) {
+			
+			this.range = new Range();
+			this.range.setMin(productRequest.getColorMin());
+			this.range.setMax(productRequest.getColorMax());
+			
+		}
 	}
 
 	public Range getRange() {
