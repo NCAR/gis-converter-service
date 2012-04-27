@@ -18,8 +18,7 @@ public class BaseParameters {
 	protected Float ymin = -90.0F;
 	protected Float ymax = 90.0F;
 	
-	protected Float colorMin = null;
-	protected Float colorMax = null;
+	protected boolean consistentColor = false;
 
 	public BaseParameters() {
 		super();
@@ -97,22 +96,13 @@ public class BaseParameters {
 		this.outputType = outputType;
 	}
 
-	public Float getColorMin() {
-		return colorMin;
+	public boolean isConsistentColor() {
+		return consistentColor;
 	}
 
-	public void setColorMin(Float colorMin) {
-		this.colorMin = colorMin;
+	public void setConsistentColor(boolean consistentColor) {
+		this.consistentColor = consistentColor;
 	}
 
-	public Float getColorMax() {
-		return colorMax;
-	}
-
-	public void setColorMax(Float colorMax) {
-		this.colorMax = colorMax;
-	}
 	
-	
-
 }

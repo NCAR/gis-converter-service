@@ -3,6 +3,10 @@ package ucar.ral.gis.services.messages;
 import java.io.OutputStream;
 import java.util.List;
 
+import javax.swing.JTable.PrintMode;
+
+import ucar.ral.gis.services.Resolution;
+import ucar.ral.gis.services.TemporalResolution;
 import ucar.ral.gis.services.netcdf2shapefile.rest.longterm.LongTermAverageParameters;
 import ucar.ral.gis.services.pipeline.conversion.wms.Range;
 import edu.ucar.gis.ipcc.AllTimesConstraint;
@@ -20,16 +24,75 @@ public class LongTermAverageWMSRequestImpl extends AbstractConversionRequestImpl
 		
 		this.conversionOutput = new ConversionOutput(outputStream);
 		
-		if((null != productRequest.getColorMin()) && (null != productRequest.getColorMax())) {
+		if(productRequest.isConsistentColor()) {
 			
-			this.range = new Range();
-			this.range.setMin(productRequest.getColorMin());
-			this.range.setMax(productRequest.getColorMax());
+			this.setConsistentColorRange(productRequest);
 			
 		}
 	}
+	
+	private final void setConsistentColorRange(LongTermAverageParameters productRequest) {
+		
+		Range defaultRange = null;
+		
+		if (TemporalResolution.CLIMATE_ANOMOLY == productRequest.getTemporalResolution()) {
+					
+			if (productRequest.getScale() == Resolution.GLOBAL) {
+				
+				if (productRequest.getVariable().equalsIgnoreCase("tas")) {
+					defaultRange = new Range(-1f, 13f);
+				}
+				else if (productRequest.getVariable().equalsIgnoreCase("ppt")) {
+					defaultRange = new Range(-510f, 930f);
+				}
+				
+			}
+			else {
+				
+				if (productRequest.getVariable().equalsIgnoreCase("tas")) {
+					defaultRange = new Range(0f, 7.2f);
+				}
+				else if (productRequest.getVariable().equalsIgnoreCase("ppt")) {
+					defaultRange = new Range(-390f, 360f);
+				}
+				
+			}
+			
+		}
+		else {
+			
+			if (productRequest.getScale() == Resolution.GLOBAL) {
+				
+				if (productRequest.getVariable().equalsIgnoreCase("tas")) {
+					defaultRange = new Range(225f, 306f);
+				}
+				else if (productRequest.getVariable().equalsIgnoreCase("ppt")) {
+					defaultRange = new Range(0f, 5045f);
+				}
+				
+			}
+			else {
+				
+				if (productRequest.getVariable().equalsIgnoreCase("tas")) {
+					defaultRange = new Range(270f, 305f);
+				}
+				else if (productRequest.getVariable().equalsIgnoreCase("ppt")) {
+					defaultRange = new Range(0f, 5010f);
+				}
+				
+			}
+			
+		}
+		
+		this.setRange(defaultRange);
+	}
+	
+
 
 	public Range getRange() {
+		
+		
+		
 		return range;
 	}
 
