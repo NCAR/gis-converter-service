@@ -61,7 +61,12 @@ public class MonthlyMeanFileHandler extends AbstractSourceFileHandler {
 		}
 		else{
 			
-			productDirectory = "completeEnsembleAverages";
+			if(Resolution.DOWNSCALED == parameters.getScale()) {
+				productDirectory = "completeDownscaled";
+			} 
+			else {
+				productDirectory = "completeEnsembleAverages";
+			}
 			
 			File result = new File(this.baseDirectory, productDirectory);
 			
