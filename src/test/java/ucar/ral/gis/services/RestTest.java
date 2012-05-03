@@ -3,10 +3,9 @@ package ucar.ral.gis.services;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.opengis.wms.v_1_3_0.Request;
 import net.opengis.wms.v_1_3_0.WMSCapabilities;
 
-import org.apache.commons.logging.Log;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +16,7 @@ import org.springframework.http.converter.xml.MarshallingHttpMessageConverter;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.web.client.RestTemplate;
 
+@Ignore
 public class RestTest {
 	
 	/* Give the min / max values JSON */
