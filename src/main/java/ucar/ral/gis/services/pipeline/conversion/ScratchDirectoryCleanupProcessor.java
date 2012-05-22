@@ -11,7 +11,7 @@ import ucar.ral.gis.services.pipeline.Processor;
 
 public class ScratchDirectoryCleanupProcessor implements Processor {
 	
-	public ScratchDirectoryCleanupProcessor(File scratchDirectory, OutputFileNameFactory outputFileNameFactory) {
+	public ScratchDirectoryCleanupProcessor() {
 		super();
 	}
 
