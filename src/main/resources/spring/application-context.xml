@@ -111,6 +111,7 @@
 				<ref bean="outputFileProcessor"/>
 				<ref bean="conversionRouterProcessor"/>
 				<ref bean="zipArchiveProcessor"/>
+				<ref bean="scratchDirectoryCleanupProcessor"/>
 			</list>
 		</constructor-arg>
 	
@@ -124,9 +125,12 @@
 				<ref bean="WMSDateFilter" />
 				<ref bean="WMSRangeFilter" />
 				<ref bean="WMSProcessor"/>
+				<ref bean="scratchDirectoryCleanupProcessor"/>
 			</list>
 		</constructor-arg>
 	</bean>
+	
+	<bean id="scratchDirectoryCleanupProcessor"  class="ucar.ral.gis.services.pipeline.conversion.ScratchDirectoryCleanupProcessor" />
 	
 	<bean id="WMSProcessor" class="ucar.ral.gis.services.pipeline.conversion.wms.WMSProcessor">
 		<constructor-arg index="0" ref="restTemplate" />
