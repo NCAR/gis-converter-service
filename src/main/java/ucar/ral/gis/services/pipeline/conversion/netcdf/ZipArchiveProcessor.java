@@ -47,7 +47,7 @@ public class ZipArchiveProcessor implements Processor {
 			
 			includeMetadata(conversionRequest, zipFile, parameters);
 			
-			includeProjection(zipFile, parameters);
+			includeProjection(conversionRequest, zipFile, parameters);
 			
 			// Add folder to the zip file
 			includeOutput(conversionOutput, zipFile, parameters);
@@ -71,13 +71,21 @@ public class ZipArchiveProcessor implements Processor {
 		}
 	}
 
-	private void includeProjection(ZipFile zipFile, ZipParameters parameters) {
+	private void includeProjection(ConversionRequestMessage conversionRequest, ZipFile zipFile, ZipParameters parameters) {
 		
 		try {
+			
+			String baseName = FilenameUtils.getBaseName(conversionRequest.getConversionOutput().getOutputFile().getName());
+			
+			String projectionName = baseName + ".prj";
 		
-			parameters.setFileNameInZip("");
-			parameters.setIncludeRootFolder(false);
-			zipFile.addFolder(this.projectMetadata, parameters);
+			parameters.setFileNameInZip(projectionName);
+			
+			File metadataFile = new File(this.projectMetadata + "/gisportalprojection.prj");
+			
+			if (metadataFile.exists()) {
+				zipFile.addFile(metadataFile, parameters);
+			}
 			
 		} catch (Exception e) {
 			
