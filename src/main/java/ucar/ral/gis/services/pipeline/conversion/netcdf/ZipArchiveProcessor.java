@@ -104,7 +104,7 @@ public class ZipArchiveProcessor implements Processor {
 			
 			xmlFileName = conversionRequest.getDataFile().toString().replace(".nc", ".xml");
 			
-			parameters.setFileNameInZip(FilenameUtils.getName(xmlFileName));
+			parameters.setFileNameInZip(FilenameUtils.getName(xmlFileName)+ "blah");
 			
 			File metadataFile = new File(xmlFileName);
 			
