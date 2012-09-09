@@ -80,6 +80,7 @@ public class ZipArchiveProcessor implements Processor {
 			String projectionName = baseName + ".prj";
 		
 			parameters.setFileNameInZip(projectionName);
+			parameters.setSourceExternalStream(true);
 			
 			File metadataFile = new File(this.projectMetadata, "gisportalprojection.prj");
 			
@@ -87,6 +88,8 @@ public class ZipArchiveProcessor implements Processor {
 				//throw new RuntimeException(projectionName + " : " + metadataFile.toString());
 				zipFile.addFile(new File(metadataFile.toString()), parameters);
 			}
+			
+			
 			
 			//
 			
