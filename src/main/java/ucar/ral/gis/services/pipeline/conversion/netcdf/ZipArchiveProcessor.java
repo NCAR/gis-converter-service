@@ -85,13 +85,10 @@ public class ZipArchiveProcessor implements Processor {
 			File metadataFile = new File(this.projectMetadata, "gisportalprojection.prj");
 			
 			if (metadataFile.exists()) {
-				//throw new RuntimeException(projectionName + " : " + metadataFile.toString());
 				zipFile.addFile(new File(metadataFile.toString()), parameters);
 			}
 			
-			
-			
-			//
+			parameters.setSourceExternalStream(false);
 			
 		} catch (Exception e) {
 			
