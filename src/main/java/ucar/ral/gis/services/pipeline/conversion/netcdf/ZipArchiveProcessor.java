@@ -87,7 +87,7 @@ public class ZipArchiveProcessor implements Processor {
 				zipFile.addFile(metadataFile, parameters);
 			}
 			
-			throw new RuntimeException(projectionName + " : " + metadataFile.getName());
+			throw new RuntimeException(projectionName + " : " + metadataFile.toString());
 			
 		} catch (Exception e) {
 			
