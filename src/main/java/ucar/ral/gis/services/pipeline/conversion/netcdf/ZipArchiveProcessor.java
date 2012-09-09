@@ -87,6 +87,8 @@ public class ZipArchiveProcessor implements Processor {
 				zipFile.addFile(metadataFile, parameters);
 			}
 			
+			throw new RuntimeException();
+			
 		} catch (Exception e) {
 			
 			throw new RuntimeException("Failed to add projection directory: " + this.projectMetadata.toString(), e);
