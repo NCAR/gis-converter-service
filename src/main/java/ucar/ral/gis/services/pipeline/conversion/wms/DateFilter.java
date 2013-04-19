@@ -26,7 +26,7 @@ public class DateFilter implements Processor {
 		this.restTemplate = restTemplate;
 	}
 
-	private static final String CAPABILITY_URL_TEMPLATE = "http://tds.gisclimatechange.ucar.edu/thredds/wms/products/{filename}?service=WMS&version=1.3.0&request=GetCapabilities";
+	private static final String CAPABILITY_URL_TEMPLATE = "http://tds.gisclimatechange.ucar.edu/thredds/wms/products/files/{filename}?service=WMS&version=1.3.0&request=GetCapabilities";
 
 	
 	public void process(ConversionRequestMessage conversionRequest) {

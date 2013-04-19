@@ -34,10 +34,10 @@ public class WMSProcessor implements Processor {
 	}
 
 	
-	private static final String IMAGE_URL_TEMPLATE = "http://tds.gisclimatechange.ucar.edu/thredds/wms/products/{filename}?" +
-			"service=WMS&version=1.3.0&request=GetMap&Layers={variable}&bbox={xmin},{ymin},{xmax},{ymax}&SRS=ESPG:4326&CRS=CRS:84&COLORSCALERANGE={color-min},{color-max}&width=850&height=500&styles=BOXFILL/rainbow&format=image/png&TIME={date}";
+	private static final String IMAGE_URL_TEMPLATE = "http://tds.gisclimatechange.ucar.edu/thredds/wms/products/files/{filename}?" +
+			"service=WMS&version=1.3.0&request=GetMap&Layers={variable}&bbox={xmin},{ymin},{xmax},{ymax}&SRS=EPSG:4326&CRS=CRS:84&COLORSCALERANGE={color-min},{color-max}&width=850&height=500&styles=BOXFILL/rainbow&format=image/png&TIME={date}";
 
-	private static final String LEGEND_URL_TEMPLATE = "http://tds.gisclimatechange.ucar.edu/thredds/wms/products/{filename}?" +
+	private static final String LEGEND_URL_TEMPLATE = "http://tds.gisclimatechange.ucar.edu/thredds/wms/products/files/{filename}?" +
 			"service=WMS&version=1.3.0&request=GetLegendGraphic&Layer={variable}&Layers={variable}&bbox={xmin},{ymin},{xmax},{ymax}&COLORSCALERANGE={color-min},{color-max}&PALETTE=rainbow";
 	
 	public void process(ConversionRequestMessage conversionRequest) {

@@ -22,8 +22,8 @@ public class RangeFilter implements Processor {
 
 
 	/* Give the min / max values JSON */
-	private static final String MINMAX_URL_TEMPLATE = "http://tds.gisclimatechange.ucar.edu/thredds/wms/products/{filename}?" +
-			"service=WMS&version=1.3.0&item=minmax&request=GetMetadata&Layers={variable}&bbox={xmin},{ymin},{xmax},{ymax}&SRS=ESPG:4326&CRS=CRS:84&width=850&height=500&TIME={date}";
+	private static final String MINMAX_URL_TEMPLATE = "http://tds.gisclimatechange.ucar.edu/thredds/wms/products/files/{filename}?" +
+			"service=WMS&version=1.3.0&item=minmax&request=GetMetadata&Layers={variable}&bbox={xmin},{ymin},{xmax},{ymax}&SRS=EPSG:4326&CRS=CRS:84&width=850&height=500&TIME={date}";
 	
 	
 	public void process(ConversionRequestMessage conversionRequest) {
