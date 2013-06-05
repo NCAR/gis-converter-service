@@ -65,6 +65,7 @@ public class ZipArchiveProcessor implements Processor {
 
 	private void includeOutput(ConversionOutput conversionOutput, ZipFile zipFile, ZipParameters parameters) {
 		try {
+			parameters.setIncludeRootFolder(false);
 			zipFile.addFolder(conversionOutput.getOutputFile().getParent(), parameters);
 		} catch (Exception e) {
 			throw new RuntimeException("Failed to add output directory: " + this.projectMetadata.toString(), e);
@@ -104,7 +105,12 @@ public class ZipArchiveProcessor implements Processor {
 			
 			xmlFileName = conversionRequest.getDataFile().toString().replace(".nc", ".xml");
 			
-			parameters.setFileNameInZip(FilenameUtils.getName(xmlFileName)+ "blah");
+			String baseName = FilenameUtils.getBaseName(conversionRequest.getConversionOutput().getOutputFile().getName());
+			
+			String metadataName = baseName + ".xml";
+			
+			parameters.setFileNameInZip(metadataName);
+			parameters.setSourceExternalStream(true);
 			
 			File metadataFile = new File(xmlFileName);
 			
