@@ -2,7 +2,6 @@ package ucar.ral.gis.services.netcdf2shapefile.rest.monthly;
 
 import ucar.ral.gis.services.EnsembleMember;
 import ucar.ral.gis.services.netcdf2shapefile.rest.BaseParameters;
-import edu.ucar.gis.ipcc.Month;
 
 
 public class MonthlyMeanParameters extends BaseParameters {

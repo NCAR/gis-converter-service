@@ -7,7 +7,6 @@ import ucar.ral.gis.services.TemporalResolution;
 import ucar.ral.gis.services.netcdf2shapefile.rest.BaseParameters;
 import ucar.ral.gis.services.netcdf2shapefile.rest.annual.AnnualMeanParameters;
 import ucar.ral.gis.services.netcdf2shapefile.rest.longterm.LongTermAverageParameters;
-import ucar.ral.gis.services.netcdf2shapefile.rest.monthly.MonthlyMeanParameters;
 
 public class DerivedProductFileHandler extends AbstractSourceFileHandler {
 		

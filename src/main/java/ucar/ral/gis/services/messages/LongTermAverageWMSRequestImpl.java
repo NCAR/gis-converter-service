@@ -3,8 +3,6 @@ package ucar.ral.gis.services.messages;
 import java.io.OutputStream;
 import java.util.List;
 
-import javax.swing.JTable.PrintMode;
-
 import ucar.ral.gis.services.Resolution;
 import ucar.ral.gis.services.TemporalResolution;
 import ucar.ral.gis.services.netcdf2shapefile.rest.longterm.LongTermAverageParameters;

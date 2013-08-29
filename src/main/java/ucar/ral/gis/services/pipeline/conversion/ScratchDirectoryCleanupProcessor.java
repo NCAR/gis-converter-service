@@ -5,7 +5,6 @@ import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
 
-import ucar.ral.gis.services.OutputFileNameFactory;
 import ucar.ral.gis.services.messages.ConversionRequestMessage;
 import ucar.ral.gis.services.pipeline.Processor;
 

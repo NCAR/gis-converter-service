@@ -33,14 +33,9 @@ public class SourceDatafileProcessor implements Processor {
 	
 	protected File findFile(FileSpecification fileSpecification) {
 	
-		
 		 FileFilter fileFilter = new WildcardFileFilter(fileSpecification.getFilenamePattern(), IOCase.INSENSITIVE);
 		 File[] files = fileSpecification.getDirectory().listFiles(fileFilter);
-		 for (int i = 0; i < files.length; i++) {
-		   System.out.println(files[i]);
-		 }
-		 
-		 
+	 
 		if (0 == files.length) {
 			throw new RuntimeException("Found 0 files using wildcard: " + fileSpecification.getFilenamePattern());
 		}

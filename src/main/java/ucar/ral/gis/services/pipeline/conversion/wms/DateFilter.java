@@ -4,10 +4,9 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
-import ncar.scd.vets.time.ClimateModelCalendar;
-import ncar.scd.vets.time.DateTime;
 import net.opengis.wms.v_1_3_0.WMSCapabilities;
 
+import org.joda.time.DateTime;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;

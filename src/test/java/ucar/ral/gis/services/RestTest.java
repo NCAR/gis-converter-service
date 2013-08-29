@@ -39,10 +39,6 @@ public class RestTest {
 			
 		Logger log = LoggerFactory.getLogger("log4j.logger.httpclient.wire");
 		
-		log.debug("testing");
-		
-		// TODO Auto-generated method stub
-		
 		RestTemplate restTemplate = new RestTemplate();
 		
 		Jaxb2Marshaller unmarshaller = new Jaxb2Marshaller();
@@ -59,13 +55,8 @@ public class RestTest {
 		restTemplate.setMessageConverters(messageConverters);
 				
 		restTemplate.setRequestFactory(new CommonsClientHttpRequestFactory());
-		
-//			Range range = restTemplate.getForObject(MINMAX_URL_TEMPLATE, Range.class);
-//
-//			System.out.println("Got the request for a WMS conversion, range: " + range.getMin() + " " + range.getMax());
-		
+				
 		WMSCapabilities wmsRequest = restTemplate.getForObject(CAPABILITY_URL_TEMPLATE, WMSCapabilities.class);
-		
 		
 		// Wow, just wow.
 		System.out.println("Capabilities, times: " + wmsRequest.getCapability().getLayer().getLayer().get(0).getLayer().get(0).getDimension().get(0).getValue());

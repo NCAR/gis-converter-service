@@ -46,13 +46,10 @@ public class RangeFilter implements Processor {
 			
 			model.addAttribute("date", wmsRequestMessage.getDates().get(0));
 			
-			
 			URI requestUri = uriComponents.expand(model).toUri();
 	
 			Range range = restTemplate.getForObject(requestUri, Range.class);
 			
-			System.out.println("Range: " + range.getMin() + ", " + range.getMax());
-	
 			wmsRequestMessage.setRange(range);
 		}
 	}

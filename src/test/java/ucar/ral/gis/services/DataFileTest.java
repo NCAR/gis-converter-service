@@ -3,7 +3,6 @@ package ucar.ral.gis.services;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.util.StringUtils;
 
@@ -24,8 +23,6 @@ public class DataFileTest {
 		}
 		
 		String value = StringUtils.collectionToDelimitedString(test, " AND ", "", "");
-		
-		System.out.println("Value: " + value);
 		
 //		DataFileFactory dataFile = new DataFileFactory();
 //		
