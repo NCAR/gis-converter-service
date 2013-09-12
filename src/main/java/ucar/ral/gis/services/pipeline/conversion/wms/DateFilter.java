@@ -4,11 +4,9 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
-import ncar.scd.vets.time.ClimateModelCalendar;
-import ncar.scd.vets.time.DateTime;
 import net.opengis.wms.v_1_3_0.WMSCapabilities;
 
-
+import org.joda.time.DateTime;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -51,25 +49,31 @@ public class DateFilter implements Processor {
 			
 			// Convert to DateTimeObjects -> 2039-02-10T00:00:00.000Z
 			
-			String datePart = dateValue.substring(0, dateValue.indexOf("T"));
-			datePart = datePart.replace("-", "/");
-			                                                  
-			DateTime modelTime = null;
-			try {
-				ClimateModelCalendar climateModelCalendar = new ClimateModelCalendar("no_leap");
-				
-				modelTime = climateModelCalendar.getValidDateTime(datePart);
-				
-				modelTime.set(DateTime.DAY, modelTime.get(DateTime.DAY) + 1);
-				modelTime.set(DateTime.MONTH, modelTime.get(DateTime.MONTH) + 0);
-				
-				if(timeConstraint.includes(modelTime)) {
-					dates.add(dateValue);
-				}
-				
-			} catch (Exception e) {
-				throw new RuntimeException(e);
+			DateTime modelTime = DateTime.parse(dateValue);
+			
+			if(timeConstraint.includes(modelTime)) {
+				dates.add(dateValue);
 			}
+			
+//			String datePart = dateValue.substring(0, dateValue.indexOf("T"));
+//			datePart = datePart.replace("-", "/");
+//			                                                  
+//			DateTime modelTime = null;
+//			try {
+//				ClimateModelCalendar climateModelCalendar = new ClimateModelCalendar("no_leap");
+//				
+//				modelTime = climateModelCalendar.getValidDateTime(datePart);
+//				
+//				modelTime.set(DateTime.DAY, modelTime.get(DateTime.DAY) + 1);
+//				modelTime.set(DateTime.MONTH, modelTime.get(DateTime.MONTH) + 0);
+//				
+//				if(timeConstraint.includes(modelTime)) {
+//					dates.add(dateValue);
+//				}
+//				
+//			} catch (Exception e) {
+//				throw new RuntimeException(e);
+//			}
 	
 		}
 		
