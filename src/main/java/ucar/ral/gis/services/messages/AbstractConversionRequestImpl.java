@@ -7,9 +7,9 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import ucar.ral.gis.services.netcdf2shapefile.rest.BaseParameters;
-import edu.ucar.gis.ipcc.model.netcdf2gis.AxisConstraint2;
-import edu.ucar.gis.ipcc.model.netcdf2gis.Latitude;
-import edu.ucar.gis.ipcc.model.netcdf2gis.Longitude;
+import edu.ucar.gis.ipcc.AxisConstraint2;
+import edu.ucar.gis.ipcc.Latitude;
+import edu.ucar.gis.ipcc.Longitude;
 
 public class AbstractConversionRequestImpl {
 

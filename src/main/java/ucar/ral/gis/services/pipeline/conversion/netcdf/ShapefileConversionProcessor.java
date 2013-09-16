@@ -5,7 +5,9 @@ import java.io.File;
 import ucar.ral.gis.services.messages.ConversionRequestMessage;
 import ucar.ral.gis.services.pipeline.Processor;
 import edu.ucar.gis.ipcc.ConversionRequest;
-import edu.ucar.gis.ipcc.converter.ShapeConverter;
+import edu.ucar.gis.ipcc.converter.Converter;
+import edu.ucar.gis.ipcc.model.netcdf2gis.transform.ShapeFileTransformer;
+import edu.ucar.gis.ipcc.model.netcdf2gis.transform.Transformer;
 
 public class ShapefileConversionProcessor implements Processor {
 	
@@ -19,7 +21,9 @@ public class ShapefileConversionProcessor implements Processor {
 		
 			File outputFile = conversionRequest.getConversionOutput().getOutputFile();
 			
-			ShapeConverter converter = new ShapeConverter((ConversionRequest) conversionRequest, outputFile);
+			Transformer transformer = new ShapeFileTransformer();
+	    	
+	    	Converter converter = new Converter((ConversionRequest) conversionRequest, outputFile, transformer);
 			
 			converter.execute();
 		
