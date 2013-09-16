@@ -7,7 +7,6 @@ import ucar.ral.gis.services.pipeline.Processor;
 import edu.ucar.gis.ipcc.ConversionRequest;
 import edu.ucar.gis.ipcc.converter.Converter;
 import edu.ucar.gis.ipcc.model.netcdf2gis.transform.CSVTransformer;
-import edu.ucar.gis.ipcc.model.netcdf2gis.transform.ShapeFileTransformer;
 import edu.ucar.gis.ipcc.model.netcdf2gis.transform.Transformer;
 
 public class TextfileConversionProcessor implements Processor {
