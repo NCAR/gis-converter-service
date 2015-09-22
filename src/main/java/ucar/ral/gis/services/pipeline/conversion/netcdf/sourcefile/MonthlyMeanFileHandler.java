@@ -33,27 +33,20 @@ public class MonthlyMeanFileHandler extends AbstractSourceFileHandler {
         MonthlyMeanParameters parameters = (MonthlyMeanParameters) baseParameters;
 
         String productDirectory;
-        
-        if (parameters.getEnsemble() instanceof RunMember) {
 
-            if (Resolution.DOWNSCALED == parameters.getScale()) {
-                productDirectory = "completeDownscaled";
-            } else {
+        if (Resolution.DOWNSCALED == parameters.getScale()) {
+            productDirectory = "completeDownscaled";
 
-                // Pull it from the scenario map
-                String scenarioDirectory = this.scenarioDirectoryMap.get(parameters.getScenario().toUpperCase());
-                productDirectory = scenarioDirectory;
+        } else if (parameters.getEnsemble() instanceof RunMember) {
 
-                productDirectory += "/A1/" + parameters.getEnsemble().getName();
-            }
+            productDirectory = this.scenarioDirectoryMap.get(parameters.getScenario().toUpperCase());
+
+            productDirectory += "/A1/" + parameters.getEnsemble().getName();
+
 
         } else {
 
-            if (Resolution.DOWNSCALED == parameters.getScale()) {
-                productDirectory = "completeDownscaled";
-            } else {
-                productDirectory = "completeEnsembleAverages";
-            }
+            productDirectory = "completeEnsembleAverages";
 
         }
 
