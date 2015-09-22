@@ -1,5 +1,6 @@
 package ucar.ral.gis.services.pipeline.conversion.netcdf.sourcefile;
 
+import org.junit.Before;
 import org.junit.Test;
 import ucar.ral.gis.services.EnsembleAverage;
 import ucar.ral.gis.services.Resolution;
@@ -16,101 +17,105 @@ import static org.junit.Assert.assertThat;
 
 public class MonthlyMeanFileHandlerTest {
 
-    private MonthlyMeanFileHandler fileHandler = new MonthlyMeanFileHandler(null, new File("/"), buildScenarioMap());
+    private MonthlyMeanFileHandler fileHandler;
 
-    //@Test
-    public void testGetFileSpecification() throws Exception {
-
-        BaseParameters parameters = new BaseParameters();
-
-        FileSpecification spec = fileHandler.getFileSpecification(null);
-
-
-
+    @Before
+    public void setup() {
+        fileHandler = new MonthlyMeanFileHandler(null, new File("/"), getAR4ScenarioMap());
     }
 
-    public Map<String, String> buildScenarioMap() {
-        Map<String, String> result =  new HashMap<String, String>();
-
-        result.put("X", "X");
-
-        return result;
+    private Map<String, String> getAR4ScenarioMap() {
+        Map<String, String> ar4ScenarioMap =  new HashMap<String, String>();
+        ar4ScenarioMap.put("SCENARIO", "Scenario");
+        return ar4ScenarioMap;
     }
 
     @Test
-    public void testGetDownscaledEnsembleSearchDirectory() {
+    public void testAR4DownscaledRunMemberFileSpecification() {
+        MonthlyMeanParameters parameters = getDownscaledMonthyMeanParameters("scenario", "ensemble");
 
-        MonthlyMeanParameters parameters = getDownscaledMonthyMeanParameters("z", "None");
+        FileSpecification result = fileHandler.getFileSpecification(parameters);
 
-        File result = fileHandler.getSearchDirectory(parameters);
-
-        assertThat(result.getAbsolutePath(), is("/completeDownscaled"));
+        assertThat(result.getDirectory().getAbsolutePath(), is("/completeDownscaled"));
+        assertAR4FilenamePattern(result);
     }
 
     @Test
-    public void testGetGlobalEnsembleSearchDirectory() {
+    public void testAR4DownscaledEnsembleAverageFileSpecification() {
+        MonthlyMeanParameters parameters = getDownscaledMonthyMeanParameters("scenario", "ensemble");
+        parameters.setEnsemble(new EnsembleAverage("ensemble"));
 
-        MonthlyMeanParameters parameters = new MonthlyMeanParameters();
-        parameters.setScale(Resolution.GLOBAL);
-        parameters.setEnsemble(new EnsembleAverage("None"));
+        FileSpecification result = fileHandler.getFileSpecification(parameters);
 
-        File result = fileHandler.getSearchDirectory(parameters);
-
-        assertThat(result.getAbsolutePath(), is("/completeEnsembleAverages"));
+        assertThat(result.getDirectory().getAbsolutePath(), is("/completeDownscaled"));
+        assertAR4FilenamePattern(result);
     }
 
     @Test
-    public void testGetDownscaledRunmemberSearchDirectory() {
+    public void testAR4GlobalRunMemberFileSpecification() {
+        MonthlyMeanParameters parameters = getGlobalMonthyMeanParameters("scenario", "ensemble");
 
-        MonthlyMeanParameters parameters = getDownscaledMonthyMeanParameters("z", "None");
+        FileSpecification result = fileHandler.getFileSpecification(parameters);
 
-        File result = fileHandler.getSearchDirectory(parameters);
-
-        assertThat(result.getAbsolutePath(), is("/completeDownscaled"));
+        assertThat(result.getDirectory().getAbsolutePath(), is("/Scenario/A1/ensemble"));
+        assertAR4FilenamePattern(result);
     }
 
     @Test
-    public void testGetGlobalRunmemberSearchDirectory() {
+    public void testAR4GlobalEnsembleAverageFileSpecification() {
+        MonthlyMeanParameters parameters = getGlobalMonthyMeanParameters("scenario", "ensemble");
+        parameters.setEnsemble(new EnsembleAverage("ensemble"));
 
-        MonthlyMeanParameters parameters = getGlobalMonthyMeanParameters("x", "test");
+        FileSpecification result = fileHandler.getFileSpecification(parameters);
 
-        File result = fileHandler.getSearchDirectory(parameters);
-
-        assertThat(result.getAbsolutePath(), is("/X/A1/test"));
-    }
-
-    @Test(expected = UnknownScenario.class)
-    public void testUnknownScenario() {
-        MonthlyMeanParameters parameters = getGlobalMonthyMeanParameters("Unmapped", "test");
-        fileHandler.getSearchDirectory(parameters);
+        assertThat(result.getDirectory().getAbsolutePath(), is("/completeEnsembleAverages"));
+        assertAR4FilenamePattern(result);
     }
 
     @Test
-    public void testGetFilenamePattern() {
-        MonthlyMeanParameters parameters = getGlobalMonthyMeanParameters("x", "test");
-        parameters.setVariable("tas");
+    public void testAR5GlobalFileSpecification() {
+        MonthlyMeanParameters parameters = getGlobalMonthyMeanParameters("rcp00", "r5i1p1");
 
-        String filenamePattern = fileHandler.getFilenamePattern(parameters);
+        FileSpecification result = fileHandler.getFileSpecification(parameters);
 
-        assertThat(filenamePattern, is("tas_A1.X_*.nc"));
+        assertThat(result.getDirectory().getAbsolutePath(), is("/ar5/CCSM/globalmonthly"));
+        assertThat(result.getFilenamePattern(), is("tas_Amon_CCSM4_rcp00_r5i1p1_*.nc"));
+    }
+
+    @Test
+    public void testAR5DownscaledFileSpecification() {
+        MonthlyMeanParameters parameters = getDownscaledMonthyMeanParameters("rcp00", "r5i1p1");
+
+        FileSpecification result = fileHandler.getFileSpecification(parameters);
+
+        assertThat(result.getDirectory().getAbsolutePath(), is("/ar5/CCSM/downmonthly"));
+        assertThat(result.getFilenamePattern(), is("tas_Amon_CCSM4_rcp00_r5i1p1_*.nc"));
+    }
+
+    private void assertAR4FilenamePattern(FileSpecification result) {
+        assertThat(result.getFilenamePattern(), is("tas_A1.Scenario_*.nc"));
     }
 
     private MonthlyMeanParameters getGlobalMonthyMeanParameters(String scenarioName, String ensembleName) {
-        MonthlyMeanParameters parameters = new MonthlyMeanParameters();
-        parameters.setScenario(scenarioName);
+        MonthlyMeanParameters parameters = getMonthyMeanParameters(scenarioName, ensembleName);
         parameters.setScale(Resolution.GLOBAL);
-        parameters.setEnsemble(new RunMember(ensembleName));
 
         return parameters;
     }
 
     private MonthlyMeanParameters getDownscaledMonthyMeanParameters(String scenarioName, String ensembleName) {
-        MonthlyMeanParameters parameters = new MonthlyMeanParameters();
-        parameters.setScenario(scenarioName);
+        MonthlyMeanParameters parameters = getMonthyMeanParameters(scenarioName, ensembleName);
         parameters.setScale(Resolution.DOWNSCALED);
-        parameters.setEnsemble(new RunMember(ensembleName));
 
         return parameters;
     }
 
+    private MonthlyMeanParameters getMonthyMeanParameters(String scenarioName, String ensembleName) {
+        MonthlyMeanParameters parameters = new MonthlyMeanParameters();
+        parameters.setScenario(scenarioName);
+        parameters.setEnsemble(new RunMember(ensembleName));
+        parameters.setVariable("tas");
+
+        return parameters;
+    }
 }
