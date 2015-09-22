@@ -13,7 +13,7 @@ public class MonthlyMeanFileHandler extends AbstractSourceFileHandler {
     private File baseDirectory;
     private Map<String, String> scenarioDirectoryMap;
 
-    private MonthlyMeanFileHandler(SourceFileHandler nextHandler, File baseDirectory, Map<String, String> scenarioDirectoryMap) {
+    protected MonthlyMeanFileHandler(SourceFileHandler nextHandler, File baseDirectory, Map<String, String> scenarioDirectoryMap) {
         super(nextHandler);
         this.baseDirectory = baseDirectory;
         this.scenarioDirectoryMap = scenarioDirectoryMap;
@@ -32,40 +32,35 @@ public class MonthlyMeanFileHandler extends AbstractSourceFileHandler {
 
         MonthlyMeanParameters parameters = (MonthlyMeanParameters) baseParameters;
 
-        String productDirectory;
-
-        if (Resolution.DOWNSCALED == parameters.getScale()) {
-            productDirectory = "completeDownscaled";
-
-        } else if (parameters.getEnsemble() instanceof RunMember) {
-
-            productDirectory = this.scenarioDirectoryMap.get(parameters.getScenario().toUpperCase());
-
-            productDirectory += "/A1/" + parameters.getEnsemble().getName();
-
-
-        } else {
-
-            productDirectory = "completeEnsembleAverages";
-
-        }
-
-        return getFileSpecification(parameters, productDirectory);
-    }
-
-    private FileSpecification getFileSpecification(MonthlyMeanParameters parameters, String productDirectory) {
-        FileSpecification fileSpec;
-
-        File result = new File(this.baseDirectory, productDirectory);
-
-        //tasmin_A1.20C3M_1.CCSM.atmm.1870-01_cat_1999-12.nc
-        String fileNamePattern = "%s_A1.%s_*.nc";
-
-        String wildCardPattern = fileNamePattern.format(fileNamePattern, parameters.getVariable(), this.scenarioDirectoryMap.get(parameters.getScenario().toUpperCase()));
-
-        fileSpec = new FileSpecification(result, wildCardPattern);
+        FileSpecification fileSpec = new FileSpecification(getSearchDirectory(parameters), getFilenamePattern(parameters));
 
         return fileSpec;
     }
 
+    protected File getSearchDirectory(MonthlyMeanParameters parameters) {
+
+        String productDirectory;
+
+        if (Resolution.DOWNSCALED == parameters.getScale()) {
+            productDirectory = "completeDownscaled";
+        } else if (parameters.getEnsemble() instanceof RunMember){
+            productDirectory = getScenarioMapping(parameters) + "/A1/" + parameters.getEnsemble().getName();
+        } else {
+            productDirectory = "completeEnsembleAverages";
+        }
+
+        return new File(this.baseDirectory, productDirectory);
+    }
+
+    private String getScenarioMapping(MonthlyMeanParameters parameters) {
+        if (!this.scenarioDirectoryMap.containsKey(parameters.getScenario().toUpperCase())) {
+            throw new UnknownScenario();
+        }
+        return this.scenarioDirectoryMap.get(parameters.getScenario().toUpperCase());
+    }
+
+    public String getFilenamePattern(MonthlyMeanParameters parameters) {
+        String pattern = String.format("%s_A1.%s_*.nc", parameters.getVariable(), getScenarioMapping(parameters));
+        return pattern;
+    }
 }
