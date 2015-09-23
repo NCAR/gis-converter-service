@@ -170,10 +170,17 @@
 	</bean>
 
 	<bean id="derivedProductFileHandler" class="ucar.ral.gis.services.pipeline.conversion.netcdf.sourcefile.DerivedProductFileHandler">
+		<constructor-arg index="0" ref="derivedProductFileHandlerAR5" />
+		<constructor-arg index="1" value="${data.root.directory}" />
+		<constructor-arg index="2" ref="ar4ScenarioMap" />
+	</bean>
+
+	<bean id="derivedProductFileHandlerAR5" class="ucar.ral.gis.services.pipeline.conversion.netcdf.sourcefile.DerivedProductFileHandlerAR5">
 		<constructor-arg index="0"><null/></constructor-arg>
 		<constructor-arg index="1" value="${data.root.directory}" />
+		<constructor-arg index="2" ref="ar4ScenarioMap" />
 	</bean>
-	
+
 	<bean id="sourceDatafileProcessor" class="ucar.ral.gis.services.pipeline.conversion.netcdf.sourcefile.SourceDatafileProcessor" >
 		<constructor-arg index="0" ref="monthlyMeanFileHandler" />
 	</bean>

@@ -11,28 +11,22 @@ import java.util.Map;
 public class MonthlyMeanFileHandler extends AbstractSourceFileHandler {
 
     private File baseDirectory;
-    private Map<String, String> scenarioDirectoryMap;
 
-    protected MonthlyMeanFileHandler(SourceFileHandler nextHandler, File baseDirectory, Map<String, String> scenarioDirectoryMap) {
-        super(nextHandler);
+    protected MonthlyMeanFileHandler(SourceFileHandler nextHandler, File baseDirectory, Map<String, String> ar4ScenarioDirectoryMap) {
+        super(nextHandler, ar4ScenarioDirectoryMap);
         this.baseDirectory = baseDirectory;
-        this.scenarioDirectoryMap = scenarioDirectoryMap;
     }
 
     @Override
     protected boolean canHandle(BaseParameters baseParameters) {
         return baseParameters instanceof MonthlyMeanParameters &&
-                isAR4Scenario((MonthlyMeanParameters) baseParameters);
+                isAR4Scenario(baseParameters);
     }
 
     @Override
     protected FileSpecification getFileSpecification(BaseParameters baseParameters) {
         MonthlyMeanParameters parameters = (MonthlyMeanParameters) baseParameters;
         return new FileSpecification(getDirectoryFile(parameters), getFilenamePattern(parameters));
-    }
-
-    private boolean isAR4Scenario(MonthlyMeanParameters parameters) {
-        return this.scenarioDirectoryMap.containsKey(parameters.getScenario().toUpperCase());
     }
 
     private File getDirectoryFile(MonthlyMeanParameters parameters) {
@@ -47,10 +41,6 @@ public class MonthlyMeanFileHandler extends AbstractSourceFileHandler {
         } else {
             return "completeEnsembleAverages";
         }
-    }
-
-    private String getScenarioMapping(MonthlyMeanParameters parameters) {
-        return this.scenarioDirectoryMap.get(parameters.getScenario().toUpperCase());
     }
 
     private String getFilenamePattern(MonthlyMeanParameters parameters) {

@@ -28,7 +28,7 @@ public class MonthlyMeanFileHandlerAR5Test {
 
     @Test
     public void testCanHandleNonAR5Scenario() {
-        MonthlyMeanParameters parameters = MonthlyMeanParametersBuilder.downScaleEnsembleAverage("SCENARIO", "average");
+        MonthlyMeanParameters parameters = MonthlyMeanParametersBuilder.downScaleEnsembleAverage("scenario", "average");
         assertThat(fileHandler.canHandle(parameters), is(false));
     }
 
