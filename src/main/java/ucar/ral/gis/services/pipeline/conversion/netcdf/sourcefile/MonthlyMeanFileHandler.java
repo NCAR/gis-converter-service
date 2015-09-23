@@ -21,33 +21,25 @@ public class MonthlyMeanFileHandler extends AbstractSourceFileHandler {
 
     @Override
     protected boolean canHandle(BaseParameters baseParameters) {
-        return baseParameters instanceof MonthlyMeanParameters;
+        return baseParameters instanceof MonthlyMeanParameters &&
+                isAR4Scenario((MonthlyMeanParameters) baseParameters);
     }
 
     @Override
     protected FileSpecification getFileSpecification(BaseParameters baseParameters) {
         MonthlyMeanParameters parameters = (MonthlyMeanParameters) baseParameters;
-
-        if (isAR4Scenario(parameters)) {
-            return getAR4FileSpecification(parameters);
-        } else {
-            return getAR5FileSpecification(parameters);
-        }
+        return new FileSpecification(getDirectoryFile(parameters), getFilenamePattern(parameters));
     }
 
     private boolean isAR4Scenario(MonthlyMeanParameters parameters) {
         return this.scenarioDirectoryMap.containsKey(parameters.getScenario().toUpperCase());
     }
 
-    private FileSpecification getAR4FileSpecification(MonthlyMeanParameters parameters) {
-        return new FileSpecification(getAR4DirectoryFile(parameters), getAR4FilenamePattern(parameters));
+    private File getDirectoryFile(MonthlyMeanParameters parameters) {
+        return new File(this.baseDirectory, getDirectory(parameters));
     }
 
-    private File getAR4DirectoryFile(MonthlyMeanParameters parameters) {
-        return new File(this.baseDirectory, getAR4Directory(parameters));
-    }
-
-    private String getAR4Directory(MonthlyMeanParameters parameters) {
+    private String getDirectory(MonthlyMeanParameters parameters) {
         if (Resolution.DOWNSCALED == parameters.getScale()) {
             return "completeDownscaled";
         } else if (parameters.getEnsemble() instanceof RunMember) {
@@ -61,25 +53,8 @@ public class MonthlyMeanFileHandler extends AbstractSourceFileHandler {
         return this.scenarioDirectoryMap.get(parameters.getScenario().toUpperCase());
     }
 
-    private String getAR4FilenamePattern(MonthlyMeanParameters parameters) {
+    private String getFilenamePattern(MonthlyMeanParameters parameters) {
         String pattern = String.format("%s_A1.%s_*.nc", parameters.getVariable(), getScenarioMapping(parameters));
-        return pattern;
-    }
-
-    private FileSpecification getAR5FileSpecification(MonthlyMeanParameters parameters) {
-        return new FileSpecification(getAR5DirectoryFile(parameters), getAR5FilenamePattern(parameters));
-    }
-
-    private File getAR5DirectoryFile(MonthlyMeanParameters parameters) {
-        if (Resolution.DOWNSCALED == parameters.getScale()) {
-            return new File(this.baseDirectory, "ar5/CCSM/downmonthly");
-        } else {
-            return new File(this.baseDirectory, "ar5/CCSM/globalmonthly");
-        }
-    }
-
-    private String getAR5FilenamePattern(MonthlyMeanParameters parameters) {
-        String pattern = String.format("%s_Amon_CCSM4_%s_%s_*.nc", parameters.getVariable(), parameters.getScenario(), parameters.getEnsemble().getName());
         return pattern;
     }
 }

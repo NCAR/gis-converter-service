@@ -3,9 +3,6 @@ package ucar.ral.gis.services.pipeline.conversion.netcdf.sourcefile;
 import org.junit.Before;
 import org.junit.Test;
 import ucar.ral.gis.services.EnsembleAverage;
-import ucar.ral.gis.services.Resolution;
-import ucar.ral.gis.services.RunMember;
-import ucar.ral.gis.services.netcdf2shapefile.rest.BaseParameters;
 import ucar.ral.gis.services.netcdf2shapefile.rest.monthly.MonthlyMeanParameters;
 
 import java.io.File;
@@ -31,8 +28,20 @@ public class MonthlyMeanFileHandlerTest {
     }
 
     @Test
-    public void testAR4DownscaledRunMemberFileSpecification() {
-        MonthlyMeanParameters parameters = getDownscaledMonthyMeanParameters("scenario", "ensemble");
+    public void testCanHandleNonAR4Scenario() {
+        MonthlyMeanParameters parameters = MonthyMeanParametersFactoryForTest.getDownscaledMonthyMeanParameters("unmapped", "ensemble");
+        assertThat(fileHandler.canHandle(parameters), is(false));
+    }
+
+    @Test
+    public void testCanHandleAR4Scenario() {
+        MonthlyMeanParameters parameters = MonthyMeanParametersFactoryForTest.getDownscaledMonthyMeanParameters("SCENARIO", "ensemble");
+        assertThat(fileHandler.canHandle(parameters), is(true));
+    }
+
+    @Test
+    public void testDownscaledRunMemberFileSpecification() {
+        MonthlyMeanParameters parameters = MonthyMeanParametersFactoryForTest.getDownscaledMonthyMeanParameters("scenario", "ensemble");
 
         FileSpecification result = fileHandler.getFileSpecification(parameters);
 
@@ -41,8 +50,8 @@ public class MonthlyMeanFileHandlerTest {
     }
 
     @Test
-    public void testAR4DownscaledEnsembleAverageFileSpecification() {
-        MonthlyMeanParameters parameters = getDownscaledMonthyMeanParameters("scenario", "ensemble");
+    public void testDownscaledEnsembleAverageFileSpecification() {
+        MonthlyMeanParameters parameters = MonthyMeanParametersFactoryForTest.getDownscaledMonthyMeanParameters("scenario", "ensemble");
         parameters.setEnsemble(new EnsembleAverage("ensemble"));
 
         FileSpecification result = fileHandler.getFileSpecification(parameters);
@@ -52,8 +61,8 @@ public class MonthlyMeanFileHandlerTest {
     }
 
     @Test
-    public void testAR4GlobalRunMemberFileSpecification() {
-        MonthlyMeanParameters parameters = getGlobalMonthyMeanParameters("scenario", "ensemble");
+    public void testGlobalRunMemberFileSpecification() {
+        MonthlyMeanParameters parameters = MonthyMeanParametersFactoryForTest.getGlobalMonthyMeanParameters("scenario", "ensemble");
 
         FileSpecification result = fileHandler.getFileSpecification(parameters);
 
@@ -62,8 +71,8 @@ public class MonthlyMeanFileHandlerTest {
     }
 
     @Test
-    public void testAR4GlobalEnsembleAverageFileSpecification() {
-        MonthlyMeanParameters parameters = getGlobalMonthyMeanParameters("scenario", "ensemble");
+    public void testGlobalEnsembleAverageFileSpecification() {
+        MonthlyMeanParameters parameters = MonthyMeanParametersFactoryForTest.getGlobalMonthyMeanParameters("scenario", "ensemble");
         parameters.setEnsemble(new EnsembleAverage("ensemble"));
 
         FileSpecification result = fileHandler.getFileSpecification(parameters);
@@ -72,50 +81,7 @@ public class MonthlyMeanFileHandlerTest {
         assertAR4FilenamePattern(result);
     }
 
-    @Test
-    public void testAR5GlobalFileSpecification() {
-        MonthlyMeanParameters parameters = getGlobalMonthyMeanParameters("rcp00", "r5i1p1");
-
-        FileSpecification result = fileHandler.getFileSpecification(parameters);
-
-        assertThat(result.getDirectory().getAbsolutePath(), is("/ar5/CCSM/globalmonthly"));
-        assertThat(result.getFilenamePattern(), is("tas_Amon_CCSM4_rcp00_r5i1p1_*.nc"));
-    }
-
-    @Test
-    public void testAR5DownscaledFileSpecification() {
-        MonthlyMeanParameters parameters = getDownscaledMonthyMeanParameters("rcp00", "r5i1p1");
-
-        FileSpecification result = fileHandler.getFileSpecification(parameters);
-
-        assertThat(result.getDirectory().getAbsolutePath(), is("/ar5/CCSM/downmonthly"));
-        assertThat(result.getFilenamePattern(), is("tas_Amon_CCSM4_rcp00_r5i1p1_*.nc"));
-    }
-
     private void assertAR4FilenamePattern(FileSpecification result) {
         assertThat(result.getFilenamePattern(), is("tas_A1.Scenario_*.nc"));
-    }
-
-    private MonthlyMeanParameters getGlobalMonthyMeanParameters(String scenarioName, String ensembleName) {
-        MonthlyMeanParameters parameters = getMonthyMeanParameters(scenarioName, ensembleName);
-        parameters.setScale(Resolution.GLOBAL);
-
-        return parameters;
-    }
-
-    private MonthlyMeanParameters getDownscaledMonthyMeanParameters(String scenarioName, String ensembleName) {
-        MonthlyMeanParameters parameters = getMonthyMeanParameters(scenarioName, ensembleName);
-        parameters.setScale(Resolution.DOWNSCALED);
-
-        return parameters;
-    }
-
-    private MonthlyMeanParameters getMonthyMeanParameters(String scenarioName, String ensembleName) {
-        MonthlyMeanParameters parameters = new MonthlyMeanParameters();
-        parameters.setScenario(scenarioName);
-        parameters.setEnsemble(new RunMember(ensembleName));
-        parameters.setVariable("tas");
-
-        return parameters;
     }
 }
