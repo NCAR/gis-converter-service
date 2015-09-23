@@ -144,11 +144,9 @@
 	<bean id="WMSDateFilter" class="ucar.ral.gis.services.pipeline.conversion.wms.DateFilter">
 		<constructor-arg index="0" ref="restTemplate" />
 	</bean>
-	
-	<bean id="monthlyMeanFileHandler" class="ucar.ral.gis.services.pipeline.conversion.netcdf.sourcefile.MonthlyMeanFileHandler">
-		<constructor-arg index="0" ref="derivedProductFileHandler" />
-		<constructor-arg index="1" value="${data.root.directory}" />
-		<constructor-arg index="2">
+
+	<bean id="ar4ScenarioMap" class="java.util.HashMap">
+		<constructor-arg>
 			<map>
 				<entry key="20C3M" value="20C3M"/>
 				<entry key="COMMIT" value="Commit"/>
@@ -159,11 +157,22 @@
 		</constructor-arg>
 	</bean>
 	
+	<bean id="monthlyMeanFileHandler" class="ucar.ral.gis.services.pipeline.conversion.netcdf.sourcefile.MonthlyMeanFileHandler">
+		<constructor-arg index="0" ref="monthlyMeanFileHandlerAR5" />
+		<constructor-arg index="1" value="${data.root.directory}" />
+		<constructor-arg index="2" ref="ar4ScenarioMap" />
+	</bean>
+
+	<bean id="monthlyMeanFileHandlerAR5" class="ucar.ral.gis.services.pipeline.conversion.netcdf.sourcefile.MonthlyMeanFileHandlerAR5">
+		<constructor-arg index="0" ref="derivedProductFileHandler" />
+		<constructor-arg index="1" value="${data.root.directory}" />
+		<constructor-arg index="2" ref="ar4ScenarioMap" />
+	</bean>
+
 	<bean id="derivedProductFileHandler" class="ucar.ral.gis.services.pipeline.conversion.netcdf.sourcefile.DerivedProductFileHandler">
 		<constructor-arg index="0"><null/></constructor-arg>
 		<constructor-arg index="1" value="${data.root.directory}" />
 	</bean>
-	
 	
 	<bean id="sourceDatafileProcessor" class="ucar.ral.gis.services.pipeline.conversion.netcdf.sourcefile.SourceDatafileProcessor" >
 		<constructor-arg index="0" ref="monthlyMeanFileHandler" />
