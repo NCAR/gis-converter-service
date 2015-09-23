@@ -40,7 +40,7 @@ public class MonthlyMeanFileHandlerAR5Test {
 
     @Test
     public void testGlobalRunMemberFileSpecification() {
-        MonthlyMeanParameters parameters = MonthlyMeanParametersBuilder.globalRunEnsemble("rcp00", "5");
+        MonthlyMeanParameters parameters = MonthlyMeanParametersBuilder.globalRunEnsemble("rcp00", "run5");
 
         FileSpecification result = fileHandler.getFileSpecification(parameters);
 
@@ -60,7 +60,7 @@ public class MonthlyMeanFileHandlerAR5Test {
 
     @Test
     public void testDownscaledRunMemberFileSpecification() {
-        MonthlyMeanParameters parameters = MonthlyMeanParametersBuilder.downScaleRunEnsemble("rcp00", "5");
+        MonthlyMeanParameters parameters = MonthlyMeanParametersBuilder.downScaleRunEnsemble("rcp00", "run5");
 
         FileSpecification result = fileHandler.getFileSpecification(parameters);
 

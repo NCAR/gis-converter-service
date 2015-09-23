@@ -56,7 +56,7 @@ public class MonthlyMeanFileHandlerAR5 extends AbstractSourceFileHandler {
         if (ensembleMember instanceof EnsembleAverage) {
             return "ensave";
         } else {
-            return "r" + ensembleMember.getName() + "i1p1";
+            return ensembleMember.getName().replace("run", "r") + "i1p1";
         }
     }
 }
