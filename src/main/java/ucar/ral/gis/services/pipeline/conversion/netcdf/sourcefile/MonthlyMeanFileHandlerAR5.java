@@ -53,10 +53,10 @@ public class MonthlyMeanFileHandlerAR5 extends AbstractSourceFileHandler {
     }
 
     private String getFilenameEnsembleName(EnsembleMember ensembleMember) {
-        if (ensembleMember.getName().equalsIgnoreCase("average")) {
+        if (ensembleMember instanceof EnsembleAverage) {
             return "ensave";
         } else {
-            return ensembleMember.getName();
+            return "r" + ensembleMember.getName() + "i1p1";
         }
     }
 }
