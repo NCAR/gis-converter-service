@@ -8,14 +8,14 @@ import ucar.ral.gis.services.RunMember;
 
 public class EnsembleMemberConverter implements Converter<String, EnsembleMember> {
 	
-	private String esembleAverageName = "average";
+	private String ensembleAverageName = "average";
 
 	public EnsembleMember convert(String source) {
 		
 		EnsembleMember result;
 		
 		if ("ea".equalsIgnoreCase(source)) {
-			result = new EnsembleAverage(esembleAverageName);
+			result = new EnsembleAverage(ensembleAverageName);
 		}
 		else {
 			result = new RunMember(source);

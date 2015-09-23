@@ -1,5 +1,7 @@
 package ucar.ral.gis.services.pipeline.conversion.netcdf.sourcefile;
 
+import ucar.ral.gis.services.EnsembleAverage;
+import ucar.ral.gis.services.EnsembleMember;
 import ucar.ral.gis.services.Resolution;
 import ucar.ral.gis.services.netcdf2shapefile.rest.BaseParameters;
 import ucar.ral.gis.services.netcdf2shapefile.rest.monthly.MonthlyMeanParameters;
@@ -43,7 +45,18 @@ public class MonthlyMeanFileHandlerAR5 extends AbstractSourceFileHandler {
     }
 
     private String getFilenamePattern(MonthlyMeanParameters parameters) {
-        String pattern = String.format("%s_Amon_CCSM4_%s_%s_*.nc", parameters.getVariable(), parameters.getScenario(), parameters.getEnsemble().getName());
+        String pattern = String.format("%s_Amon_CCSM4_%s_%s_*.nc",
+                parameters.getVariable(),
+                parameters.getScenario(),
+                getFilenameEnsembleName(parameters.getEnsemble()));
         return pattern;
+    }
+
+    private String getFilenameEnsembleName(EnsembleMember ensembleMember) {
+        if (ensembleMember.getName().equalsIgnoreCase("average")) {
+            return "ensave";
+        } else {
+            return ensembleMember.getName();
+        }
     }
 }

@@ -2,7 +2,6 @@ package ucar.ral.gis.services.pipeline.conversion.netcdf.sourcefile;
 
 import org.junit.Before;
 import org.junit.Test;
-import ucar.ral.gis.services.EnsembleAverage;
 import ucar.ral.gis.services.netcdf2shapefile.rest.monthly.MonthlyMeanParameters;
 
 import java.io.File;
@@ -29,19 +28,19 @@ public class MonthlyMeanFileHandlerTest {
 
     @Test
     public void testCanHandleNonAR4Scenario() {
-        MonthlyMeanParameters parameters = MonthyMeanParametersFactoryForTest.getDownscaledMonthyMeanParameters("unmapped", "ensemble");
+        MonthlyMeanParameters parameters = MonthlyMeanParametersBuilder.downScaleEnsembleAverage("unmapped", "average");
         assertThat(fileHandler.canHandle(parameters), is(false));
     }
 
     @Test
     public void testCanHandleAR4Scenario() {
-        MonthlyMeanParameters parameters = MonthyMeanParametersFactoryForTest.getDownscaledMonthyMeanParameters("SCENARIO", "ensemble");
+        MonthlyMeanParameters parameters = MonthlyMeanParametersBuilder.downScaleEnsembleAverage("scenario", "average");
         assertThat(fileHandler.canHandle(parameters), is(true));
     }
 
     @Test
     public void testDownscaledRunMemberFileSpecification() {
-        MonthlyMeanParameters parameters = MonthyMeanParametersFactoryForTest.getDownscaledMonthyMeanParameters("scenario", "ensemble");
+        MonthlyMeanParameters parameters = MonthlyMeanParametersBuilder.downScaleRunEnsemble("scenario", "ensemble");
 
         FileSpecification result = fileHandler.getFileSpecification(parameters);
 
@@ -51,8 +50,7 @@ public class MonthlyMeanFileHandlerTest {
 
     @Test
     public void testDownscaledEnsembleAverageFileSpecification() {
-        MonthlyMeanParameters parameters = MonthyMeanParametersFactoryForTest.getDownscaledMonthyMeanParameters("scenario", "ensemble");
-        parameters.setEnsemble(new EnsembleAverage("ensemble"));
+        MonthlyMeanParameters parameters = MonthlyMeanParametersBuilder.downScaleEnsembleAverage("scenario", "average");
 
         FileSpecification result = fileHandler.getFileSpecification(parameters);
 
@@ -62,7 +60,7 @@ public class MonthlyMeanFileHandlerTest {
 
     @Test
     public void testGlobalRunMemberFileSpecification() {
-        MonthlyMeanParameters parameters = MonthyMeanParametersFactoryForTest.getGlobalMonthyMeanParameters("scenario", "ensemble");
+        MonthlyMeanParameters parameters = MonthlyMeanParametersBuilder.globalRunEnsemble("scenario", "ensemble");
 
         FileSpecification result = fileHandler.getFileSpecification(parameters);
 
@@ -72,8 +70,7 @@ public class MonthlyMeanFileHandlerTest {
 
     @Test
     public void testGlobalEnsembleAverageFileSpecification() {
-        MonthlyMeanParameters parameters = MonthyMeanParametersFactoryForTest.getGlobalMonthyMeanParameters("scenario", "ensemble");
-        parameters.setEnsemble(new EnsembleAverage("ensemble"));
+        MonthlyMeanParameters parameters = MonthlyMeanParametersBuilder.globalEnsembleAverage("scenario", "average");
 
         FileSpecification result = fileHandler.getFileSpecification(parameters);
 

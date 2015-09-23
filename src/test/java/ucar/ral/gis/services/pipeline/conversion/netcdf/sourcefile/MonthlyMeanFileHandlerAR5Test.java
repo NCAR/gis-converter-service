@@ -28,19 +28,19 @@ public class MonthlyMeanFileHandlerAR5Test {
 
     @Test
     public void testCanHandleNonAR5Scenario() {
-        MonthlyMeanParameters parameters = MonthyMeanParametersFactoryForTest.getDownscaledMonthyMeanParameters("SCENARIO", "ensemble");
+        MonthlyMeanParameters parameters = MonthlyMeanParametersBuilder.downScaleEnsembleAverage("SCENARIO", "average");
         assertThat(fileHandler.canHandle(parameters), is(false));
     }
 
     @Test
     public void testCanHandleAR5Scenario() {
-        MonthlyMeanParameters parameters = MonthyMeanParametersFactoryForTest.getDownscaledMonthyMeanParameters("unmapped", "ensemble");
+        MonthlyMeanParameters parameters = MonthlyMeanParametersBuilder.downScaleEnsembleAverage("unmapped", "average");
         assertThat(fileHandler.canHandle(parameters), is(true));
     }
 
     @Test
-    public void testGlobalFileSpecification() {
-        MonthlyMeanParameters parameters = MonthyMeanParametersFactoryForTest.getGlobalMonthyMeanParameters("rcp00", "r5i1p1");
+    public void testGlobalRunMemberFileSpecification() {
+        MonthlyMeanParameters parameters = MonthlyMeanParametersBuilder.globalRunEnsemble("rcp00", "r5i1p1");
 
         FileSpecification result = fileHandler.getFileSpecification(parameters);
 
@@ -49,12 +49,32 @@ public class MonthlyMeanFileHandlerAR5Test {
     }
 
     @Test
-    public void testDownscaledFileSpecification() {
-        MonthlyMeanParameters parameters = MonthyMeanParametersFactoryForTest.getDownscaledMonthyMeanParameters("rcp00", "r5i1p1");
+    public void testGlobalEnsembleAverageFileSpecification() {
+        MonthlyMeanParameters parameters = MonthlyMeanParametersBuilder.globalEnsembleAverage("rcp00", "average");
+
+        FileSpecification result = fileHandler.getFileSpecification(parameters);
+
+        assertThat(result.getDirectory().getAbsolutePath(), is("/ar5/CCSM/globalmonthly"));
+        assertThat(result.getFilenamePattern(), is("tas_Amon_CCSM4_rcp00_ensave_*.nc"));
+    }
+
+    @Test
+    public void testDownscaledRunMemberFileSpecification() {
+        MonthlyMeanParameters parameters = MonthlyMeanParametersBuilder.downScaleRunEnsemble("rcp00", "r5i1p1");
 
         FileSpecification result = fileHandler.getFileSpecification(parameters);
 
         assertThat(result.getDirectory().getAbsolutePath(), is("/ar5/CCSM/downmonthly"));
         assertThat(result.getFilenamePattern(), is("tas_Amon_CCSM4_rcp00_r5i1p1_*.nc"));
+    }
+
+    @Test
+    public void testDownscaledEnsembleAverageFileSpecification() {
+        MonthlyMeanParameters parameters = MonthlyMeanParametersBuilder.downScaleEnsembleAverage("rcp00", "average");
+
+        FileSpecification result = fileHandler.getFileSpecification(parameters);
+
+        assertThat(result.getDirectory().getAbsolutePath(), is("/ar5/CCSM/downmonthly"));
+        assertThat(result.getFilenamePattern(), is("tas_Amon_CCSM4_rcp00_ensave_*.nc"));
     }
 }
