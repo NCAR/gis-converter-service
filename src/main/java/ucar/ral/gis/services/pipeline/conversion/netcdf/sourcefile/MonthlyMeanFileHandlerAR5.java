@@ -31,7 +31,7 @@ public class MonthlyMeanFileHandlerAR5 extends AbstractSourceFileHandler {
     }
 
     private File getDirectoryFile(MonthlyMeanParameters parameters) {
-        if (Resolution.DOWNSCALED == parameters.getScale()) {
+        if (parameters.getScale() == Resolution.DOWNSCALED) {
             return new File(this.baseDirectory, "ar5/CCSM/downmonthly");
         } else {
             return new File(this.baseDirectory, "ar5/CCSM/globalmonthly");
