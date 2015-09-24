@@ -220,91 +220,32 @@ public class LongTermAverageController {
 
 	@RequestMapping(value="/{scale}/{variable}/{scenario}/longterm/average/monthly/{month}/{startYear}/{endYear}")
 	public ModelAndView ar5LongTermAverageMonthlyDiagnostics(LongTermAverageParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
-
-		requestParameters.setPeriod("monthly");
-
-		LongTermAverageConversionRequestImpl conversionRequestMessage = new LongTermAverageConversionRequestImpl(requestParameters, null);
-
-		// FIXME - Find a better way to deal with this.
-		conversionRequestMessage.getParameters().setTemporalResolution(TemporalResolution.LONGTERM_AVERAGE);
-
-		this.debugProcessor.process(conversionRequestMessage);
-
-		ModelMap modelMap = new ModelMap("conversionRequest", conversionRequestMessage);
-		modelMap.addAttribute("dataFileExists", conversionRequestMessage.getDataFile().exists());
-
-
-		return new ModelAndView("validate-annual-mean", modelMap);
+		return longTermAverageDiagnostics(requestParameters, response);
 	}
 
 	@RequestMapping(value="/{scale}/{variable}/{scenario}/longterm/average/monthly/{month}/{startYear}/{endYear}.shp")
 	public ModelAndView ar5LongTermAverageMonthlyShapefile(LongTermAverageParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
-
-		requestParameters.setOutputType(OutputType.SHAPE);
-		requestParameters.setTemporalResolution(TemporalResolution.LONGTERM_AVERAGE);
-		requestParameters.setPeriod("monthly");
-
-		this.convert(new LongTermAverageConversionRequestImpl(requestParameters, response.getOutputStream()), response);
-
-		return null;
+		return convertToShapefile(requestParameters, response);
 	}
 
 	@RequestMapping(value="/{scale}/{variable}/{scenario}/longterm/average/monthly/{month}/{startYear}/{endYear}.txt")
 	public ModelAndView ar5LongTermAverageMonthlyTextfile(LongTermAverageParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
-
-		requestParameters.setOutputType(OutputType.TEXT);
-		requestParameters.setTemporalResolution(TemporalResolution.LONGTERM_AVERAGE);
-		requestParameters.setPeriod("monthly");
-
-		this.convert(new LongTermAverageConversionRequestImpl(requestParameters, response.getOutputStream()), response);
-
-		return null;
+		return convertToTextfile(requestParameters, response);
 	}
 
 	@RequestMapping(value="/{scale}/{variable}/{scenario}/longterm/average/annual/{startYear}/{endYear}")
 	public ModelAndView ar5LongTermAverageAnnualDiagnostics(LongTermAverageParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
-
-		requestParameters.setPeriod("annual");
-
-		LongTermAverageConversionRequestImpl conversionRequestMessage = new LongTermAverageConversionRequestImpl(requestParameters, null);
-
-		// FIXME - Find a better way to deal with this.
-		conversionRequestMessage.getParameters().setTemporalResolution(TemporalResolution.LONGTERM_AVERAGE);
-
-		this.debugProcessor.process(conversionRequestMessage);
-
-		ModelMap modelMap = new ModelMap("conversionRequest", conversionRequestMessage);
-		modelMap.addAttribute("dataFileExists", conversionRequestMessage.getDataFile().exists());
-
-
-		return new ModelAndView("validate-annual-mean", modelMap);
-
+		return longTermAverageDiagnosticsAnnual(requestParameters, response);
 	}
-
 
 	@RequestMapping(value="/{scale}/{variable}/{scenario}/longterm/average/annual/{startYear}/{endYear}.shp")
 	public ModelAndView ar5LongTermAverageAnnualShapeFile(LongTermAverageParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
-
-		requestParameters.setOutputType(OutputType.SHAPE);
-		requestParameters.setTemporalResolution(TemporalResolution.LONGTERM_AVERAGE);
-		requestParameters.setPeriod("annual");
-
-
-		this.convert(new LongTermAverageConversionRequestImpl(requestParameters, response.getOutputStream()), response);
-
-		return null;
+		return convertToShapefileAnnual(requestParameters, response);
 	}
 
 	@RequestMapping(value="/{scale}/{variable}/{scenario}/longterm/average/annual/{startYear}/{endYear}.txt")
 	public ModelAndView ar5LongTermAverageAnnualTextFile(LongTermAverageParameters requestParameters, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
-
-		requestParameters.setOutputType(OutputType.TEXT);
-		requestParameters.setTemporalResolution(TemporalResolution.LONGTERM_AVERAGE);
-		requestParameters.setPeriod("annual");
-
-		this.convert(new LongTermAverageConversionRequestImpl(requestParameters, response.getOutputStream()), response);
-
-		return null;
+		return convertToTextfileAnnual(requestParameters, response);
 	}
 
 	public void convert(ConversionRequestMessage conversionRequestMessage, HttpServletResponse response) throws InterruptedException, ExecutionException, IOException {
