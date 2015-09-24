@@ -44,8 +44,10 @@ public class DerivedProductFileHandlerAR5 extends AbstractSourceFileHandler {
     private String getVariableNameVaryingByTemporalResolution(BaseParameters parameters) {
         if (parameters.getTemporalResolution() == TemporalResolution.ANNUAL_MEAN) {
             return parameters.getVariable();
-        } else if (parameters.getTemporalResolution() == TemporalResolution.LONGTERM_AVERAGE){
+        } else if (parameters.getTemporalResolution() == TemporalResolution.LONGTERM_AVERAGE) {
             return getVariableNameVaryingByLongTermAveragePeriod((LongTermAverageParameters) parameters);
+        } else if (parameters.getTemporalResolution() == TemporalResolution.CLIMATE_ANOMOLY) {
+            return getVariableNameVaryingByClimateAnomaly((LongTermAverageParameters) parameters);
         }
         return null;
     }
@@ -59,10 +61,16 @@ public class DerivedProductFileHandlerAR5 extends AbstractSourceFileHandler {
         return null;
     }
 
+    private String getVariableNameVaryingByClimateAnomaly(LongTermAverageParameters parameters) {
+        return "a" + getVariableNameVaryingByLongTermAveragePeriod(parameters);
+    }
+
     private String getEnsembleNameVaryingByTemporalResolution(BaseParameters parameters) {
         if (parameters.getTemporalResolution() == TemporalResolution.ANNUAL_MEAN) {
             return "annual";
         } else if (parameters.getTemporalResolution() == TemporalResolution.LONGTERM_AVERAGE) {
+            return ((LongTermAverageParameters) parameters).getPeriod();
+        } else if (parameters.getTemporalResolution() == TemporalResolution.CLIMATE_ANOMOLY) {
             return ((LongTermAverageParameters) parameters).getPeriod();
         }
         return null;

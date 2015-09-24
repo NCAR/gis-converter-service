@@ -97,4 +97,24 @@ public class DerivedProductFileHandlerAR5Test {
 
         assertThat(result.getFilenamePattern(), is("tas20y_Amon_CCSM4_rcp00_annual_*.nc"));
     }
+
+    @Test
+    public void testAnomalyMonthlyFilenamePattern() {
+        LongTermAverageParameters parameters = LongTermAverageParametersBuilder.getGlobalTas("rcp00", "monthly");
+        parameters.setTemporalResolution(TemporalResolution.CLIMATE_ANOMOLY);
+
+        FileSpecification result = fileHandler.getFileSpecification(parameters);
+
+        assertThat(result.getFilenamePattern(), is("atas240m_Amon_CCSM4_rcp00_monthly_*.nc"));
+    }
+
+    @Test
+    public void testAnomalyAnnualFilenamePattern() {
+        LongTermAverageParameters parameters = LongTermAverageParametersBuilder.getGlobalTas("rcp00", "annual");
+        parameters.setTemporalResolution(TemporalResolution.CLIMATE_ANOMOLY);
+
+        FileSpecification result = fileHandler.getFileSpecification(parameters);
+
+        assertThat(result.getFilenamePattern(), is("atas20y_Amon_CCSM4_rcp00_annual_*.nc"));
+    }
 }
