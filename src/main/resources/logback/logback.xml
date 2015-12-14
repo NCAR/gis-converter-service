@@ -10,7 +10,7 @@
     </layout>
   </appender>
 
-	<logger name="org.springframework" level="DEBUG"/>
+	<!--<logger name="org.springframework" level="DEBUG"/>-->
 	
 <!-- 	<logger name="org.apache.http.wire" level="DEBUG"/> -->
 <!-- 	<logger name="log4j.logger.httpclient.wire" level="DEBUG"/> -->
