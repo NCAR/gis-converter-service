@@ -5,8 +5,8 @@ import ucar.ral.gis.services.netcdf2shapefile.rest.BaseParameters;
 
 public class LongTermAverageParameters extends BaseParameters {
 
-	private Integer startYear = 1870;
-	private Integer endYear = 1870;
+	private Integer startYear;
+	private Integer endYear;
 	
 	private String month;
 	
