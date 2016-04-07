@@ -25,12 +25,12 @@
         <repository>
             <id>repo.ucar.edu</id>
             <name>repo.ucar.edu-releases</name>
-            <url>https://repo.ucar.edu/artifactory/libs-release-local</url>
+            <url>https://repo.ucar.edu/artifactory/apps-release-local</url>
         </repository>
         <snapshotRepository>
             <id>repo.ucar.edu</id>
             <name>repo.ucar.edu-snapshots</name>
-            <url>https://repo.ucar.edu/artifactory/libs-snapshot-local</url>
+            <url>https://repo.ucar.edu/artifactory/apps-snapshot-local</url>
         </snapshotRepository>
     </distributionManagement>
 
