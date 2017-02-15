@@ -4,7 +4,7 @@
     <groupId>ucar.ral.gis.conversion</groupId>
     <artifactId>converter-service</artifactId>
     <packaging>war</packaging>
-    <version>1.0.5-SNAPSHOT</version>
+    <version>1.0.5</version>
     <name>converter-service</name>
     <url></url>
 
