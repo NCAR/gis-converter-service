@@ -12,20 +12,13 @@
 	
 	<bean id="outputFilenameFactory" class="ucar.ral.gis.services.OutputFileNameFactory" />
 	
-	<bean id="propertyConfigurer" class="sgf.spring.extensions.LoggingPropertyPlaceholderConfigurer">
-		<constructor-arg index="0">
-			<set>
-				<value>database.password</value>
-			</set>
-		</constructor-arg>
-		
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 	      	<list>
 	      		<value>file:${application.home}/conf/services.properties</value>
 	      	</list>
 	      </property>
-		
-	</bean>	
+	</bean>
 	
 	<bean id="string2ScaleConverter" class="ucar.ral.gis.services.converters.String2ScaleConverter">
 		<constructor-arg>

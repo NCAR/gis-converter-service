@@ -47,45 +47,6 @@
         </property>
     </bean>
     
-    <!-- Tiles configuration -->
-<!-- 	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer"> -->
-<!-- 		<property name="useMutableTilesContainer" value="true" /> -->
-<!-- 		<property name="definitions"> -->
-<!-- 			<list> -->
-<!-- 				<value>/WEB-INF/tiles-definitions.xml</value> -->
-<!-- 			</list> -->
-<!-- 		</property> -->
-<!-- 	</bean> -->
-    
-
-	
-	
-	<bean id="imagesHandler" class="org.springframework.web.servlet.resource.ResourceHttpRequestHandler">
-		<property name="locations">
-			<list>
-				<bean id="imagesLocation" class="org.springframework.core.io.FileSystemResource" >
-					<constructor-arg index="0" value="${gateway.home}/resources/images/" />
-				</bean>
-				<value>images/</value>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="jsHandler" class="org.springframework.web.servlet.resource.ResourceHttpRequestHandler">
-		<property name="locations">
-			<list>
-				<bean id="jsLocation" class="org.springframework.core.io.FileSystemResource" >
-					<constructor-arg index="0" value="${gateway.home}/resources/js/" />
-				</bean>
-				<value>js/</value>
-			</list>
-		</property>
-	</bean>
-	
-	
-	
-	
-	
 		<!-- Spring handler and controller to map an HTTP request URL directly to a view with a name equal to the URL path.
 	     This handler is ordered last to allow the Spring dispatcher to invoke more specific controllers first. -->
 	<bean id="jspFilenameMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
@@ -98,8 +59,6 @@
 	</bean>
 	
 	
-	<bean id="urlFilenameViewController" class="org.springframework.web.servlet.mvc.UrlFilenameViewController" />	
-
-	
+	<bean id="urlFilenameViewController" class="org.springframework.web.servlet.mvc.UrlFilenameViewController" />
 
 </beans>
