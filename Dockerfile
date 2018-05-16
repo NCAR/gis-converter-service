@@ -16,7 +16,7 @@ FROM tomcat:8-jre8-alpine AS tomcat
 
 ARG BUILDDIR=/usr/local/build
 ARG TOMCATDIR=/usr/local/tomcat
-ARG HOMEDIR=/usr/local/gis-conversion-home
+ARG HOMEDIR=/usr/local/gis-converter-home
 
 COPY --from=maven ${BUILDDIR}/target/converter-service.war ${TOMCATDIR}/webapps/ROOT.war
 
