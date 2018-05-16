@@ -17,8 +17,12 @@
 
     <repositories>
         <repository>
-            <id>UCAR</id>
+            <id>repo.ucar.edu</id>
             <url>https://repo.ucar.edu/artifactory/public/</url>
+        </repository>
+        <repository>
+            <id>artifacts.unidata.ucar.edu</id>
+            <url>https://artifacts.unidata.ucar.edu/repository/unidata-releases/</url>
         </repository>
     </repositories>
 
@@ -60,6 +64,48 @@
     <dependencies>
 
         <dependency>
+            <groupId>edu.ucar</groupId>
+            <artifactId>netcdf</artifactId>
+            <version>4.3.18</version>
+        </dependency>
+
+        <dependency>
+            <groupId>args4j</groupId>
+            <artifactId>args4j</artifactId>
+            <version>2.0.12</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>15.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.geotools</groupId>
+            <artifactId>core</artifactId>
+            <version>2.0-B2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.geotools</groupId>
+            <artifactId>shapefile</artifactId>
+            <version>2.0-B2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.geotools</groupId>
+            <artifactId>data</artifactId>
+            <version>2.0-B2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.vividsolutions</groupId>
+            <artifactId>JTS</artifactId>
+            <version>1.4</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.jvnet.ogc</groupId>
             <artifactId>wms-v_1_3_0-schema</artifactId>
             <version>1.0.3</version>
@@ -75,18 +121,6 @@
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
             <version>2.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>ucar.gis</groupId>
-            <artifactId>netcdf-converter</artifactId>
-            <version>1.1.2</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>log4j</groupId>
-                    <artifactId>log4j</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <dependency>
