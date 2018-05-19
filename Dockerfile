@@ -18,6 +18,12 @@ ARG BUILDDIR=/usr/local/build
 ARG TOMCATDIR=/usr/local/tomcat
 ARG HOMEDIR=/usr/local/gis-converter-home
 
+RUN rm -rf ${TOMCATDIR}/webapps/ROOT \
+           ${TOMCATDIR}/webapps/docs \
+           ${TOMCATDIR}/webapps/examples \
+           ${TOMCATDIR}/webapps/host-manager \
+           ${TOMCATDIR}/webapps/manager 
+
 COPY --from=maven ${BUILDDIR}/target/converter-service.war ${TOMCATDIR}/webapps/ROOT.war
 
 RUN mkdir -p ${HOMEDIR}/conf \
