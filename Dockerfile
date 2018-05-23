@@ -25,13 +25,14 @@ RUN rm -rf ${TOMCATDIR}/webapps/ROOT \
            ${TOMCATDIR}/webapps/manager 
 
 COPY --from=maven ${BUILDDIR}/target/converter-service.war ${TOMCATDIR}/webapps/ROOT.war
+COPY server.xml /usr/local/tomcat/conf/
 
 RUN mkdir -p ${HOMEDIR}/conf \
              ${HOMEDIR}/projection
 
 COPY services.properties ${HOMEDIR}/conf/
 
-VOLUME ["${TOMCATDIR}/temp", "${HOMEDIR}/scratch", "${HOMEDIR}/data"]
+VOLUME ["${HOMEDIR}/scratch", "${HOMEDIR}/data"]
 
 ENV JAVA_OPTS="-Dapplication.home=${HOMEDIR}"
 
