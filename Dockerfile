@@ -32,7 +32,7 @@ RUN mkdir -p ${HOMEDIR}/conf \
 
 COPY services.properties ${HOMEDIR}/conf/
 
-VOLUME ["${HOMEDIR}/scratch", "${HOMEDIR}/data"]
+VOLUME ["${TOMCATDIR}/logs", "${HOMEDIR}/scratch", "${HOMEDIR}/data"]
 
 ENV JAVA_OPTS="-Dapplication.home=${HOMEDIR}"
 
