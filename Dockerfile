@@ -25,7 +25,7 @@ RUN rm -rf ${TOMCATDIR}/webapps/ROOT \
            ${TOMCATDIR}/webapps/manager 
 
 COPY --from=maven ${BUILDDIR}/target/converter-service.war ${TOMCATDIR}/webapps/ROOT.war
-COPY server.xml /usr/local/tomcat/conf/
+COPY tomcat-server.xml /usr/local/tomcat/conf/server.xml
 
 RUN mkdir -p ${HOMEDIR}/conf \
              ${HOMEDIR}/projection
