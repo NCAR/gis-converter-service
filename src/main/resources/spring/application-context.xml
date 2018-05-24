@@ -97,20 +97,24 @@
 	
 	</bean>
 	
-	<bean id="conversionProcessor" class="ucar.ral.gis.services.pipeline.Pipeline" >
+	<bean id="conversionProcessorPipeline" class="ucar.ral.gis.services.pipeline.Pipeline" >
 		<constructor-arg index="0">
 			<list>
 				<ref bean="sourceDatafileProcessor"/>
 				<ref bean="outputFileProcessor"/>
 				<ref bean="conversionRouterProcessor"/>
 				<ref bean="zipArchiveProcessor"/>
-				<ref bean="scratchDirectoryCleanupProcessor"/>
 			</list>
 		</constructor-arg>
 	
 	</bean>
-	
-	<bean id="wmsProcessor" class="ucar.ral.gis.services.pipeline.Pipeline" >
+
+	<bean id="conversionProcessor" class="ucar.ral.gis.services.pipeline.TryFinallyProcessor">
+		<constructor-arg name="tryProcessor" ref="conversionProcessorPipeline"/>
+		<constructor-arg name="finallyProcessor" ref="scratchDirectoryCleanupProcessor"/>
+	</bean>
+
+	<bean id="wmsProcessorPipeline" class="ucar.ral.gis.services.pipeline.Pipeline" >
 		<constructor-arg index="0">
 			<list>
 				<ref bean="sourceDatafileProcessor"/>
@@ -118,11 +122,15 @@
 				<ref bean="WMSDateFilter" />
 				<ref bean="WMSRangeFilter" />
 				<ref bean="WMSProcessor"/>
-				<ref bean="scratchDirectoryCleanupProcessor"/>
 			</list>
 		</constructor-arg>
 	</bean>
-	
+
+	<bean id="wmsProcessor" class="ucar.ral.gis.services.pipeline.TryFinallyProcessor">
+		<constructor-arg name="tryProcessor" ref="wmsProcessorPipeline"/>
+		<constructor-arg name="finallyProcessor" ref="scratchDirectoryCleanupProcessor"/>
+	</bean>
+
 	<bean id="scratchDirectoryCleanupProcessor"  class="ucar.ral.gis.services.pipeline.conversion.ScratchDirectoryCleanupProcessor" />
 	
 	<bean id="WMSProcessor" class="ucar.ral.gis.services.pipeline.conversion.wms.WMSProcessor">
