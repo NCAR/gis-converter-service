@@ -24,7 +24,7 @@ RUN rm -rf ${TOMCATDIR}/webapps/ROOT \
            ${TOMCATDIR}/webapps/host-manager \
            ${TOMCATDIR}/webapps/manager 
 
-COPY --from=maven ${BUILDDIR}/target/converter-service.war ${TOMCATDIR}/webapps/ROOT.war
+COPY --from=maven ${BUILDDIR}/target/converter-service.war ${TOMCATDIR}/webapps/products.war
 COPY tomcat-server.xml /usr/local/tomcat/conf/server.xml
 COPY tomcat-setenv.sh /usr/local/tomcat/bin/setenv.sh
 
