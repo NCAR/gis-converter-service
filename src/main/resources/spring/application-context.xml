@@ -135,7 +135,7 @@
 	
 	<bean id="WMSProcessor" class="ucar.ral.gis.services.pipeline.conversion.wms.WMSProcessor">
 		<constructor-arg index="0" ref="restTemplate" />
-		<constructor-arg index="1" value="${application.home}/projection/" />
+		<constructor-arg index="1" value="${projection.work.directory}" />
 	</bean>
 	
 	<bean id="WMSRangeFilter" class="ucar.ral.gis.services.pipeline.conversion.wms.RangeFilter">
@@ -200,7 +200,7 @@
 	</bean>
 	
 	<bean id="zipArchiveProcessor" class="ucar.ral.gis.services.pipeline.conversion.netcdf.ZipArchiveProcessor" >
-		<constructor-arg index="0" value="${application.home}/projection/" />
+		<constructor-arg index="0" value="${projection.work.directory}" />
 	</bean>
 	
 	<bean id="monthlyMeanController" class="ucar.ral.gis.services.netcdf2shapefile.rest.monthly.MonthlyMeanController" >

@@ -17,6 +17,8 @@ FROM tomcat:8-jre8-alpine AS tomcat
 ARG BUILDDIR=/usr/local/build
 ARG TOMCATDIR=/usr/local/tomcat
 ARG HOMEDIR=/usr/local/gis-converter-home
+ARG SCRATCHDIR=/tmp/gis-converter-service
+ARG DATADIR=/data
 
 RUN rm -rf ${TOMCATDIR}/webapps/ROOT \
            ${TOMCATDIR}/webapps/docs \
@@ -25,15 +27,12 @@ RUN rm -rf ${TOMCATDIR}/webapps/ROOT \
            ${TOMCATDIR}/webapps/manager 
 
 COPY --from=maven ${BUILDDIR}/target/converter-service.war ${TOMCATDIR}/webapps/products.war
-COPY tomcat-server.xml /usr/local/tomcat/conf/server.xml
-COPY tomcat-setenv.sh /usr/local/tomcat/bin/setenv.sh
-
-RUN mkdir -p ${HOMEDIR}/conf \
-             ${HOMEDIR}/projection
+COPY tomcat-server.xml ${TOMCATDIR}/conf/server.xml
+COPY tomcat-setenv.sh ${TOMCATDIR}/bin/setenv.sh
 
 COPY services.properties ${HOMEDIR}/conf/
 
-VOLUME ["${TOMCATDIR}/logs", "${HOMEDIR}/scratch", "/data"]
+VOLUME ["${TOMCATDIR}/logs", "${SCRATCHDIR}/conversion", "${SCRATCHDIR}/projection", "${DATADIR}"]
 
 ENV JAVA_OPTS="-Dapplication.home=${HOMEDIR}"
 
