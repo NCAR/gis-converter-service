@@ -17,10 +17,6 @@
 
     <repositories>
         <repository>
-            <id>repo.ucar.edu</id>
-            <url>https://repo.ucar.edu/artifactory/public/</url>
-        </repository>
-        <repository>
             <id>artifacts.unidata.ucar.edu</id>
             <url>https://artifacts.unidata.ucar.edu/repository/unidata-releases/</url>
         </repository>
@@ -28,15 +24,10 @@
 
     <distributionManagement>
         <repository>
-            <id>repo.ucar.edu</id>
-            <name>repo.ucar.edu-releases</name>
-            <url>https://repo.ucar.edu/artifactory/apps-release-local</url>
+            <id>ral-app-release</id>
+            <name>Release Repository For RAL Applications</name>
+            <url>https://archiva.ucar.edu/repository/ral-app-release</url>
         </repository>
-        <snapshotRepository>
-            <id>repo.ucar.edu</id>
-            <name>repo.ucar.edu-snapshots</name>
-            <url>https://repo.ucar.edu/artifactory/apps-snapshot-local</url>
-        </snapshotRepository>
     </distributionManagement>
 
     <build>

@@ -1,10 +1,10 @@
 <settings>
-    <mirrors>
-        <mirror>
-          <id>repo.ucar.edu</id>
-          <name>UCAR Artifactory Maven Repository</name>
-          <url>https://repo.ucar.edu/artifactory/public/</url>
-          <mirrorOf>*,!artifacts.unidata.ucar.edu</mirrorOf>
-        </mirror>
-    </mirrors>
+   <mirrors>
+      <mirror>
+         <id>archiva-internal</id>
+         <name>NCAR Archiva Maven Repository</name>
+         <url>https://archiva.ucar.edu/repository/internal</url>
+         <mirrorOf>*,!artifacts.unidata.ucar.edu</mirrorOf>
+      </mirror>
+   </mirrors>
 </settings>
